@@ -10,7 +10,7 @@ void    ft_error(int code)
     }
 }
 
-static  ft_free(void)
+void ft_free(void)
 {
     if (g_textures_data.north_t)
         free(g_textures_data.north_t);
@@ -22,5 +22,10 @@ static  ft_free(void)
         free(g_textures_data.east_t);
     if (g_textures_data.sprite_t)
         free(g_textures_data.sprite_t);
-    
+    ft_exit();
+}
+
+void ft_exit()
+{
+    return ;
 }

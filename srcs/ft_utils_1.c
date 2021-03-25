@@ -1,24 +1,5 @@
 #include "../includes/cube.h"
 
-char			*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	char	*dest;
-
-	i = 0;
-	if (ft_strlen(s) <= start)
-		len = 0;
-	if (!(dest = malloc(len + 1)))
-		return (NULL);
-	while (i < len)
-	{
-		dest[i] = s[start + i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
 static size_t	len_numb(unsigned long long n, int base)
 {
 	size_t	i;
@@ -48,3 +29,14 @@ char	*base_convert(unsigned long long n, char *base_figures, int l)
 	}
 	res[size] = '\0';
 	return (res);
+}
+
+unsigned int  hexa_color(int r, int g, int b)
+{
+    return(b + (g * 256) + (r * 256 * 256));
+}
+
+unsigned int get_r(unsigned int rgb)
+{
+	return (rgb / (256 * 256));
+}
