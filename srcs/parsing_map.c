@@ -7,7 +7,6 @@ void    count_line()
     int i;
 
     i = 0;
-    g_vars.size_line_max = 0;
     while ((ret = get_next_line(g_data.fd, &line) != 0))
     {
         if (g_vars.size_line_max < ft_strlen(line))
@@ -20,7 +19,6 @@ void    count_line()
         ft_error(2);
     if ((g_data.fd = open("config.cub", O_RDONLY)) == -1)
         ft_error(1);
-    printf("%d\n", g_vars.size_map);
     while (i <= 9)
     {
         get_next_line(g_data.fd, &line);
@@ -59,11 +57,42 @@ void    parse_map(void)
                 ft_error(1);
             j++;
         }
-        while (j++ < g_vars.size_line_max)
-            g_data.map[i][j] = '1';
+        while (j < g_vars.size_line_max)
+            g_data.map[i][j++] = '1';
         g_data.map[i][j] = '\0';
         free (line);
         i++;
     }
+}
+
+static void     copy_map()
+{
+    char **tmp_map;
+    int i;
+    int j;
+
+    i = 0;
+    tmp_map = malloc(sizeof(char *) * g_vars.size_map);
+    while (g_data.map[i])
+    {
+        tmp_map[i] = malloc(sizeof(char) * g_vars.size_line_max + 1);
+        while (g_data.map[i][j])
+        {
+            tmp_map[i][j] = g_data.map[i][j];
+            j++;
+        }
+        j = 0;
+        i++;
+    }
+}
+
+static void     ft_fill(char frame, char color_start, char color_rep)
+{   
+    if (color_start)
+}
+
+void        check_map(void)
+{
+
 }
 

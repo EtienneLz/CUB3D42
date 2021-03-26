@@ -24,6 +24,25 @@ int             key_hook(int keycode)
     return (0);
 }
 
+static void    vars_init(void)
+{
+    g_data.map = NULL;
+    g_check_flags.start_pos = 0;
+    g_vars.size_line_max = 0;
+    g_data.res_x = 0;
+    g_data.res_y = 0;
+    g_textures_data.north_t = NULL;
+    g_textures_data.south_t = NULL;
+    g_textures_data.west_t = NULL;
+    g_textures_data.east_t = NULL;
+    g_textures_data.sprite_t = NULL;
+    g_textures_data.r = 0;
+    g_textures_data.g = 0;
+    g_textures_data.b = 0;
+    g_textures_data.floor_c = 0;
+    g_textures_data.sky_c = 0;
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 2)
@@ -48,6 +67,7 @@ int main(int argc, char **argv)
         j = 0;
         i++;
     }
+    check_map();
     //g_vars.mlx = mlx_init();
 
     //vars.win = mlx_new_window(vars.mlx, 1280, 1024, "CYBERPUNK 2077");

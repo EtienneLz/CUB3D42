@@ -52,9 +52,15 @@ typedef struct  s_textures_data
     int     b;
 }               t_textures_data;
 
+typedef struct  s_check_flags
+{
+    int start_pos;
+}               t_check_flags;
+
 t_vars  g_vars;
 t_data  g_data;
 t_textures_data g_textures_data;
+t_check_flags g_check_flags;
 
 int             key_hook(int keycode);
 unsigned int    get_r(unsigned int rgb);
@@ -79,4 +85,5 @@ void            ft_free(void);
 int             tamere_ft_exit();
 void    parse_map(void);
 void    count_line(void);
+void    check_map(void);
 #endif
