@@ -5,7 +5,13 @@ void    ft_error(int code)
     if (code == 1)
     {
         close(g_data.fd);
-        write(1, "Erreur de fichier config", 24);
+        write(1, "Erreur de fichier config\n", 25);
+        ft_free();
+    }
+    if (code == 2)
+    {
+        close(g_data.fd);
+        write(1, "Ta mere\n", 25);
         ft_free();
     }
 }

@@ -9,13 +9,16 @@ static char    *get_textures(char *line, char c1, char c2, int s)
 
 static void  get_colors_2(unsigned int tmp, int k)
 {
-
+    if (tmp > 255)
+        ft_error(1);
     if (k == 0)
         g_textures_data.r = tmp;
     if (k == 1)
         g_textures_data.g = tmp;
     if (k == 2)
+    {
         g_textures_data.b = tmp;
+    }
 }
 
 static  unsigned int get_colors(char *line, char c)
@@ -40,11 +43,12 @@ static  unsigned int get_colors(char *line, char c)
            i++;
            j++;
         }
-        if (j > 3 || line[++i] != ',')
-            ft_error(1);
+        if (j > 3 || (line[i] != ',' && k < 2))
+            ft_error(2);
         get_colors_2(tmp, k);
         j = 0;
         tmp = 0;
+        i++;
         k++;
     }
     return (hexa_color(g_textures_data.r, g_textures_data.g, g_textures_data.b));
@@ -75,7 +79,7 @@ static void    get_resolution(char *line)
 
     i = 2;
     if (line[0] != 'R')
-        return ;
+        ft_error(1);
     while (line[i] && (line[i] <= '9' && line[i] >= '0'))
     {
         g_data.res_x *= 10;
@@ -95,7 +99,7 @@ void    ft_file_read(char *file_name)
 {
     char *line;
 
-    if (!(g_data.fd = open(file_name, O_RDONLY)))
+    if ((g_data.fd = open(file_name, O_RDONLY)) == -1)
         ft_error(1);
     if (get_next_line(g_data.fd, &line) < 1)
         ft_error(1);

@@ -1,10 +1,13 @@
 #include "../includes/cube.h"
 
-static int             mouse_pos(int button, int x, int y)
+/*static int             mouse_pos(int button, int x, int y)
 {
+    button = button;
     printf("%d, %d\n", x, y);
     return (0);
-}
+}*/
+
+
 
 int             tamere_ft_exit()
 {
@@ -25,9 +28,27 @@ int main(int argc, char **argv)
 {
     if (argc != 2)
         return (0);
+    //printf("yo");
     ft_file_read(argv[1]);
 
-    g_vars.mlx = mlx_init();
+    //printf("yo");
+    count_line();
+    parse_map();
+    close(g_data.fd);
+    int i = 0;
+    int j = 0;
+    while (g_data.map[i])
+    {
+        while (g_data.map[i][j])
+        {
+            printf("%c", g_data.map[i][j]);
+            j++;
+        }
+        printf("\n");
+        j = 0;
+        i++;
+    }
+    //g_vars.mlx = mlx_init();
 
     //vars.win = mlx_new_window(vars.mlx, 1280, 1024, "CYBERPUNK 2077");
     //mlx_key_hook(vars.win, key_hook, &vars);

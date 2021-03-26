@@ -27,12 +27,15 @@ typedef struct  s_data
     int         res_x;
     int         res_y;
     int         fd;
+    char        **map;
 }               t_data;
 
 typedef struct  s_vars 
 {
     void        *mlx;
     void        *win;
+    int         size_map;
+    size_t         size_line_max;
 }               t_vars;
 
 typedef struct  s_textures_data
@@ -61,18 +64,19 @@ void            win_init(void *mlx);
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		        get_next_line(int fd, char **line);
 size_t	        ft_strlen(const char *s);
-int             tamere_ft_exit();
 char	        *ft_strjoin(char const *s1, char const *s2);
 char	        *ft_strdup(const char *s1);
 char	        *ft_strchr(const char *s, int c);
 char	        *ft_substr(char const *s, unsigned int start, size_t len);
-char	        *clean_line(char*, char**);
-char	        *ft_save(char*, char*);
+char	        *clean_line(char *save, char **line);
+char	        *ft_save(char *buffer, char *save);
 void            ft_error(int code);
 char	        *base_convert(unsigned long long n, char *base_figures, int l);
 unsigned int    hexa_color(int r, int g, int b);
 void            ft_file_read(char *file_name);
 void            ft_exit(void);
 void            ft_free(void);
-
+int             tamere_ft_exit();
+void    parse_map(void);
+void    count_line(void);
 #endif
