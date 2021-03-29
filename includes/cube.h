@@ -55,6 +55,8 @@ typedef struct  s_textures_data
 typedef struct  s_check_flags
 {
     int start_pos;
+    int s_pos_i;
+    int s_pos_j;
 }               t_check_flags;
 
 t_vars  g_vars;

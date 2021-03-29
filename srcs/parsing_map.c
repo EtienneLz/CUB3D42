@@ -65,7 +65,7 @@ void    parse_map(void)
     }
 }
 
-static void     copy_map()
+static char     **copy_map()
 {
     char **tmp_map;
     int i;
@@ -78,21 +78,58 @@ static void     copy_map()
         tmp_map[i] = malloc(sizeof(char) * g_vars.size_line_max + 1);
         while (g_data.map[i][j])
         {
+            
             tmp_map[i][j] = g_data.map[i][j];
+            if (g_data.map[i][j] == 'N' || g_data.map[i][j] == 'S'
+            || g_data.map[i][j] == 'W' || g_data.map[i][j] == 'E')
+            {
+                g_check_flags.s_pos_i = i;
+                g_check_flags.s_pos_j = j;
+                tmp_map[i][j] = '0';
+                printf("%d %d\n", g_check_flags.s_pos_i, g_check_flags.s_pos_j);
+            }
             j++;
         }
         j = 0;
         i++;
     }
+    return (tmp_map);
 }
 
-static void     ft_fill(char frame, char color_start, char color_rep)
-{   
-    if (color_start)
+static void     ft_fill(char **frame, int i, int j)
+{
+    int k = 0;
+    int l = 0;
+    while (frame[k])
+    {
+        while (frame[k][l])
+        {
+            printf("%c", frame[k][l]);
+            l++;
+        }
+        printf("\n");
+        l = 0;
+        k++;
+    }
+    printf("\n");
+    if (frame[i][j] == '0' || frame[i][j] == '2')
+    {
+        frame[i][j] = 'C';
+        ft_fill(frame, i + 1, j);
+        ft_fill(frame, i - 1, j);
+        ft_fill(frame, i, j + 1);
+        ft_fill(frame, i, j - 1);
+    }
+    else if (frame[i][j] != '1')
+        ft_error(3);
 }
 
 void        check_map(void)
 {
+    char **tmp;
 
+    tmp = copy_map();
+    //printf("%d %d\n", g_check_flags.s_pos_i, g_check_flags.s_pos_j);
+    ft_fill(tmp, g_check_flags.s_pos_i, g_check_flags.s_pos_j);
 }
 

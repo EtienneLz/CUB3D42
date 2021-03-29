@@ -9,7 +9,7 @@ static char    *get_textures(char *line, char c1, char c2, int s)
 
 static void  get_colors_2(unsigned int tmp, int k)
 {
-    if (tmp > 255 || tmp < 0)
+    if (tmp > 255)
         ft_error(1);
     if (k == 0)
         g_textures_data.r = tmp;

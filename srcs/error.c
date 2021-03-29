@@ -14,6 +14,12 @@ void    ft_error(int code)
         write(1, "Ta mere\n", 25);
         ft_free();
     }
+    if (code == 3)
+    {
+        close(g_data.fd);
+        write(1, "Erreur de map\n", 14);
+        ft_free();
+    }
 }
 
 void ft_free(void)

@@ -48,13 +48,14 @@ int main(int argc, char **argv)
     if (argc != 2)
         return (0);
     //printf("yo");
+    vars_init();
     ft_file_read(argv[1]);
 
     //printf("yo");
     count_line();
     parse_map();
     close(g_data.fd);
-    int i = 0;
+    /*int i = 0;
     int j = 0;
     while (g_data.map[i])
     {
@@ -66,7 +67,7 @@ int main(int argc, char **argv)
         printf("\n");
         j = 0;
         i++;
-    }
+    }*/
     check_map();
     //g_vars.mlx = mlx_init();
 
