@@ -8,6 +8,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include <string.h>
+# include <errno.h>
 
 # define ROTATE_LEFT	65361
 # define ROTATE_RIGHT	65363

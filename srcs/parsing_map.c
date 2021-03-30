@@ -46,7 +46,7 @@ void    parse_map(void)
         while (line[j])
         {
             if (line[j] == ' ' || line[j] == '1')
-                g_data.map[i][j] = '1';
+                g_data.map[i][j] = line[j];
             else if (line[j] == '2')
                 g_data.map[i][j] = '2';
             else if (line[j] == '0')
@@ -101,14 +101,6 @@ static void     ft_fill(char **frame, int i, int j)
     int k = 0;
     int l = 0;
     
-    if ((frame[i][j] == '0' || frame[i][j] == '2' || frame[i][j] == 'C') && !(frame[i + 1][j] == '1' || frame[i + 1][j] == '0' || frame[i + 1][j] == '2' || frame[i + 1][j] != 'C'))
-        ft_error(3);
-    if ((frame[i][j] == '0' || frame[i][j] == '2' || frame[i][j] == 'C') && !(frame[i - 1][j] == '1' || frame[i - 1][j] == '0' || frame[i - 1][j] == '2' || frame[i - 1][j] != 'C'))
-        ft_error(3);
-    if ((frame[i][j] == '0' || frame[i][j] == '2' || frame[i][j] == 'C') && !(frame[i][j + 1] == '1' || frame[i][j + 1] == '0' || frame[i][j + 1] == '2' || frame[i][j + 1] != 'C'))
-        ft_error(3);
-    if ((frame[i][j] == '0' || frame[i][j] == '2' || frame[i][j] == 'C') && !(frame[i][j - 1] == '1' || frame[i][j - 1] == '0' || frame[i][j - 1] == '2' || frame[i][j - 1] != 'C'))
-        ft_error(3);
     if (frame[i][j] == '0' || frame[i][j] == '2')
     {
         while (frame[k])
@@ -128,6 +120,8 @@ static void     ft_fill(char **frame, int i, int j)
         ft_fill(frame, i, j + 1);
         ft_fill(frame, i, j - 1);
     }
+    else if (frame[i][j] != '1' && frame[i][j] != 'C')
+        ft_error(3);
 }
 
 void        check_map(void)

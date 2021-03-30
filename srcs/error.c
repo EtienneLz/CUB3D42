@@ -2,10 +2,11 @@
 
 void    ft_error(int code)
 {
+    write(1, "Erreur \n", 8);
     if (code == 1)
     {
         close(g_data.fd);
-        write(1, "Erreur de fichier config\n", 25);
+        write(1, "Configuration invalide\n", 23);
         ft_free();
     }
     if (code == 2)
@@ -17,7 +18,7 @@ void    ft_error(int code)
     if (code == 3)
     {
         close(g_data.fd);
-        write(1, "Erreur de map\n", 14);
+        write(1, "Map invalide\n", 14);
         ft_free();
     }
 }
@@ -34,10 +35,12 @@ void ft_free(void)
         free(g_textures_data.east_t);
     if (g_textures_data.sprite_t)
         free(g_textures_data.sprite_t);
+    if (g_data.map)
+        free(g_data.map);
     ft_exit();
 }
 
 void ft_exit()
 {
-    return ;
+    exit(EXIT_SUCCESS);
 }
