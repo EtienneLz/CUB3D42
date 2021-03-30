@@ -100,28 +100,34 @@ static void     ft_fill(char **frame, int i, int j)
 {
     int k = 0;
     int l = 0;
-    while (frame[k])
-    {
-        while (frame[k][l])
-        {
-            printf("%c", frame[k][l]);
-            l++;
-        }
-        printf("\n");
-        l = 0;
-        k++;
-    }
-    printf("\n");
+    
+    if ((frame[i][j] == '0' || frame[i][j] == '2' || frame[i][j] == 'C') && !(frame[i + 1][j] == '1' || frame[i + 1][j] == '0' || frame[i + 1][j] == '2' || frame[i + 1][j] != 'C'))
+        ft_error(3);
+    if ((frame[i][j] == '0' || frame[i][j] == '2' || frame[i][j] == 'C') && !(frame[i - 1][j] == '1' || frame[i - 1][j] == '0' || frame[i - 1][j] == '2' || frame[i - 1][j] != 'C'))
+        ft_error(3);
+    if ((frame[i][j] == '0' || frame[i][j] == '2' || frame[i][j] == 'C') && !(frame[i][j + 1] == '1' || frame[i][j + 1] == '0' || frame[i][j + 1] == '2' || frame[i][j + 1] != 'C'))
+        ft_error(3);
+    if ((frame[i][j] == '0' || frame[i][j] == '2' || frame[i][j] == 'C') && !(frame[i][j - 1] == '1' || frame[i][j - 1] == '0' || frame[i][j - 1] == '2' || frame[i][j - 1] != 'C'))
+        ft_error(3);
     if (frame[i][j] == '0' || frame[i][j] == '2')
     {
+        while (frame[k])
+        {
+            while (frame[k][l])
+            {
+                printf("%c", frame[k][l]);
+                l++;
+            }
+            printf("\n");
+            l = 0;
+            k++;
+        }
         frame[i][j] = 'C';
         ft_fill(frame, i + 1, j);
         ft_fill(frame, i - 1, j);
         ft_fill(frame, i, j + 1);
         ft_fill(frame, i, j - 1);
     }
-    else if (frame[i][j] != '1')
-        ft_error(3);
 }
 
 void        check_map(void)
