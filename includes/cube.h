@@ -69,7 +69,7 @@ int             key_hook(int keycode);
 unsigned int    get_r(unsigned int rgb);
 unsigned int    get_g(unsigned int trgb);
 unsigned int    get_b(unsigned int trgb);
-void            win_init(void *mlx);
+void            win_init();
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		        get_next_line(int fd, char **line);
 size_t	        ft_strlen(const char *s);

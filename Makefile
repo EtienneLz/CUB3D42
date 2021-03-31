@@ -20,7 +20,7 @@ OBJS = srcs/init.o \
 
 INCLUDES = -I/includes/cube.h
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 GCC = gcc 
 

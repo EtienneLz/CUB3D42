@@ -15,8 +15,7 @@ void    count_line()
         free(line);
     }
     close(g_data.fd);
-    printf("%d %ld\n", g_vars.size_map, g_vars.size_line_max);
-    if (!(g_data.map = malloc(sizeof(char*) * g_vars.size_map)))
+    if (!(g_data.map = malloc(sizeof(char*) * (g_vars.size_map + 1))))
         ft_error(2);
     if ((g_data.fd = open("config.cub", O_RDONLY)) == -1)
         ft_error(1);
@@ -42,7 +41,7 @@ void    parse_map(void)
         ret = get_next_line(g_data.fd, &line);
         g_data.map[i] = NULL;
         j = 0;
-        if (!(g_data.map[i] = malloc(sizeof(char) * g_vars.size_line_max + 1)))
+        if (!(g_data.map[i] = malloc(sizeof(char) * (g_vars.size_line_max + 1))))
             ft_error(1);
         while (line[j])
         {
@@ -64,6 +63,7 @@ void    parse_map(void)
         free(line);
         i++;
     }
+    g_data.map[i] = NULL;
 }
 
 static char     **copy_map()
@@ -74,11 +74,11 @@ static char     **copy_map()
     int j;
     
     i = 0;
-    tmp_map = malloc(sizeof(char *) * g_vars.size_map );
-    while (g_data.map[i])
+    tmp_map = malloc(sizeof(char *) * (g_vars.size_map + 1));
+    while (g_data.map[i] != NULL)
     {
         tmp_map[i] = NULL;
-        tmp_map[i] = malloc(sizeof(char) * g_vars.size_line_max + 1);
+        tmp_map[i] = malloc(sizeof(char) * (g_vars.size_line_max + 1));
         j = 0;
         while (g_data.map[i][j])
         {
@@ -94,33 +94,23 @@ static char     **copy_map()
         }
         i++;
     }
+     tmp_map[i] = NULL;
     return (tmp_map);
 }
 
 static void     ft_fill(char **frame, int i, int j)
 {
-    int k;
-    int l;
-
-    k = 0;
     if (frame[i][j] == '0' || frame[i][j] == '2')
     {
-        while (frame[k])
-        {
-            l = 0;
-            while (frame[k][l])
-            {
-                printf("%c", frame[k][l]);
-                l++;
-            }
-            printf("\n");       
-            k++;
-        }
+        if (i == 0 || i == g_vars.size_map || j == 0 || j == (int)g_vars.size_line_max)
+            ft_error(3);
         frame[i][j] = 'C';
         ft_fill(frame, i + 1, j);
-        ft_fill(frame, i - 1, j);
+        if (i != 0)
+            ft_fill(frame, i - 1, j);
         ft_fill(frame, i, j + 1);
-        ft_fill(frame, i, j - 1);
+        if (j != 0)
+            ft_fill(frame, i, j - 1);
     }
     else if (frame[i][j] != '1' && frame[i][j] != 'C')
     {
@@ -138,10 +128,7 @@ void        check_map(void)
     tmp = copy_map();
     ft_fill(tmp, g_check_flags.s_pos_i, g_check_flags.s_pos_j);
     while(tmp[i])
-    {
-        free(tmp[i]);
-        i++;
-    }
+        free(tmp[i++]);
     free(tmp);
 }
 

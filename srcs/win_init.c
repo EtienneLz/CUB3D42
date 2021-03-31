@@ -8,41 +8,48 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void    win_init(void *mlx)
+void    win_init()
 {
     void    *mlx_win;
-    int     x;
-    int     y;
-    int     r;
-    int     L;
-    int     l;
+    int     i;
+    int     size_case;
+    int     p;
+    int     q;
 
-    x = 0;
-    y = 0;
-    L = 1024;
-    l = 800;
-    r = l / 5;  
+    size_case = 800 / g_vars.size_line_max;
+    i = 0;
+    int j;
 
-   // mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, L, l, "tHe BIndInG oF iSaAC : ANTiBIrtH");
-    g_data.img = mlx_new_image(mlx, L, l);
+    mlx_win = mlx_new_window(g_vars.mlx, 800, 600, "tHe BIndInG oF iSaAC : ANTiBIrtH");
+    g_data.img = mlx_new_image(g_vars.mlx, 800, 600);
     g_data.addr = mlx_get_data_addr(g_data.img, &g_data.bits_per_pixel, &g_data.line_length, &g_data.endian);
 
-    while (x < L)
+    while (g_data.map[i])
     {
-        while (y < l)
+        j = 0;
+        while (g_data.map[i][j])
         {
-            if (((x - L / 2) * (x - L / 2) + (y - l / 2) * (y - l / 2)) < r * r)
-                my_mlx_pixel_put(&g_data, x, y, 0x00FF0000);
-            else
-            my_mlx_pixel_put(&g_data, x, y, 0x00FFFFFF);
-            y++;
+            p = 0;
+            while (p <= size_case)
+            {
+                q = 0;
+                while (q <= size_case)
+                {
+                    if (g_data.map[i][j] == '1')
+                        my_mlx_pixel_put(&g_data, size_case * j + q, size_case * i + p, 0x00999999);
+                    else if (g_data.map[i][j] == '0')
+                        my_mlx_pixel_put(&g_data, size_case * j + q, size_case * i + p, 0x00FFFFFF);
+                    else
+                        my_mlx_pixel_put(&g_data, size_case * j + q, size_case * i + p, 0x00FF2D00);
+                    q++;
+                }
+                p++;
+            }
+            j++;
         }
-        y = 0;
-        x++;
+        i++;
     }
+    mlx_put_image_to_window(g_vars.mlx, mlx_win, g_data.img, 0, 0);
 
-    mlx_put_image_to_window(mlx, mlx_win, g_data.img, 0, 0);
-
-    mlx_loop(mlx);
+    mlx_loop(g_vars.mlx);
 }
