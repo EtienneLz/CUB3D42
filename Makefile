@@ -8,6 +8,7 @@ SRCS = srcs/init.c \
 			srcs/parsing.c \
 			srcs/error.c \
 			srcs/parsing_map.c \
+			srcs/input.c \
 
 OBJS = srcs/init.o \
 			srcs/win_init.o \
@@ -17,6 +18,7 @@ OBJS = srcs/init.o \
 			srcs/parsing.o \
 			srcs/error.o \
 			srcs/parsing_map.o \
+			srcs/input.o \
 
 INCLUDES = -I/includes/cube.h
 

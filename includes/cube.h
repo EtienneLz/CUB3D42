@@ -65,7 +65,6 @@ t_data  g_data;
 t_textures_data g_textures_data;
 t_check_flags g_check_flags;
 
-int             key_hook(int keycode);
 unsigned int    get_r(unsigned int rgb);
 unsigned int    get_g(unsigned int trgb);
 unsigned int    get_b(unsigned int trgb);
@@ -83,10 +82,11 @@ void            ft_error(int code);
 char	        *base_convert(unsigned long long n, char *base_figures, int l);
 unsigned int    hexa_color(int r, int g, int b);
 void            ft_file_read(char *file_name);
-void            ft_exit(void);
+int             ft_exit(void);
 void            ft_free(void);
 int             tamere_ft_exit();
-void    parse_map(void);
-void    count_line(void);
-void    check_map(void);
+void            parse_map(void);
+void            count_line(void);
+void            check_map(void);
+void            input_loop(void);
 #endif

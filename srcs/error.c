@@ -40,7 +40,7 @@ void ft_free(void)
     ft_exit();
 }
 
-void ft_exit()
+int ft_exit()
 {
     exit(EXIT_SUCCESS);
 }

@@ -15,15 +15,6 @@ int             tamere_ft_exit()
     exit (0);
 }
 
-int             key_hook(int keycode)
-{
-    if (keycode == 65307)
-        tamere_ft_exit();
-    else
-        printf("%d\n", keycode);
-    return (0);
-}
-
 static void    vars_init(void)
 {
     g_data.map = NULL;
@@ -70,7 +61,8 @@ int main(int argc, char **argv)
     }*/
     check_map();
     g_vars.mlx = mlx_init();
-
+    
+    input_loop();
     //vars.win = mlx_new_window(vars.mlx, 1280, 1024, "CYBERPUNK 2077");
     //mlx_key_hook(vars.win, key_hook, &vars);
 
@@ -78,6 +70,6 @@ int main(int argc, char **argv)
     mlx_mouse_hook(g_vars.win, mouse_pos, &g_vars);
     mlx_hook(g_vars.win, 2, 1L<<0, key_hook, &g_vars);
     mlx_loop(g_vars.mlx);*/
-    win_init(g_vars.mlx);
+    
     return (0);
 }
