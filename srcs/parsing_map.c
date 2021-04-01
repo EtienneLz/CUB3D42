@@ -58,7 +58,7 @@ void    parse_map(void)
             j++;
         }
         while (j < g_vars.size_line_max)
-            g_data.map[i][j++] = '1';
+            g_data.map[i][j++] = ' ';
         g_data.map[i][j] = '\0';
         free(line);
         i++;
@@ -100,6 +100,11 @@ static char     **copy_map()
 
 static void     ft_fill(char **frame, int i, int j)
 {
+    if (frame[i][j] == ' ')
+    {
+        free(frame);
+        ft_error(3);
+    }
     if (frame[i][j] == '0' || frame[i][j] == '2')
     {
         if (i == 0 || i == g_vars.size_map || j == 0 || j == (int)g_vars.size_line_max)
@@ -130,5 +135,7 @@ void        check_map(void)
     while(tmp[i])
         free(tmp[i++]);
     free(tmp);
+    if (g_check_flags.s_pos_i == 0 && g_check_flags.s_pos_j == 0)
+        ft_error(3);
 }
 

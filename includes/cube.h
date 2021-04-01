@@ -12,10 +12,10 @@
 
 # define ROTATE_LEFT	65361
 # define ROTATE_RIGHT	65363
-# define FORWARD_W_Z	119
-# define BACK_S_S		115
-# define RIGHT_D_D		100
-# define LEFT_A_Q		97
+# define FORWARD	    119
+# define BACK		    115
+# define RIGHT		    100
+# define LEFT		    97
 # define BUFFER_SIZE    4096
 
 typedef struct  s_data 
@@ -36,16 +36,17 @@ typedef struct  s_vars
     void        *mlx;
     void        *win;
     int         size_map;
-    size_t         size_line_max;
+    size_t      size_line_max;
+    int         size_case;
 }               t_vars;
 
 typedef struct  s_textures_data
 {
-    char *north_t;
-    char *south_t;
-    char *west_t;
-    char *east_t;
-    char *sprite_t;
+    char    *north_t;
+    char    *south_t;
+    char    *west_t;
+    char    *east_t;
+    char    *sprite_t;
     int     floor_c;
     int     sky_c;
     int     r;
@@ -58,6 +59,9 @@ typedef struct  s_check_flags
     int start_pos;
     int s_pos_i;
     int s_pos_j;
+    int pos_i;
+    int pos_j;
+    int init_done;
 }               t_check_flags;
 
 t_vars  g_vars;
@@ -84,9 +88,10 @@ unsigned int    hexa_color(int r, int g, int b);
 void            ft_file_read(char *file_name);
 int             ft_exit(void);
 void            ft_free(void);
-int             tamere_ft_exit();
 void            parse_map(void);
 void            count_line(void);
 void            check_map(void);
 void            input_loop(void);
+void            draw_player(int i, int j, int d_i, int d_j);
+void            move_player(int direction, int axis);
 #endif

@@ -1,20 +1,5 @@
 #include "../includes/cube.h"
 
-/*static int             mouse_pos(int button, int x, int y)
-{
-    button = button;
-    printf("%d, %d\n", x, y);
-    return (0);
-}*/
-
-
-
-int             tamere_ft_exit()
-{
-    mlx_destroy_window(g_vars.mlx, g_vars.win);
-    exit (0);
-}
-
 static void    vars_init(void)
 {
     g_data.map = NULL;
@@ -32,44 +17,26 @@ static void    vars_init(void)
     g_textures_data.b = 0;
     g_textures_data.floor_c = 0;
     g_textures_data.sky_c = 0;
+    g_check_flags.init_done = 0;
+    g_check_flags.s_pos_i = 0;
+    g_check_flags.s_pos_j = 0;
 }
 
 int main(int argc, char **argv)
 {
     if (argc != 2)
         return (0);
-    //printf("yo");
+
     vars_init();
     ft_file_read(argv[1]);
 
-    //printf("yo");
     count_line();
     parse_map();
     close(g_data.fd);
-    /*int i = 0;
-    int j = 0;
-    while (g_data.map[i])
-    {
-        while (g_data.map[i][j])
-        {
-            printf("%c", g_data.map[i][j]);
-            j++;
-        }
-        printf("\n");
-        j = 0;
-        i++;
-    }*/
     check_map();
     g_vars.mlx = mlx_init();
-    
+    g_vars.size_case = g_data.res_x / g_vars.size_line_max;
     input_loop();
-    //vars.win = mlx_new_window(vars.mlx, 1280, 1024, "CYBERPUNK 2077");
-    //mlx_key_hook(vars.win, key_hook, &vars);
-
-    /*mlx_hook(g_vars.win, 33, 1L << 17, ft_exit, &g_vars);
-    mlx_mouse_hook(g_vars.win, mouse_pos, &g_vars);
-    mlx_hook(g_vars.win, 2, 1L<<0, key_hook, &g_vars);
-    mlx_loop(g_vars.mlx);*/
     
     return (0);
 }
