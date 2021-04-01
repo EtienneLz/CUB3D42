@@ -48,18 +48,18 @@ void    draw_player(int i, int j, int d_i, int d_j)
     delta_m_j += d_j;
     delta_m_i += d_i;
     p = 0;
-    while (p <= 10)
+    while (p <= 9)
     {
         q = 0;
-        while (q <= 10)
+        while (q <= 9)
         {
-            my_mlx_pixel_put(&g_data, (g_vars.size_case * j + q + g_vars.size_case / 2 - 5) + delta_m_j, (g_vars.size_case * i + p + g_vars.size_case / 2 - 5) + delta_m_i, 0x00FF0000);
+            my_mlx_pixel_put(&g_data, (g_vars.size_case * j + q + g_vars.size_case / 2 - 4) + delta_m_j, (g_vars.size_case * i + p + g_vars.size_case / 2 - 5) + delta_m_i, 0x00FF0000);
             q++;
         }
         p++;
     }
-    g_check_flags.pos_i = (g_vars.size_case * i + g_vars.size_case / 2 - 5) + delta_m_i;
-    g_check_flags.pos_j = (g_vars.size_case * j + g_vars.size_case / 2 - 5) + delta_m_j;
+    g_check_flags.pos_i = (g_vars.size_case * i + g_vars.size_case / 2 - 4) + delta_m_i;
+    g_check_flags.pos_j = (g_vars.size_case * j + g_vars.size_case / 2 - 4) + delta_m_j;
 }
 
 void    win_init(void)
@@ -82,5 +82,4 @@ void    win_init(void)
     }
     if (g_check_flags.init_done == 0)
         draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, 0);
-    printf("%d, %d\n", g_check_flags.pos_i, g_check_flags.pos_j);
 }

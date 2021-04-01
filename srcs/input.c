@@ -1,34 +1,56 @@
 #include "../includes/cube.h"
 
-/*static  void    check_collision(int direction, int axis)
+static  int    check_collision(int direction, int axis)
 {
     int     which_i;
     int     which_j;
 
-    which_i = g_check_flags.pos_i
-}*/
-
-void            move_player(int direction, int axis)
-{   
-    //check_collision(direction, axis);
-    win_init();
+    which_i = g_check_flags.pos_i / g_vars.size_case;
+    which_j = g_check_flags.pos_j / g_vars.size_case;
+    //printf("%d, %d\n", which_i, which_j);
     if (axis == 1)
     {
-        if (direction > 0)
-            draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, direction, 0);
-        if (direction < 0)
-            draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, direction, 0);
+        which_i = g_check_flags.pos_i / g_vars.size_case;
+        which_j = (g_check_flags.pos_j + direction) / g_vars.size_case;
+        printf("%d, %d\n", which_i, which_j);
+        if (g_data.map[which_i][which_j] == '1')
+            return (0);
     }
     if (axis == 2)
     {
-        if (direction > 0)
-            draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, direction);
-        if (direction < 0)
-            draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, direction);
+        which_i = (g_check_flags.pos_i + direction) / g_vars.size_case;
+        which_j = g_check_flags.pos_j / g_vars.size_case;
+        printf("%d, %d\n", which_i, which_j);
+        if (g_data.map[which_i][which_j] == '1')
+            return (0);
     }
+    return (1);
+}
+
+void            move_player(int direction, int axis)
+{
     if (direction == 0)
-        return ;   
-    mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_data.img, 0, 0);
+            return ;
+    
+    if (check_collision(direction, axis))
+    {
+        win_init();
+        if (axis == 1)
+        {
+            if (direction > 0)
+                draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, direction, 0);
+            if (direction < 0)
+                draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, direction, 0);
+        }
+        if (axis == 2)
+        {
+            if (direction > 0)
+                draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, direction);
+            if (direction < 0)
+                draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, direction);
+        }           
+        mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_data.img, 0, 0);
+    }
 }
 
 static int     key_pressed(int keycode)
@@ -36,13 +58,13 @@ static int     key_pressed(int keycode)
     if (keycode == 65307)
         ft_exit();
     if (keycode == FORWARD)
-        move_player(-2, 1);
+        move_player(-1, 1);
     if (keycode == BACK)
-        move_player(2, 1);
+        move_player(1, 1);
     if (keycode == LEFT)
-        move_player(-2, 2);
+        move_player(-1, 2);
     if (keycode == RIGHT)
-        move_player(2, 2);
+        move_player(1, 2);
     return (0);
 }
 
