@@ -67,8 +67,7 @@ void    parse_map(void)
 }
 
 static char     **copy_map()
-{
-    
+{   
     char **tmp_map;
     int i;
     int j;
@@ -88,13 +87,14 @@ static char     **copy_map()
             {
                 g_check_flags.s_pos_i = i;
                 g_check_flags.s_pos_j = j;
+                g_check_flags.s_direction = g_data.map[i][j];
                 tmp_map[i][j] = '0';
             }
             j++;
         }
         i++;
     }
-     tmp_map[i] = NULL;
+    tmp_map[i] = NULL;
     return (tmp_map);
 }
 

@@ -58,8 +58,8 @@ void    draw_player(int i, int j, int d_i, int d_j)
         }
         p++;
     }
-    g_check_flags.pos_i = (g_vars.size_case * i + g_vars.size_case / 2 - 4) + delta_m_i;
-    g_check_flags.pos_j = (g_vars.size_case * j + g_vars.size_case / 2 - 4) + delta_m_j;
+    g_check_flags.pos_i = (g_vars.size_case * i + g_vars.size_case / 2) + delta_m_i;
+    g_check_flags.pos_j = (g_vars.size_case * j + g_vars.size_case / 2) + delta_m_j;
 }
 
 void    win_init(void)

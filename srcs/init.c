@@ -20,6 +20,19 @@ static void    vars_init(void)
     g_check_flags.init_done = 0;
     g_check_flags.s_pos_i = 0;
     g_check_flags.s_pos_j = 0;
+    g_check_flags.s_direction = 0;
+}
+
+static void    direction_init(void)
+{
+    if (g_check_flags.s_direction == 'N')
+        g_check_flags.pos_a = 270;
+    if (g_check_flags.s_direction == 'S')
+        g_check_flags.pos_a = 90;
+    if (g_check_flags.s_direction == 'E')
+        g_check_flags.pos_a = 0;
+    if (g_check_flags.s_direction == 'W')
+        g_check_flags.pos_a = 180;
 }
 
 int main(int argc, char **argv)
@@ -34,6 +47,7 @@ int main(int argc, char **argv)
     parse_map();
     close(g_data.fd);
     check_map();
+    direction_init();
     g_vars.mlx = mlx_init();
     g_vars.size_case = g_data.res_x / g_vars.size_line_max;
     input_loop();
