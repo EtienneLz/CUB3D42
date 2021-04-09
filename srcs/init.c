@@ -26,13 +26,13 @@ static void    vars_init(void)
 static void    direction_init(void)
 {
     if (g_check_flags.s_direction == 'N')
-        g_check_flags.pos_a = 270;
+        g_check_flags.pos_a = M_PI / 2;
     if (g_check_flags.s_direction == 'S')
-        g_check_flags.pos_a = 90;
+        g_check_flags.pos_a = 3 * M_PI / 2;
     if (g_check_flags.s_direction == 'E')
         g_check_flags.pos_a = 0;
     if (g_check_flags.s_direction == 'W')
-        g_check_flags.pos_a = 180;
+        g_check_flags.pos_a = M_PI;
 }
 
 int main(int argc, char **argv)

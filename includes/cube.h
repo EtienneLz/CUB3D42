@@ -17,6 +17,7 @@
 # define RIGHT		    100
 # define LEFT		    97
 # define BUFFER_SIZE    4096
+# define _USE_MATH_DEFINES
 
 typedef struct  s_data 
 {
@@ -62,7 +63,7 @@ typedef struct  s_check_flags
     int     s_pos_j;
     int     pos_i;
     int     pos_j;
-    int     pos_a;
+    double     pos_a;
     int     fov_s;
     int     fov_e;
     char    s_direction;

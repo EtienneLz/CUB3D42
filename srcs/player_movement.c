@@ -48,19 +48,26 @@ void            move_player(int direction, int axis)
                 draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, direction);
             if (direction < 0)
                 draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, direction);
-        }           
+        }         
         mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_data.img, 0, 0);
     }
 }
 
 void        rotate_player(int direction)
 {
-    g_check_flags.pos_a += direction;
-    if (g_check_flags.pos_a == 360 && direction > 0)
-        g_check_flags.pos_a = 0;
-    if (g_check_flags.pos_a == -1 && direction < 0)
-        g_check_flags.pos_a = 359;
-    g_check_flags.fov_s = g_check_flags.pos_a - 30;
-    g_check_flags.fov_e = g_check_flags.pos_a + 30;
-    printf("%d\n", g_check_flags.pos_a);
+    int i;
+
+    i = 0;
+    win_init();
+    g_check_flags.pos_a += 2 * (M_PI / 180) * direction;
+    while (i <= 20)
+    {
+        mlx_pixel_put(g_vars.mlx, g_vars.win, (int)(g_check_flags.pos_j + (cos(g_check_flags.pos_a) * i)), (int)(g_check_flags.pos_i + (sin(g_check_flags.pos_a) * i)), 0x00FF0000);
+        i++;
+    }
+    //draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, 0);
+    mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_data.img, 0, 0);
+    printf("%d, %d\n", g_check_flags.pos_i, g_check_flags.pos_j);
+    printf("%f\n", g_check_flags.pos_a);
+    printf("%d\n", (int)(g_check_flags.pos_j + (cos(g_check_flags.pos_a) * 10)));
 }
