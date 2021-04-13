@@ -28,7 +28,6 @@ typedef struct  s_data
     int         endian;
     int         res_x;
     int         res_y;
-    float       ray_angle;
     int         fd;
     char        **map;
 }               t_data;
@@ -44,42 +43,43 @@ typedef struct  s_vars
 
 typedef struct  s_textures_data
 {
-    char    *north_t;
-    char    *south_t;
-    char    *west_t;
-    char    *east_t;
-    char    *sprite_t;
-    int     floor_c;
-    int     sky_c;
-    int     r;
-    int     g;
-    int     b;
+    char        *north_t;
+    char        *south_t;
+    char        *west_t;
+    char        *east_t;
+    char        *sprite_t;
+    int         floor_c;
+    int         sky_c;
+    int         r;
+    int         g;
+    int         b;
 }               t_textures_data;
 
 typedef struct  s_check_flags
 {
-    int     start_pos;
-    int     s_pos_i;
-    int     s_pos_j;
-    int     pos_i;
-    int     pos_j;
-    double     pos_a;
-    int     fov_s;
-    int     fov_e;
-    char    s_direction;
-    int     init_done;
+    int         start_pos;
+    int         s_pos_i;
+    int         s_pos_j;
+    double      pos_i;
+    double      pos_j;
+    double      pos_a;
+    int         fov_s;
+    int         fov_e;
+    char        s_direction;
+    int         init_done;
 }               t_check_flags;
 
 typedef struct  s_ray_vars
 {
-    int column;
+    int         column;
+    float       ray_angle;
 }               t_ray_vars;
 
-t_vars  g_vars;
-t_data  g_data;
+t_vars          g_vars;
+t_data          g_data;
 t_textures_data g_textures_data;
-t_check_flags g_check_flags;
-t_ray_vars g_ray_vars;
+t_check_flags   g_check_flags;
+t_ray_vars      g_ray_vars;
 
 unsigned int    get_r(unsigned int rgb);
 unsigned int    get_g(unsigned int trgb);
@@ -104,8 +104,9 @@ void            parse_map(void);
 void            count_line(void);
 void            check_map(void);
 void            input_loop(void);
-void            draw_player(int i, int j, int d_i, int d_j);
+void            draw_player(double d_i, double d_j);
 void            move_player(int direction, int axis);
 void            rotate_player(int direction);
 void            raycasting(void);
+int             check_collision(int direction, int axis);
 #endif

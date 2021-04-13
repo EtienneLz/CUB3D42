@@ -33,33 +33,40 @@ static void     draw_square(int i, int j)
     }
 }
 
-void    draw_player(int i, int j, int d_i, int d_j)
+void    draw_player(double d_i, double d_j)
 {
     int p;
     int q;
-    static int delta_m_j;
-    static int delta_m_i;
+    int j;
+    int i;
 
     if (g_check_flags.init_done == 0)
     {
-        delta_m_j = 0;
-        delta_m_i = 0;
+        j = (g_vars.size_case * g_check_flags.s_pos_j + g_vars.size_case / 2 - 4);
+        i = (g_vars.size_case * g_check_flags.s_pos_i + g_vars.size_case / 2 - 4);
+        g_check_flags.pos_i = i + 4;
+        g_check_flags.pos_j = j + 4;
     }
-    delta_m_j += d_j;
-    delta_m_i += d_i;
+    else
+    {
+        j = d_j - 4;
+        i = d_i - 4;
+        g_check_flags.pos_i = d_i;
+        g_check_flags.pos_j = d_j;
+    }
+    printf("%f, %f bloup\n", d_i, d_j);
     p = 0;
     while (p <= 9)
     {
         q = 0;
         while (q <= 9)
         {
-            my_mlx_pixel_put(&g_data, (g_vars.size_case * j + q + g_vars.size_case / 2 - 4) + delta_m_j, (g_vars.size_case * i + p + g_vars.size_case / 2 - 5) + delta_m_i, 0x00FF0000);
+            my_mlx_pixel_put(&g_data, j + q, i + p, 0x00FF0000);
             q++;
         }
         p++;
     }
-    g_check_flags.pos_i = (g_vars.size_case * i + g_vars.size_case / 2) + delta_m_i;
-    g_check_flags.pos_j = (g_vars.size_case * j + g_vars.size_case / 2) + delta_m_j;
+    
 }
 
 void    win_init(void)
@@ -81,5 +88,5 @@ void    win_init(void)
         i++;
     }
     if (g_check_flags.init_done == 0)
-        draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j, 0, 0);
+        draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j);
 }

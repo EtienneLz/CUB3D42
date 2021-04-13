@@ -33,6 +33,8 @@ static void    direction_init(void)
         g_check_flags.pos_a = 0;
     if (g_check_flags.s_direction == 'W')
         g_check_flags.pos_a = M_PI;
+    g_ray_vars.column = g_data.res_x / 2;
+    g_ray_vars.ray_angle = 0.523599;
 }
 
 int main(int argc, char **argv)
