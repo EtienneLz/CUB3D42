@@ -27,7 +27,7 @@ static int    check_collision(int direction, int axis)
     return (1);
 }
 
-static void draw_line(void)
+/*static void draw_line(void)
 {
     int i;
     int tmp_x;
@@ -41,7 +41,7 @@ static void draw_line(void)
         my_mlx_pixel_put(&g_data, tmp_x, tmp_y, 0x00FF0000);
         i++;
     }
-} 
+}*/
 
 void            move_player(int direction, int axis)
 {
@@ -66,7 +66,8 @@ void            move_player(int direction, int axis)
             if (direction < 0)
                 draw_player((g_check_flags.pos_i + (sin(g_check_flags.pos_a - M_PI / 2))), (g_check_flags.pos_j + (cos(g_check_flags.pos_a - M_PI / 2))));
         }
-        draw_line();         
+        //draw_line();
+        raycasting();         
         mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_data.img, 0, 0);
     }
 }      
@@ -75,8 +76,9 @@ void        rotate_player(int direction)
 {
     win_init();
     g_check_flags.pos_a += 2 * (M_PI / 180) * direction;
-    printf("%lf\n", g_check_flags.pos_a);
-    draw_line();
+    //printf("%lf\n", g_check_flags.pos_a);
+    //draw_line();
     draw_player(g_check_flags.pos_i, g_check_flags.pos_j);
+    raycasting();
     mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_data.img, 0, 0);
 }

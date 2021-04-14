@@ -108,5 +108,4 @@ void            draw_player(double d_i, double d_j);
 void            move_player(int direction, int axis);
 void            rotate_player(int direction);
 void            raycasting(void);
-int             check_collision(int direction, int axis);
 #endif

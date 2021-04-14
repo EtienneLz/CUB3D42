@@ -20,7 +20,26 @@ static int    ray_shot(double angle)
 
 static void    draw_column(int ray_length, int which_ray)
 {
-    
+    int col_height;
+    int draw_start;
+    int draw_end;
+    int i;
+
+    i = 0;
+    printf("bloul");
+    col_height = g_data.res_y / ray_length;
+    if ((draw_start = -col_height / 2 + g_data.res_y / 2) < 0)
+        draw_start = 0;
+    if ((draw_end = col_height / 2 + g_data.res_y / 2) >= g_data.res_y)
+        draw_end = g_data.res_y - 1;
+    while (i < g_data.res_y)
+    {
+        if (i < draw_start || i > draw_end)
+            my_mlx_pixel_put(&g_data, which_ray, i, 0x00000000);
+        if (i >= draw_start && i <= draw_end)
+            my_mlx_pixel_put(&g_data, which_ray, i, 0x0000FF00);
+        i++;
+    }
 }
 
 void    raycasting(void)

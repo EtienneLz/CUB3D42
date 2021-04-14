@@ -37,9 +37,9 @@ static int     key_released(int keycode)
 
 void            input_loop(void)
 {  
-    win_init(g_vars.mlx);
+    win_init();
     g_check_flags.init_done = 1;
-    g_vars.win = mlx_new_window(g_vars.mlx, 800, 600, "tHe BIndInG oF iSaAC : ANTiBIrtH");
+    g_vars.win = mlx_new_window(g_vars.mlx, g_data.res_x, g_data.res_y, "tHe BIndInG oF iSaAC : ANTiBIrtH");
     mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_data.img, 0, 0);
     mlx_hook(g_vars.win, 33, 1L << 17, ft_exit, &g_vars);
     mlx_hook(g_vars.win, 2, 1L<<0, key_pressed, &g_vars);

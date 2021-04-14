@@ -8,7 +8,7 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-static void     draw_square(int i, int j)
+/*static void     draw_square(int i, int j)
 {
     int     p;
     int     q;
@@ -31,12 +31,12 @@ static void     draw_square(int i, int j)
         }
         p++;
     }
-}
+}*/
 
 void    draw_player(double d_i, double d_j)
 {
-    int p;
-    int q;
+    //int p;
+    //int q;
     int j;
     int i;
 
@@ -55,7 +55,7 @@ void    draw_player(double d_i, double d_j)
         g_check_flags.pos_j = d_j;
     }
     printf("%f, %f bloup\n", d_i, d_j);
-    p = 0;
+    /*p = 0;
     while (p <= 9)
     {
         q = 0;
@@ -65,19 +65,18 @@ void    draw_player(double d_i, double d_j)
             q++;
         }
         p++;
-    }
-    
+    }*/
 }
 
 void    win_init(void)
 {
-    int i;
-    int j;
+    //int i;
+    //int j;
 
-    i = 0; 
-    g_data.img = mlx_new_image(g_vars.mlx, 800, 600);
+    //i = 0; 
+    g_data.img = mlx_new_image(g_vars.mlx, g_data.res_x, g_data.res_y);
     g_data.addr = mlx_get_data_addr(g_data.img, &g_data.bits_per_pixel, &g_data.line_length, &g_data.endian);
-    while (g_data.map[i])
+    /*while (g_data.map[i])
     {
         j = 0;
         while (g_data.map[i][j])
@@ -86,7 +85,10 @@ void    win_init(void)
             j++;
         }
         i++;
-    }
+    }*/
     if (g_check_flags.init_done == 0)
-        draw_player(g_check_flags.s_pos_i, g_check_flags.s_pos_j);
+    {
+        g_check_flags.pos_i = g_vars.size_case * g_check_flags.s_pos_i + g_vars.size_case / 2 - 4;
+        g_check_flags.pos_j = g_vars.size_case * g_check_flags.s_pos_j + g_vars.size_case / 2 - 4;
+    }
 }

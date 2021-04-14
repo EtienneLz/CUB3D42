@@ -34,7 +34,6 @@ static void    direction_init(void)
     if (g_check_flags.s_direction == 'W')
         g_check_flags.pos_a = M_PI;
     g_ray_vars.column = g_data.res_x / 2;
-    g_ray_vars.ray_angle = 0.523599;
 }
 
 int main(int argc, char **argv)
@@ -51,7 +50,7 @@ int main(int argc, char **argv)
     check_map();
     direction_init();
     g_vars.mlx = mlx_init();
-    g_vars.size_case = g_data.res_x / g_vars.size_line_max;
+    g_vars.size_case = 64;
     input_loop();
     
     return (0);
