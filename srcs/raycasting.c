@@ -1,13 +1,39 @@
 #include "../includes/cube.h"
 
+static int          ray_facing(double angle)
+{
+    double m_angle;
+
+    m_angle = angle % M_PI;
+    if (m_angle < 0.5 * M_PI || m_angle > 1.5 * M_PI)
+        return (0);
+    if (m_angle < 0 && m_angle > M_PI)
+        return (1);
+    if (m_angle > 0.5 * M_PI || m_angle < 1.5 * M_PI)
+        return (2);
+    else
+        return (3);
+}
+
 static double    ray_shot_horizontal(double p_pos_x, double p_pos_y, double angle)
 {
-    double x_step;
-    double first_step_x;
-    double first_step_y;
+    double inter_x;
+    double inter_y;
+    double step_x;
+    double step_y;
 
-    first_step_y = 1 - p_pos_y;
-
+    inter_y = floor(p_pos_y / g_vars.size_case) * g_vars.size_case;
+    if (ray_facing(angle) == 3)
+        inter_y += g_vars.size_case;
+    inter_x = p_pos_x + (inter_y - p_pos_y) / tan(angle);
+    step_y = g_vars.size_case;
+    if (ray_facing(angle) == 1)
+        step_y *= -1;
+    step_x = g_vars.size_case / tan(angle);
+    if (ray_facing(angle) == 2 && step_x > 0)
+        step_x *= -1;
+    if (ray_facing(angle) == 0 && step_x < 0)
+        step_x *= -1;
 }
 
 static double    ray_shot_vertical(double p_pos_x, double p_pos_y, double angle)
