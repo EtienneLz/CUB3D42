@@ -70,10 +70,10 @@ void    draw_player(double d_i, double d_j)
 
 void    win_init(void)
 {
-    //int i;
-    //int j;
+    /*int i;
+    int j;
 
-    //i = 0; 
+    i = 0;*/ 
     g_data.img = mlx_new_image(g_vars.mlx, g_data.res_x, g_data.res_y);
     g_data.addr = mlx_get_data_addr(g_data.img, &g_data.bits_per_pixel, &g_data.line_length, &g_data.endian);
     /*while (g_data.map[i])
@@ -90,5 +90,6 @@ void    win_init(void)
     {
         g_check_flags.pos_i = g_vars.size_case * g_check_flags.s_pos_i + g_vars.size_case / 2 - 4;
         g_check_flags.pos_j = g_vars.size_case * g_check_flags.s_pos_j + g_vars.size_case / 2 - 4;
+        //draw_player(g_check_flags.pos_i, g_check_flags.pos_j);
     }
 }

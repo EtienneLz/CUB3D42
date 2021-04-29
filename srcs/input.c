@@ -7,17 +7,19 @@ static int     key_pressed(int keycode)
     if (keycode == 65307)
         ft_exit();
     if (keycode == FORWARD)
-        move_player(-1, 1);
+        move_player(-2, 1);
     if (keycode == BACK)
-        move_player(1, 1);
+        move_player(2, 1);
     if (keycode == LEFT)
-        move_player(-1, 2);
+        move_player(-2, 2);
     if (keycode == RIGHT)
-        move_player(1, 2);
+        move_player(2, 2);
     if (keycode == ROTATE_LEFT)
-        rotate_player(-1);
+        rotate_player(-2);
     if (keycode == ROTATE_RIGHT)
-        rotate_player(1);
+        rotate_player(2);
+    if (keycode == 555)
+        raycasting();
     return (0);
 }
 

@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     check_map();
     direction_init();
     g_vars.mlx = mlx_init();
-    g_vars.size_case = 64;
+    g_vars.size_case = 16;
     input_loop();
     
     return (0);

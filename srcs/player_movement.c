@@ -10,8 +10,8 @@ static int    check_collision(int direction, int axis)
     //printf("%d, %d\n", which_i, which_j);
     if (axis == 1)
     {
-        which_i = (g_check_flags.pos_i + direction) / g_vars.size_case;
-        which_j = g_check_flags.pos_j / g_vars.size_case;
+        which_i = (g_check_flags.pos_i + sin(g_check_flags.pos_a)) / g_vars.size_case;
+        which_j = g_check_flags.pos_j + cos(g_check_flags.pos_a) / g_vars.size_case;
         printf("%d, %d\n", which_i, which_j);
         if (g_data.map[which_i][which_j] == '1')
             return (0);
@@ -78,7 +78,7 @@ void        rotate_player(int direction)
     g_check_flags.pos_a += 2 * (M_PI / 180) * direction;
     //printf("%lf\n", g_check_flags.pos_a);
     //draw_line();
-    draw_player(g_check_flags.pos_i, g_check_flags.pos_j);
+    //draw_player(g_check_flags.pos_i, g_check_flags.pos_j);
     raycasting();
     mlx_put_image_to_window(g_vars.mlx, g_vars.win, g_data.img, 0, 0);
 }
