@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/04 17:57:40 by elouchez          #+#    #+#             */
+/*   Updated: 2022/04/04 17:58:03 by elouchez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cube.h"
 
 char	*clean_line(char *save, char **line)
 {
-	char			*tmp;
+	char	*tmp;
 	size_t	i;
 
 	i = 0;
@@ -42,7 +54,7 @@ char	*ft_save(char *buffer, char *save)
 	return (save);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char		*save_red[4096];
 	int				r_return;
