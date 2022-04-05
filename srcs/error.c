@@ -6,49 +6,49 @@
 /*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:56:21 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/04 17:56:23 by elouchez         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:27:09 by elouchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-void	ft_error(int code)
+void	ft_error(t_data *data, int code)
 {
 	write(1, "Erreur \n", 8);
 	if (code == 1)
 	{
-		close(g_data.fd);
+		close(data->fd);
 		write(1, "Configuration invalide\n", 23);
-		ft_free();
+		ft_free(data);
 	}
 	if (code == 2)
 	{
-		close(g_data.fd);
+		close(data->fd);
 		write(1, "Ta mere\n", 25);
-		ft_free();
+		ft_free(data);
 	}
 	if (code == 3)
 	{
-		close(g_data.fd);
+		close(data->fd);
 		write(1, "Map invalide\n", 14);
-		ft_free();
+		ft_free(data);
 	}
 }
 
-void	ft_free(void)
+void	ft_free(t_data *data)
 {
-	if (g_textures_data.north_t)
-		free(g_textures_data.north_t);
-	if (g_textures_data.south_t)
-		free(g_textures_data.south_t);
-	if (g_textures_data.west_t)
-		free(g_textures_data.west_t);
-	if (g_textures_data.east_t)
-		free(g_textures_data.east_t);
-	if (g_textures_data.sprite_t)
-		free(g_textures_data.sprite_t);
-	if (g_data.map)
-		free(g_data.map);
+	if (data->textures_data.north_t)
+		free(data->textures_data.north_t);
+	if (data->textures_data.south_t)
+		free(data->textures_data.south_t);
+	if (data->textures_data.west_t)
+		free(data->textures_data.west_t);
+	if (data->textures_data.east_t)
+		free(data->textures_data.east_t);
+	if (data->textures_data.sprite_t)
+		free(data->textures_data.sprite_t);
+	if (data->map)
+		free(data->map);
 	ft_exit();
 }
 

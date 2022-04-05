@@ -6,7 +6,7 @@
 /*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:46:00 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/04 19:46:00 by elouchez         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:27:39 by elouchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_data
 	int				fd;
 	char			**map;
 	t_vars			vars;
-	t_data			data;
 	t_textures_data	textures_data;
 	t_check_flags	check_flags;
 	t_ray_vars		ray_vars;
@@ -95,7 +94,7 @@ typedef struct s_data
 unsigned int	get_r(unsigned int rgb);
 unsigned int	get_g(unsigned int trgb);
 unsigned int	get_b(unsigned int trgb);
-void			win_init(void);
+void			win_init(t_data *data);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				get_next_line(int fd, char **line);
 size_t			ft_strlen(const char *s);
@@ -105,18 +104,18 @@ char			*ft_strchr(const char *s, int c);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*clean_line(char *save, char **line);
 char			*ft_save(char *buffer, char *save);
-void			ft_error(int code);
+void			ft_error(t_data *data, int code);
 char			*base_convert(unsigned long long n, char *base_figures, int l);
 unsigned int	hexa_color(int r, int g, int b);
-void			ft_file_read(char *file_name);
+void			ft_file_read(t_data *data, char *file_name);
 int				ft_exit(void);
-void			ft_free(void);
-void			parse_map(void);
-void			count_line(void);
-void			check_map(void);
-void			input_loop(void);
-void			draw_player(double d_i, double d_j);
-void			move_player(int direction, int axis);
-void			rotate_player(int direction);
-void			raycasting(void);
+void			ft_free(t_data *data);
+void			parse_map(t_data *data);
+void			count_line(t_data *data);
+void			check_map(t_data *data);
+void			input_loop(t_data *data);
+void			draw_player(t_data *data, double d_i, double d_j);
+void			move_player(t_data *data, int direction, int axis);
+void			rotate_player(t_data *data, int direction);
+void			raycasting(t_data *data);
 #endif

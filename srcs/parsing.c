@@ -7,19 +7,19 @@ static char	*get_textures(char *line, char c1, char c2, int s)
 	return (ft_substr(line, s, ft_strlen(line) - s));
 }
 
-static void	get_colors_2(unsigned int tmp, int k)
+static void	get_colors_2(t_data *data, unsigned int tmp, int k)
 {
 	if (tmp > 255)
 		ft_error(1);
 	if (k == 0)
-		g_textures_data.r = tmp;
+		data->textures_data.r = tmp;
 	if (k == 1)
-		g_textures_data.g = tmp;
+		data->textures_data.g = tmp;
 	if (k == 2)
-		g_textures_data.b = tmp;
+		data->textures_data.b = tmp;
 }
 
-static unsigned int	get_colors(char *line, char c)
+static unsigned int	get_colors(t_data *data, char *line, char c)
 {
 	int	tmp;
 	int	i;
@@ -43,33 +43,34 @@ static unsigned int	get_colors(char *line, char c)
 		}
 		if (j > 3 || (line[i] != ',' && k < 2))
 			ft_error(2);
-		get_colors_2(tmp, k);
+		get_colors_2(data, tmp, k);
 		j = 0;
 		tmp = 0;
 		i++;
 		k++;
 	}
-	return (hexa_color(g_textures_data.r, g_textures_data.g, g_textures_data.b));
+	return (hexa_color(data->textures_data.r,
+			data->textures_data.g, data->textures_data.b));
 }
 
-static  void ft_file_read_2(char *line)
+static void	ft_file_read_2(t_data *data, char *line)
 {
-	if (get_next_line(g_data.fd, &line) < 1)
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
 	if (line[0] != '\0')
 		ft_error(1);
-	if (get_next_line(g_data.fd, &line) < 1)
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
-	g_textures_data.sprite_t = get_textures(line, 'S', ' ', 2);
-	if (get_next_line(g_data.fd, &line) < 1)
+	data->textures_data.sprite_t = get_textures(line, 'S', ' ', 2);
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
-	g_textures_data.floor_c = get_colors(line, 'F');
-	if (get_next_line(g_data.fd, &line) < 1)
+	data->textures_data.floor_c = get_colors(data, line, 'F');
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
-	g_textures_data.sky_c = get_colors(line, 'C');
+	data->textures_data.sky_c = get_colors(data, line, 'C');
 }
 
-static void	get_resolution(char *line)
+static void	get_resolution(t_data *data, char *line)
 {
 	int	i;
 
@@ -78,44 +79,45 @@ static void	get_resolution(char *line)
 		ft_error(1);
 	while (line[i] && (line[i] <= '9' && line[i] >= '0'))
 	{
-		g_data.res_x *= 10;
-		g_data.res_x += line[i] - '0';
+		data->res_x *= 10;
+		data->res_x += line[i] - '0';
 		i++;
 	}
 	i++;
 	while (line[i] && (line[i] <= '9' && line[i] >= '0'))
 	{
-		g_data.res_y *= 10;
-		g_data.res_y += line[i] - '0';
+		data->res_y *= 10;
+		data->res_y += line[i] - '0';
 		i++;
 	}
 }
 
-void	ft_file_read(char *file_name)
+void	ft_file_read(t_data *data, char *file_name)
 {
 	char	*line;
 
-	if ((g_data.fd = open(file_name, O_RDONLY)) == -1)
+	data->fd = open(file_name, O_RDONLY);
+	if (data->fd == -1)
 		ft_error(1);
-	if (get_next_line(g_data.fd, &line) < 1)
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
-	get_resolution(line);
+	get_resolution(data, line);
 	free (line);
-	if (get_next_line(g_data.fd, &line) < 1)
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
-	g_textures_data.north_t = get_textures(line, 'N', 'O', 3);
+	data->textures_data.north_t = get_textures(line, 'N', 'O', 3);
 	free (line);
-	if (get_next_line(g_data.fd, &line) < 1)
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
-	g_textures_data.south_t = get_textures(line, 'S', 'O', 3);
+	data->textures_data.south_t = get_textures(line, 'S', 'O', 3);
 	free (line);
-	if (get_next_line(g_data.fd, &line) < 1)
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
-	g_textures_data.west_t = get_textures(line, 'W', 'E', 3);
+	data->textures_data.west_t = get_textures(line, 'W', 'E', 3);
 	free (line);
-	if (get_next_line(g_data.fd, &line) < 1)
+	if (get_next_line(data->fd, &line) < 1)
 		ft_error(1);
-	g_textures_data.east_t = get_textures(line, 'E', 'A', 3);
+	data->textures_data.east_t = get_textures(line, 'E', 'A', 3);
 	free (line);
-	ft_file_read_2(line);
+	ft_file_read_2(data, line);
 }

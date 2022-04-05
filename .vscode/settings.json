@@ -2,7 +2,8 @@
     "files.associations": {
         "cube.h": "c",
         "mlx.h": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "cmath": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

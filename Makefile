@@ -1,6 +1,6 @@
 NAME = cub3D
 
-SRCS = srcs/init.c \
+SRCS = srcs/main.c \
 			srcs/win_init.c \
 			srcs/ft_utils_1.c \
 			srcs/get_next_line.c \
@@ -12,7 +12,7 @@ SRCS = srcs/init.c \
 			srcs/player_movement.c \
 			srcs/raycasting.c \
 
-OBJS = srcs/init.o \
+OBJS = srcs/main.o \
 			srcs/win_init.o \
 			srcs/ft_utils_1.o \
 			srcs/get_next_line.o \
