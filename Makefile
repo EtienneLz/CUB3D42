@@ -1,5 +1,7 @@
 NAME = cub3D
 
+PATH_MLX = minilibx-linux
+
 SRCS = srcs/main.c \
 			srcs/win_init.c \
 			srcs/ft_utils_1.c \
@@ -37,12 +39,15 @@ RM = rm -f
 all: ${NAME}
 
 ${NAME}: ${OBJS}
+		make -C $(PATH_MLX)
 		${GCC} ${CFLAGS} ${INCLUDES} ${OBJS} ${LIB} -o ${NAME}
 
 clean: 
+	make -C $(PATH_MLX) clean
 	${RM} ${OBJS}
 
 fclean: clean
+	make -C $(PATH_MLX) clean
 	${RM} ${NAME}
 
 re: fclean all

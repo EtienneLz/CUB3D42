@@ -57,7 +57,7 @@ static void	ft_file_read_2(t_data *data, char *line)
 {
 	if (get_next_line(data->fd, &line) < 1)
 		ft_error(data, 1);
-	if (line[0] != '\0')
+	if (line[0])
 		ft_error(data, 1);
 	if (get_next_line(data->fd, &line) < 1)
 		ft_error(data, 1);

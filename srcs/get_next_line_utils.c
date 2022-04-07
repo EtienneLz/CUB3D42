@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/solong.h"
+#include "../includes/cube.h"
 
 size_t	ft_strlen(const char *s)
 {

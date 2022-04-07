@@ -22,6 +22,7 @@
 # include <string.h>
 # include <errno.h>
 # include <float.h>
+# include <sys/types.h>
 
 # define ROTATE_LEFT	65361
 # define ROTATE_RIGHT	65363
@@ -31,6 +32,8 @@
 # define LEFT		    97
 # define BUFFER_SIZE    4096
 # define _USE_MATH_DEFINES
+
+typedef int	t_bool;
 
 typedef struct s_vars
 {
@@ -43,6 +46,9 @@ typedef struct s_vars
 
 typedef struct s_textures_data
 {
+	double		wall_dist;
+	double		wall_x;
+	int			line_height;
 	char		*north_t;
 	char		*south_t;
 	char		*west_t;
@@ -71,18 +77,11 @@ typedef struct s_check_flags
 
 typedef struct s_ray_vars
 {
-	int			column;
-	float		ray_angle;
-	int			wall_hit_hor;
-	int			wall_hit_ver;
-	int			hor_wall_hitX;
-	int			hor_wall_hitY;
-	int			ver_wall_hitX;
-	int			ver_wall_hitY;
-	int			wallX;
-	int			wallY;
-	double		Xdistance;
-	double		Ydistance;
+	double	side_dist[2];
+	double	delta_dist[2];
+	double	wall_dist;
+	int		map_pos[2];
+	int		step[2];
 }				t_ray_vars;
 
 typedef struct s_data

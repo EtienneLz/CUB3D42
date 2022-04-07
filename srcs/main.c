@@ -53,7 +53,10 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc != 2)
+	{
+		write (1, "Wrong number of arguments\n", 27);
 		return (0);
+	}
 	vars_init(&data);
 	ft_file_read(&data, argv[1]);
 	count_line(&data);

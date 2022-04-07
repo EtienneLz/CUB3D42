@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/solong.h"
+#include "../includes/cube.h"
 
 char	*clean_line(char *save, char **line)
 {

@@ -50,7 +50,9 @@ void	input_loop(t_data *data)
 {
 	win_init(data);
 	data->check_flags.init_done = 1;
+	printf("bonjour\n");
 	data->vars.win = mlx_new_window(data->vars.mlx, data->res_x, data->res_y, "tHe BIndInG oF iSaAC : ANTiBIrtH");
+	raycasting(data);
 	mlx_put_image_to_window(data->vars.mlx, data->vars.win, data->img, 0, 0);
 	mlx_hook(data->vars.win, 33, 1L << 17, ft_exit, &data->vars);
 	mlx_hook(data->vars.win, 2, 1L<<0, key_pressed, &data->vars);

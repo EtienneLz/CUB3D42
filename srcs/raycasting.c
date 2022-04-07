@@ -18,159 +18,107 @@ static int	ray_facing(double angle)
 
 	m_angle = fmod(angle, (2 * M_PI));
 	if (m_angle < 0.5 * M_PI || m_angle > 1.5 * M_PI)
-		return (0);
+		return (0); //E
 	if (m_angle < 0 && m_angle > M_PI)
-		return (1);
+		return (1); //N
 	if (m_angle > 0.5 * M_PI || m_angle < 1.5 * M_PI)
-		return (2);
+		return (2); //W
 	else
-		return (3);
+		return (3); //S
 }
 
-double	distanceBetweenPoints(double x1, double y1, double x2, double y2) 
+static void	draw_line_textured(t_data *data, int i)
 {
-    return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-}
+	int		j;
+	int		start;
+	int		end;
+	t_img	texture;
+	int		color;
 
-static void	ray_shot_horizontal(t_data *data, double p_pos_x, double p_pos_y, double angle)
-{
-	double	inter_x;
-	double	inter_y;
-	double	step_x;
-	double	step_y;
-	double	next_hor_x;
-	double	next_hor_y;
-	double	next_ver_x;
-	double	next_ver_y;
-
-	inter_y = floor(p_pos_y / data->vars.size_case) * data->vars.size_case;
-	if (ray_facing(angle) == 3)
-		inter_y += data->vars.size_case;
-	inter_x = p_pos_x + (inter_y - p_pos_y) / tan(angle);
-	step_y = data->vars.size_case;
-	if (ray_facing(angle) == 1)
-		step_y *= -1;
-	step_x = data->vars.size_case / tan(angle);
-	if (ray_facing(angle) == 2 && step_x > 0)
-		step_x *= -1;
-	if (ray_facing(angle) == 0 && step_x < 0)
-		step_x *= -1;
-	next_hor_x = inter_x;
-	next_hor_y = inter_y;
-	if (ray_facing(angle) == 1)
-		inter_y -= 1;
-	while (next_hor_x >= 0 && next_hor_x <= data->res_x && next_hor_y >= 0 && next_hor_y <= data->res_y)
+	start = data->res_y / 2 - data->textures_data.line_height / 2;
+	end = data->res_y / 2 + data.line_height / 2;
+	texture = world->textures[data.side];
+	j = 0;
+	while (j < (start < 0 ? 0 : start))
+		set_screen_pixel(world->screen, i, j++, world->color_ceiling);
+	while (j < (end >= world->scr_height ? world->scr_height - 1 : end))
 	{
-		if (data->map[(int)inter_x][(int)inter_y] == '1')
-		{
-			data->ray_vars.wall_hit_hor = 1;
-			data->ray_vars.hor_wall_hitX = (int)next_hor_x;
-			data->ray_vars.hor_wall_hitY = (int)next_hor_y;
-			break ;
-		}
-		else
-		{
-			next_hor_x += step_x;
-			next_hor_y += step_y;
-		}
+		color = get_tex_color(texture, data.wall_x,
+			((j - start) * 1.0) / (end - start));
+		set_screen_pixel(world->screen, i, j++, color);
 	}
-	inter_y = floor(p_pos_x / data->vars.size_case) * data->vars.size_case;
-	if (ray_facing(angle) == 3)
-		inter_x += data->vars.size_case;
-	inter_y = p_pos_y + (inter_x - p_pos_x) * tan(angle);
-	step_x = data->vars.size_case;
-	if (ray_facing(angle) == 0)
-		step_x *= -1;
-	step_y = data->vars.size_case * tan(angle);
-	if (ray_facing(angle) == 1 && step_y > 0)
-		step_y *= -1;
-	if (ray_facing(angle) == 2 && step_y < 0)
-		step_y *= -1;
-	next_ver_x = inter_x;
-	next_ver_y = inter_y;
-	if (ray_facing(angle) == 0)
-		next_ver_x -= 1;
-	while (next_ver_x >= 0 && next_ver_x <= data->res_x && next_ver_y >= 0 && next_ver_y <= data->res_y)
-	{
-		if (data->map[(int)next_ver_x][(int)next_ver_y] == '1')
-		{
-			data->ray_vars.wall_hit_ver = 1;
-			data->ray_vars.ver_wall_hitX = (int)next_ver_x;
-			data->ray_vars.ver_wall_hitY = (int)next_ver_y;
-			break ;
-		}
-		else
-		{
-			next_ver_x += step_x;
-			next_ver_y += step_y;
-		}
-	}
-	data->ray_vars.Xdistance = LDBL_MAX;
-	data->ray_vars.Ydistance = LDBL_MAX;
-	if (data->ray_vars.wall_hit_hor)
-		data->ray_vars.Xdistance = distanceBetweenPoints(p_pos_x, p_pos_y, data->ray_vars.hor_wall_hitX, data->ray_vars.hor_wall_hitY);
-	if (data->ray_vars.wall_hit_ver)
-		data->ray_vars.Ydistance = distanceBetweenPoints(p_pos_x, p_pos_y, data->ray_vars.ver_wall_hitX, data->ray_vars.ver_wall_hitY);
+	while (j < world->scr_height)
+		set_screen_pixel(world->screen, i, j++, world->color_floor);
 }
 
-static double	ray_shot(t_data *data, double angle)
+static void	init_vars(t_data *data, double ray[2])
 {
-	double	p_pos_x;
-	double	p_pos_y;
+	data->ray_vars.delta_dist[0] = fabs(1.0 / ray[0]);
+	data->ray_vars.delta_dist[1] = fabs(1.0 / ray[1]);
+	data->ray_vars.map_pos[0] = floor(data->check_flags.pos_i);
+	data->ray_vars.map_pos[1] = floor(data->check_flags.pos_j);
+	data->ray_vars.step[0] = (ray[0] < 0) ? -1 : 1;
+	data->ray_vars.step[1] = (ray[1] < 0) ? -1 : 1;
+	data->ray_vars.side_dist[0] = (ray[0] < 0)
+		? (data->check_flags.pos_i - data->ray_vars.map_pos[0]) * data->ray_vars.delta_dist[0]
+		: (data->ray_vars.map_pos[0] + 1.0 - data->check_flags.pos_i) * data->ray_vars.delta_dist[0];
+	data->ray_vars.side_dist[1] = (ray[1] < 0)
+		? (data->check_flags.pos_j - data->ray_vars.map_pos[1]) * data->ray_vars.delta_dist[1]
+		: (data->ray_vars.map_pos[1] + 1.0 - data->check_flags.pos_j) * data->ray_vars.delta_dist[1];
+}
 
-	p_pos_x = (data->check_flags.pos_j - data->vars.size_case * (data->check_flags.pos_j / data->vars.size_case)) / data->vars.size_case;
-	p_pos_y = ((data->res_x - data->check_flags.pos_i) - data->vars.size_case * ((data->res_x - data->check_flags.pos_i) / data->vars.size_case)) / data->vars.size_case;
-	ray_shot_horizontal(data, p_pos_x, p_pos_y, angle);
-	if (data->ray_vars.Xdistance <= data->ray_vars.Ydistance)
-		return (data->ray_vars.Xdistance);
+t_bool	check_hit(t_data *data, double ray[2])
+{
+	if (data->ray_vars.side_dist[0] < data->ray_vars.side_dist[1])
+	{
+		data->ray_vars.side_dist[0] += data->ray_vars.delta_dist[0];
+		data->ray_vars.map_pos[0] += data->ray_vars.step[0];
+		data->textures_data.side = ray[0] > 0 ? N : S;
+	}
 	else
-		return (data->ray_vars.Ydistance);
+	{
+		data->ray_vars.side_dist[1] += data->ray_vars.delta_dist[1];
+		data->ray_vars.map_pos[1] += data->ray_vars.step[1];
+		data->textures_data.side = ray[1] > 0 ? E : W;
+	}
+	return (data->map[vars->map_pos[0]][vars->map_pos[1]] == 1);
 }
 
-static void	draw_column(t_data *data, int ray_length, int which_ray)
+static void	run_dda(t_data *data, int i, double ray[2])
 {
-	int	col_height;
-	int	draw_start;
-	int	draw_end;
-	int	i;
+	t_bool		hit;
 
-	i = 1;
-	col_height = data->res_y / ray_length * 2;
-	draw_start = -col_height / 2 + data->res_y / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	draw_end = col_height / 2 + data->res_y / 2;
-	if (draw_end >= data->res_y)
-		draw_end = data->res_y - 1;
-	while (i < data->res_y)
-	{
-		if (i < draw_start || i > draw_end)
-			my_mlx_pixel_put(data, which_ray, i, 0x00000000);
-		if (i >= draw_start && i <= draw_end)
-			my_mlx_pixel_put(data, which_ray, i, 0x0000FF00);
-		i++;
-	}
+	init_vars(data, ray);
+	hit = FALSE;
+	while (!hit)
+		hit = check_hit(data, ray);
+	data->textures_data.wall_dist = (ray_facing(data->check_flags.pos_a) == 1 || ray_facing(data->check_flags.pos_a) == 3)
+		? (vars.map_pos[0] - world->pos[0] + (1 - vars.step[0]) / 2) / ray[0]
+		: (vars.map_pos[1] - world->pos[1] + (1 - vars.step[1]) / 2) / ray[1];
+	world->depth_buffer[i] = data->textures_data.wall_dist;
+	data.wall_x = (ray_facing(data->check_flags.pos_a) == 1 || ray_facing(data->check_flags.pos_a) == 3)
+		? data->check_flags.pos_y + data->textures_data.wall_dist * ray[1]
+		: data->check_flags.pos_x + data->textures_data.wall_dist * ray[0];
+	data->textures_data.wall_x -= floor(data->textures_data.wall_x);
+	data->textures_data.line_height = (data->textures_data.wall_dist > 0)
+		? data->res_x / data->textures_data.wall_dist
+		: 2147483647;
+	draw_line_textured(data, i);
 }
 
 void	raycasting(t_data *data)
 {
-	int		which_ray;
-	int		ray_length;
-	double	ray_angle;
+	int		i;
+	double	camera_x;
+	double	ray[2];
 
-	which_ray = 0;
-	ray_angle = data->check_flags.pos_a - (30 * M_PI / 180);
-	while (which_ray < 2 * data->ray_vars.column)
+	i = 0;
+	while (i < data->res_x)
 	{
-		data->ray_vars.wall_hit_hor = 0;
-		data->ray_vars.wall_hit_ver = 0;
-		data->ray_vars.hor_wall_hitX = 0;
-		data->ray_vars.hor_wall_hitY = 0;
-		data->ray_vars.ver_wall_hitX = 0;
-		data->ray_vars.ver_wall_hitY = 0;
-		ray_length = ray_shot(data, ray_angle);
-		draw_column(data, ray_length, which_ray);
-		which_ray++;
-		ray_angle += (60 * M_PI / 180) / data->res_x;
+		camera_x = 2.0 * i / data->res_x - 1;
+		ray[0] = world->dir[0] + world->cam_plane[0] * camera_x;
+		ray[1] = world->dir[1] + world->cam_plane[1] * camera_x;
+		run_dda(data, i, ray);
+		i++;
 	}
 }

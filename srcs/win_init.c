@@ -88,8 +88,9 @@ void	win_init(t_data *data)
 	}*/
 	if (data->check_flags.init_done == 0)
 	{
-		data->check_flags.pos_i = data->vars.size_case * data->check_flags.s_pos_i + data->vars.size_case / 2 - 4;
-		data->check_flags.pos_j = data->vars.size_case * data->check_flags.s_pos_j + data->vars.size_case / 2 - 4;
+		data->check_flags.pos_i = data->check_flags.s_pos_i + 0.5;
+		data->check_flags.pos_j = data->check_flags.s_pos_j + 0.5;
+		
 		//draw_player(data->check_flags.pos_i, data->check_flags.pos_j);
 	}
 }

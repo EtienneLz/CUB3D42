@@ -24,7 +24,7 @@ void	ft_error(t_data *data, int code)
 	if (code == 2)
 	{
 		close(data->fd);
-		write(1, "Ta mere\n", 25);
+		write(1, "Ta mere\n", 9);
 		ft_free(data);
 	}
 	if (code == 3)
