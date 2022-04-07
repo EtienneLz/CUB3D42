@@ -55,14 +55,14 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (0);
 	vars_init(&data);
-	ft_file_read(argv[1]);
-	count_line();
-	parse_map();
+	ft_file_read(&data, argv[1]);
+	count_line(&data);
+	parse_map(&data);
 	close(data.fd);
-	check_map();
+	check_map(&data);
 	direction_init(&data);
 	data.vars.mlx = mlx_init();
 	data.vars.size_case = 16;
-	input_loop();
+	input_loop(&data);
 	return (0);
 }

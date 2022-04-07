@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 17:57:33 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/04 17:57:34 by elouchez         ###   ########.fr       */
+/*   Created: 2021/07/01 18:01:27 by elouchez          #+#    #+#             */
+/*   Updated: 2021/07/01 18:01:29 by elouchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube.h"
+#include "../includes/solong.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -32,7 +32,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	if (!(dest = malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
+	dest = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (dest == NULL)
 		return (NULL);
 	while (s1[i])
 		dest[j++] = s1[i++];
@@ -50,7 +51,8 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	size = ft_strlen(s1);
-	if (!(dest = malloc(size + 1)))
+	dest = malloc(size + 1);
+	if (dest == NULL)
 		return (0);
 	i = 0;
 	while (s1[i] != '\0')
@@ -86,7 +88,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (ft_strlen(s) <= start)
 		len = 0;
-	if (!(dest = malloc(len + 1)))
+	dest = malloc(len + 1);
+	if (dest == NULL)
 		return (NULL);
 	while (i < len)
 	{

@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <errno.h>
+# include <float.h>
 
 # define ROTATE_LEFT	65361
 # define ROTATE_RIGHT	65363
@@ -72,6 +73,16 @@ typedef struct s_ray_vars
 {
 	int			column;
 	float		ray_angle;
+	int			wall_hit_hor;
+	int			wall_hit_ver;
+	int			hor_wall_hitX;
+	int			hor_wall_hitY;
+	int			ver_wall_hitX;
+	int			ver_wall_hitY;
+	int			wallX;
+	int			wallY;
+	double		Xdistance;
+	double		Ydistance;
 }				t_ray_vars;
 
 typedef struct s_data

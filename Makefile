@@ -30,7 +30,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 
 GCC = gcc 
 
-LIB = libmlx_Linux.a -I./usr/include -L /usr/lib/ -Lmlx_linux -Imlx_linux -lXext -lX11 -lm
+LIB =  minilibx-linux/libmlx_Linux.a -I./usr/include -L minilibx-linux -Lmlx_linux -Imlx_linux -lXext -lX11 -lm
 
 RM = rm -f
 
