@@ -33,20 +33,19 @@ void	ft_error(t_data *data, int code)
 		write(1, "Map invalide\n", 14);
 		ft_free(data);
 	}
+	ft_exit();
 }
 
 void	ft_free(t_data *data)
 {
-	if (data->textures_data.north_t)
-		free(data->textures_data.north_t);
-	if (data->textures_data.south_t)
-		free(data->textures_data.south_t);
-	if (data->textures_data.west_t)
-		free(data->textures_data.west_t);
-	if (data->textures_data.east_t)
-		free(data->textures_data.east_t);
-	if (data->textures_data.sprite_t)
-		free(data->textures_data.sprite_t);
+	if (data->textures_data.textures[0])
+		free(data->textures_data.textures[0]);
+	if (data->textures_data.textures[1])
+		free(data->textures_data.textures[1]);
+	if (data->textures_data.textures[2])
+		free(data->textures_data.textures[2]);
+	if (data->textures_data.textures[3])
+		free(data->textures_data.textures[3]);
 	if (data->map)
 		free(data->map);
 	ft_exit();

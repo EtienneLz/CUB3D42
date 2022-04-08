@@ -2,9 +2,9 @@
 
 void    count_line(t_data *data)
 {
-	int ret;
-	char *line;
-	int i;
+	int		ret;
+	char	*line;
+	int		i;
 
 	i = 0;
 	while ((ret = get_next_line(data->fd, &line) != 0))
@@ -15,11 +15,12 @@ void    count_line(t_data *data)
 		free(line);
 	}
 	close(data->fd);
-	if (!(data->map = malloc(sizeof(char*) * (data->vars.size_map + 1))))
+	data->map = malloc(sizeof(char*) * (data->vars.size_map + 1));
+	if (!data->map)
 		ft_error(data, 2);
 	if ((data->fd = open("config.cub", O_RDONLY)) == -1)
 		ft_error(data, 1);
-	while (i <= 9)
+	while (i <= 8)
 	{
 		get_next_line(data->fd, &line);
 		i++;
@@ -52,7 +53,10 @@ void	parse_map(t_data *data)
 			else if (line[j] == '0')
 				data->map[i][j] = '0';
 			else if (line[j] == 'N' || line[j] == 'S' || line[j] == 'W' || line[j] == 'E')
+			{
+				data->cam_dir = line[j];
 				data->map[i][j] = line[j];
+			}
 			else
 				ft_error(data, 1);
 			j++;
@@ -92,6 +96,12 @@ static char	**copy_map(t_data *data)
 			}
 			j++;
 		}
+		while (j < (int)data->vars.size_line_max)
+		{
+			tmp_map[i][j] = ' ';
+			j++;
+		}
+		tmp_map[i][j] = '\0';
 		i++;
 	}
 	tmp_map[i] = NULL;

@@ -68,29 +68,33 @@ void	draw_player(t_data *data, double d_i, double d_j)
 	}*/
 }
 
+void	cam_init(t_data *data)
+{
+	if (data->cam_dir == 'E' || data->cam_dir == 'W')
+	{
+		data->dir[0] = 0;
+		data->dir[1] = (data->cam_dir == 'E') ? 1 : -1;
+		data->cam_plane[0] = (data->cam_dir == 'E') ? 0.66 : -0.66;
+		data->cam_plane[1] = 0;
+	}
+	else
+	{
+		data->dir[0] = (data->cam_dir == 'S') ? 1 : -1;
+		data->dir[1] = 0;
+		data->cam_plane[0] = 0;
+		data->cam_plane[1] = (data->cam_dir == 'S') ? -0.66 : 0.66;
+	}
+}
+
+
 void	win_init(t_data *data)
 {
-	/*int i;
-	int j;
-
-	i = 0;*/
+	data->depth_buffer = ft_calloc(data->res_x, sizeof(double));
 	data->img = mlx_new_image(data->vars.mlx, data->res_x, data->res_y);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-	/*while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			draw_square(i, j);
-			j++;
-		}
-		i++;
-	}*/
 	if (data->check_flags.init_done == 0)
 	{
 		data->check_flags.pos_i = data->check_flags.s_pos_i + 0.5;
 		data->check_flags.pos_j = data->check_flags.s_pos_j + 0.5;
-		
-		//draw_player(data->check_flags.pos_i, data->check_flags.pos_j);
 	}
 }

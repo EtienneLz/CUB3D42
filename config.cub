@@ -1,16 +1,17 @@
 R 1200 800
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./textures/bricks.xpm
+SO ./textures/metro.xpm
+WE ./textures/wallpaper.xpm
+EA ./textures/wood.xpm
 
-S ./path_to_the_sprite_texture
 F 220,100,0
 C 225,30,0
 
 11111111111
 10101010101
 1010S010111
+10000000001
+100000000001
 111100000011
 1000000000001
 111111111111

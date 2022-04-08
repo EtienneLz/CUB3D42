@@ -61,9 +61,6 @@ static void	ft_file_read_2(t_data *data, char *line)
 		ft_error(data, 1);
 	if (get_next_line(data->fd, &line) < 1)
 		ft_error(data, 1);
-	data->textures_data.sprite_t = get_textures(data, line, 'S', ' ', 2);
-	if (get_next_line(data->fd, &line) < 1)
-		ft_error(data, 1);
 	data->textures_data.floor_c = get_colors(data, line, 'F');
 	if (get_next_line(data->fd, &line) < 1)
 		ft_error(data, 1);
@@ -105,19 +102,19 @@ void	ft_file_read(t_data *data, char *file_name)
 	free (line);
 	if (get_next_line(data->fd, &line) < 1)
 		ft_error(data, 1);
-	data->textures_data.north_t = get_textures(data, line, 'N', 'O', 3);
+	data->textures_data.textures[1] = get_textures(data, line, 'N', 'O', 3);
 	free (line);
 	if (get_next_line(data->fd, &line) < 1)
 		ft_error(data, 1);
-	data->textures_data.south_t = get_textures(data, line, 'S', 'O', 3);
+	data->textures_data.textures[3] = get_textures(data, line, 'S', 'O', 3);
 	free (line);
 	if (get_next_line(data->fd, &line) < 1)
 		ft_error(data, 1);
-	data->textures_data.west_t = get_textures(data, line, 'W', 'E', 3);
+	data->textures_data.textures[2] = get_textures(data, line, 'W', 'E', 3);
 	free (line);
 	if (get_next_line(data->fd, &line) < 1)
 		ft_error(data, 1);
-	data->textures_data.east_t = get_textures(data, line, 'E', 'A', 3);
+	data->textures_data.textures[0] = get_textures(data, line, 'E', 'A', 3);
 	free (line);
 	ft_file_read_2(data, line);
 }

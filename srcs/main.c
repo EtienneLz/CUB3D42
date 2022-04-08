@@ -17,13 +17,9 @@ static void	vars_init(t_data *data)
 	data->map = NULL;
 	data->check_flags.start_pos = 0;
 	data->vars.size_line_max = 0;
+	data->vars.size_map = 0;
 	data->res_x = 0;
 	data->res_y = 0;
-	data->textures_data.north_t = NULL;
-	data->textures_data.south_t = NULL;
-	data->textures_data.west_t = NULL;
-	data->textures_data.east_t = NULL;
-	data->textures_data.sprite_t = NULL;
 	data->textures_data.r = 0;
 	data->textures_data.g = 0;
 	data->textures_data.b = 0;
@@ -45,7 +41,6 @@ static void	direction_init(t_data *data)
 		data->check_flags.pos_a = 0;
 	if (data->check_flags.s_direction == 'W')
 		data->check_flags.pos_a = M_PI;
-	data->ray_vars.column = data->res_x / 2;
 }
 
 int	main(int argc, char **argv)
@@ -57,14 +52,17 @@ int	main(int argc, char **argv)
 		write (1, "Wrong number of arguments\n", 27);
 		return (0);
 	}
+	if (!(argv[1][ft_strlen(argv[1])] == 'b' && argv[1][ft_strlen(argv[1]) - 1] == 'u' && argv[1][ft_strlen(argv[1]) - 2] == 'c' && argv[1][ft_strlen(argv[1]) - 3] == '.'))
 	vars_init(&data);
+	data.vars.mlx = mlx_init();
 	ft_file_read(&data, argv[1]);
 	count_line(&data);
 	parse_map(&data);
 	close(data.fd);
 	check_map(&data);
 	direction_init(&data);
-	data.vars.mlx = mlx_init();
+	texture_init(&data);
+	cam_init(&data);
 	data.vars.size_case = 16;
 	input_loop(&data);
 	return (0);
