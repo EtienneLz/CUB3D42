@@ -45,6 +45,7 @@ static void	vars_init(t_data *data)
 	data->skip = 0;
 	data->res_x = 1000;
 	data->res_y = 800;
+	data->player = 0;
 }
 
 static void	direction_init(t_data *data)
@@ -76,7 +77,7 @@ int	main(int argc, char **argv)
 	vars_init(&data);
 	data.vars.mlx = mlx_init();
 	ft_file_read(&data, argv[1]);
-	count_line(&data);
+	count_line(&data, argv[1]);
 	parse_map(&data);
 	close(data.fd);
 	check_map(&data);

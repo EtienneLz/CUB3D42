@@ -14,30 +14,20 @@
 
 void	ft_error(t_data *data, int code)
 {
-	write(1, "Erreur \n", 8);
+	write(1, "Error\n", 6);
 	if (code == 0)
-	{
-		write(1, "Configuration invalide\n", 23);
-		ft_free(data);
-	}
-	if (code == 1)
+		write(2, "Invalid configuration\n", 22);
+	else
 	{
 		close(data->fd);
-		write(1, "Configuration invalide\n", 23);
-		ft_free(data);
+		if (code == 1)
+			write(2, "Invalid configuration\n", 22);
+		if (code == 2)
+			write(2, "Invalid map\n", 12);
+		if (code == 3)
+			write(2, "Memory allocation failed\n", 25);
 	}
-	if (code == 2)
-	{
-		close(data->fd);
-		write(1, "Ta mere\n", 9);
-		ft_free(data);
-	}
-	if (code == 3)
-	{
-		close(data->fd);
-		write(1, "Map invalide\n", 14);
-		ft_free(data);
-	}
+	ft_free(data);
 }
 
 int	ft_free(t_data *data)
@@ -55,9 +45,9 @@ int	ft_free(t_data *data)
 		free(data->textures_data.textures[2]);
 	if (data->textures_data.textures[3] != NULL)
 		free(data->textures_data.textures[3]);
-	if (data->map)
+	if (data->map != NULL)
 	{
-		while (data->map[i])
+		while (data->map[i] != NULL)
 		{
 			free(data->map[i]);
 			i++;

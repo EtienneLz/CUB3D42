@@ -115,6 +115,8 @@ typedef struct s_data
 	t_textures_data	textures_data;
 	t_check_flags	check_flags;
 	t_ray_vars		ray_vars;
+	//char			*file;
+	int				player;
 }				t_data;
 
 unsigned int	get_r(unsigned int rgb);
@@ -136,7 +138,7 @@ unsigned int	hexa_color(int r, int g, int b);
 void			ft_file_read(t_data *data, char *file_name);
 int				ft_free(t_data *data);
 void			parse_map(t_data *data);
-void			count_line(t_data *data);
+void			count_line(t_data *data, char *file_name);
 void			check_map(t_data *data);
 void			input_loop(t_data *data);
 void			draw_player(t_data *data, double d_i, double d_j);
