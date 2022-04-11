@@ -15,6 +15,11 @@
 void	ft_error(t_data *data, int code)
 {
 	write(1, "Erreur \n", 8);
+	if (code == 0)
+	{
+		write(1, "Configuration invalide\n", 23);
+		ft_free(data);
+	}
 	if (code == 1)
 	{
 		close(data->fd);
@@ -33,11 +38,15 @@ void	ft_error(t_data *data, int code)
 		write(1, "Map invalide\n", 14);
 		ft_free(data);
 	}
-	ft_exit();
 }
 
-void	ft_free(t_data *data)
+int	ft_free(t_data *data)
 {
+	int	i;
+
+	i = 0;
+	if (data->line)
+		free(data->line);
 	if (data->textures_data.textures[0])
 		free(data->textures_data.textures[0]);
 	if (data->textures_data.textures[1])
@@ -47,11 +56,30 @@ void	ft_free(t_data *data)
 	if (data->textures_data.textures[3])
 		free(data->textures_data.textures[3]);
 	if (data->map)
+	{
+		while (data->map[i])
+		{
+			free(data->map[i]);
+			i++;
+		}
 		free(data->map);
-	ft_exit();
-}
-
-int	ft_exit(void)
-{
+	}
+	if (data->depth_buffer)
+		free(data->depth_buffer);
+	if (data->textures_data.image[0].img)
+		mlx_destroy_image(data->vars.mlx, data->textures_data.image[0].img);
+	if (data->textures_data.image[1].img)
+		mlx_destroy_image(data->vars.mlx, data->textures_data.image[1].img);
+	if (data->textures_data.image[2].img)
+		mlx_destroy_image(data->vars.mlx, data->textures_data.image[2].img);
+	if (data->textures_data.image[3].img)
+		mlx_destroy_image(data->vars.mlx, data->textures_data.image[3].img);
+	if (data->img != 0)
+		mlx_destroy_image(data->vars.mlx, data->img);
+	if (data->check_flags.init_done)
+		mlx_destroy_window(data->vars.mlx, data->vars.win);
+	mlx_destroy_display(data->vars.mlx);
+	mlx_loop_end(&data->vars);
+	free(data->vars.mlx);
 	exit(EXIT_SUCCESS);
 }

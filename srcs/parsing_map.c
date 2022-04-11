@@ -3,17 +3,17 @@
 void    count_line(t_data *data)
 {
 	int		ret;
-	char	*line;
 	int		i;
 
 	i = 0;
-	while ((ret = get_next_line(data->fd, &line) != 0))
+	while ((ret = get_next_line(data->fd, &data->line) != 0))
 	{
-		if (data->vars.size_line_max < ft_strlen(line))
-			data->vars.size_line_max = ft_strlen(line);
+		if (data->vars.size_line_max < ft_strlen(data->line))
+			data->vars.size_line_max = ft_strlen(data->line);
 		data->vars.size_map++;
-		free(line);
+		free(data->line);
 	}
+	free(data->line);
 	close(data->fd);
 	data->map = malloc(sizeof(char*) * (data->vars.size_map + 1));
 	if (!data->map)
@@ -22,9 +22,9 @@ void    count_line(t_data *data)
 		ft_error(data, 1);
 	while (i <= 8)
 	{
-		get_next_line(data->fd, &line);
+		get_next_line(data->fd, &data->line);
 		i++;
-		free(line);
+		free(data->line);
 	}
 }
 
@@ -33,29 +33,28 @@ void	parse_map(t_data *data)
 	int				i;
 	unsigned int	j;
 	int				ret;
-	char			*line;
 
 	i = 0;
 	ret = 1;
 	while (ret != 0)
 	{
-		ret = get_next_line(data->fd, &line);
+		ret = get_next_line(data->fd, &data->line);
 		data->map[i] = NULL;
 		j = 0;
 		if (!(data->map[i] = malloc(sizeof(char) * (data->vars.size_line_max + 1))))
 			ft_error(data, 1);
-		while (line[j])
+		while (data->line[j])
 		{
-			if (line[j] == ' ' || line[j] == '1')
-				data->map[i][j] = line[j];
-			else if (line[j] == '2')
+			if (data->line[j] == ' ' || data->line[j] == '1')
+				data->map[i][j] = data->line[j];
+			else if (data->line[j] == '2')
 				data->map[i][j] = '2';
-			else if (line[j] == '0')
+			else if (data->line[j] == '0')
 				data->map[i][j] = '0';
-			else if (line[j] == 'N' || line[j] == 'S' || line[j] == 'W' || line[j] == 'E')
+			else if (data->line[j] == 'N' || data->line[j] == 'S' || data->line[j] == 'W' || data->line[j] == 'E')
 			{
-				data->cam_dir = line[j];
-				data->map[i][j] = line[j];
+				data->cam_dir = data->line[j];
+				data->map[i][j] = data->line[j];
 			}
 			else
 				ft_error(data, 1);
@@ -64,7 +63,8 @@ void	parse_map(t_data *data)
 		while (j < data->vars.size_line_max)
 			data->map[i][j++] = ' ';
 		data->map[i][j] = '\0';
-		free(line);
+		free(data->line);
+		data->line = NULL;
 		i++;
 	}
 	data->map[i] = NULL;

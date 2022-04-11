@@ -95,6 +95,7 @@ typedef struct s_ray_vars
 
 typedef struct s_data
 {
+	char			*line;
 	void			*img;
 	char			*addr;
 	int				bits_per_pixel;
@@ -131,8 +132,7 @@ void			ft_error(t_data *data, int code);
 char			*base_convert(unsigned long long n, char *base_figures, int l);
 unsigned int	hexa_color(int r, int g, int b);
 void			ft_file_read(t_data *data, char *file_name);
-int				ft_exit(void);
-void			ft_free(t_data *data);
+int				ft_free(t_data *data);
 void			parse_map(t_data *data);
 void			count_line(t_data *data);
 void			check_map(t_data *data);
@@ -146,4 +146,5 @@ void			texture_init(t_data *data);
 void			cam_init(t_data *data);
 void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memset(void *dest, int c, size_t n);
+int				win_refresh(t_data *data);
 #endif

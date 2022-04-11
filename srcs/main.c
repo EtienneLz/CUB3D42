@@ -29,6 +29,17 @@ static void	vars_init(t_data *data)
 	data->check_flags.s_pos_i = 0;
 	data->check_flags.s_pos_j = 0;
 	data->check_flags.s_direction = 0;
+	data->textures_data.image[0].img = NULL;
+	data->textures_data.image[1].img = NULL;
+	data->textures_data.image[2].img = NULL;
+	data->textures_data.image[3].img = NULL;
+	data->textures_data.textures[0] = NULL;
+	data->textures_data.textures[1] = NULL;
+	data->textures_data.textures[2] = NULL;
+	data->textures_data.textures[3] = NULL;
+	data->img = NULL;
+	data->depth_buffer = NULL;
+	data->vars.win = NULL;
 }
 
 static void	direction_init(t_data *data)
@@ -63,7 +74,6 @@ int	main(int argc, char **argv)
 	direction_init(&data);
 	texture_init(&data);
 	cam_init(&data);
-	data.vars.size_case = 16;
 	input_loop(&data);
 	return (0);
 }
