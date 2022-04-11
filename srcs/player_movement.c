@@ -12,46 +12,53 @@
 
 #include "../includes/cube.h"
 
+static void	move_player_3(t_data *data, double d_i, double d_j)
+{
+	if (data->map[(int)(data->check.pos_i + d_i)]
+		[(int)(data->check.pos_j + d_j)] != '1')
+	{
+		data->check.pos_i += d_i;
+		data->check.pos_j += d_j;
+	}
+}
+
+static void	move_player_2(t_data *data, double *d_i, double *d_j, int direction)
+{
+	if (direction > 0)
+	{
+		*d_i = data->cam_plane[0] * SPEED;
+		*d_j = data->cam_plane[1] * SPEED;
+	}
+	if (direction < 0)
+	{
+		*d_i = data->cam_plane[0] * -SPEED;
+		*d_j = data->cam_plane[1] * -SPEED;
+	}
+}
+
 void	move_player(t_data *data, int direction, int axis)
 {
-	double	speed;
 	double	d_i;
 	double	d_j;
 
-	speed = 0.15;
 	if (direction == 0)
 		return ;
 	if (axis == 1)
 	{
 		if (direction > 0)
 		{
-			d_i = data->dir[0] * -speed;
-			d_j = data->dir[1] * -speed;
+			d_i = data->dir[0] * -SPEED;
+			d_j = data->dir[1] * -SPEED;
 		}
 		if (direction < 0)
 		{
-			d_i = data->dir[0] * speed;
-			d_j = data->dir[1] * speed;
+			d_i = data->dir[0] * SPEED;
+			d_j = data->dir[1] * SPEED;
 		}
 	}
 	if (axis == 2)
-	{
-		if (direction > 0)
-		{
-			d_i = data->cam_plane[0] * speed;
-			d_j = data->cam_plane[1] * speed;
-		}
-		if (direction < 0)
-		{
-			d_i = data->cam_plane[0] * -speed;
-			d_j = data->cam_plane[1] * -speed;
-		}
-	}
-	if (data->map[(int)(data->check_flags.pos_i + d_i)][(int)(data->check_flags.pos_j + d_j)] != '1')
-	{
-		data->check_flags.pos_i += d_i;
-		data->check_flags.pos_j += d_j;
-	}
+		move_player_2(data, &d_i, &d_j, direction);
+	move_player_3(data, d_i, d_j);
 }
 
 void	rotate_player(t_data *data, int direction)

@@ -12,15 +12,15 @@
 
 #include "../includes/cube.h"
 
-static int		get_tex_color(t_image tex, double u, double v)
+static int	get_tex_color(t_image tex, double u, double v)
 {
 	char			*ptr;
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
 
-	ptr = tex.addr + (int)(v * tex.height) * tex.line_length
-		+ (int)(u * tex.width) * (tex.bbp >> 3);
+	ptr = tex.addr + (int)(v * tex.height) *tex.line_length
+		+ (int)(u * tex.width)*(tex.bbp >> 3);
 	if (tex.endian)
 		r = (unsigned char)(*ptr);
 	else
@@ -41,42 +41,36 @@ static void	draw_line_textured(t_data *data, int i)
 	t_image	texture;
 	int		color;
 
-	start = data->res_y / 2 - data->textures_data.line_height / 2;
-	end = data->res_y / 2 + data->textures_data.line_height / 2;
-	if (data->textures_data.orientation == 'N')
-		texture = data->textures_data.image[1];
-	else if (data->textures_data.orientation == 'S')
-		texture = data->textures_data.image[3];
-	else if (data->textures_data.orientation == 'E')
-		texture = data->textures_data.image[0];
-	else if (data->textures_data.orientation == 'W')
-		texture = data->textures_data.image[2];
+	start = data->res_y / 2 - data->text_d.line_height / 2;
+	end = data->res_y / 2 + data->text_d.line_height / 2;
+	if (data->text_d.orientation == 'N')
+		texture = data->text_d.image[1];
+	else if (data->text_d.orientation == 'S')
+		texture = data->text_d.image[3];
+	else if (data->text_d.orientation == 'E')
+		texture = data->text_d.image[0];
+	else if (data->text_d.orientation == 'W')
+		texture = data->text_d.image[2];
 	j = 0;
-	//printf("%d\n", start);
 	if (start > 0)
-	{
 		while (j < start)
-		{
-			//printf(" bijour\n");
-			my_mlx_pixel_put(data, i, j++, data->textures_data.sky_c);
-		}
-	}
+			my_mlx_pixel_put(data, i, j++, data->text_d.sky_c);
 	while (j < (end >= data->res_y ? data->res_y : end))
 	{
-		color = get_tex_color(texture, data->textures_data.wall_x,
-			((j - start) * 1.0) / (end - start));
+		color = get_tex_color(texture, data->text_d.wall_x,
+				((j - start) * 1.0) / (end - start));
 		my_mlx_pixel_put(data, i, j++, color);
 	}
 	while (j < data->res_y)
-		my_mlx_pixel_put(data, i, j++, data->textures_data.floor_c);
+		my_mlx_pixel_put(data, i, j++, data->text_d.floor_c);
 }
 
 static void	init_vars(t_data *data, double ray[2])
 {
 	data->ray_vars.delta_dist[0] = fabs(1.0 / ray[0]);
 	data->ray_vars.delta_dist[1] = fabs(1.0 / ray[1]);
-	data->ray_vars.map_pos[0] = floor(data->check_flags.pos_i);
-	data->ray_vars.map_pos[1] = floor(data->check_flags.pos_j);
+	data->ray_vars.map_pos[0] = floor(data->check.pos_i);
+	data->ray_vars.map_pos[1] = floor(data->check.pos_j);
 	if (ray[0] < 0)
 		data->ray_vars.step[0] = -1;
 	else
@@ -86,13 +80,17 @@ static void	init_vars(t_data *data, double ray[2])
 	else
 		data->ray_vars.step[1] = 1;
 	if (ray[0] < 0)
-		data->ray_vars.side_dist[0] = (data->check_flags.pos_i - data->ray_vars.map_pos[0]) * data->ray_vars.delta_dist[0];
+		data->ray_vars.side_dist[0] = (data->check.pos_i
+				- data->ray_vars.map_pos[0]) * data->ray_vars.delta_dist[0];
 	else
-		data->ray_vars.side_dist[0] = (data->ray_vars.map_pos[0] + 1.0 - data->check_flags.pos_i) * data->ray_vars.delta_dist[0];
+		data->ray_vars.side_dist[0] = (data->ray_vars.map_pos[0] + 1.0
+				- data->check.pos_i) * data->ray_vars.delta_dist[0];
 	if (ray[1] < 0)
-		data->ray_vars.side_dist[1] = (data->check_flags.pos_j - data->ray_vars.map_pos[1]) * data->ray_vars.delta_dist[1];
+		data->ray_vars.side_dist[1] = (data->check.pos_j
+				- data->ray_vars.map_pos[1]) * data->ray_vars.delta_dist[1];
 	else
-		data->ray_vars.side_dist[1] = (data->ray_vars.map_pos[1] + 1.0 - data->check_flags.pos_j) * data->ray_vars.delta_dist[1];
+		data->ray_vars.side_dist[1] = (data->ray_vars.map_pos[1] + 1.0
+				- data->check.pos_j) * data->ray_vars.delta_dist[1];
 }
 
 static int	check_hit(t_data *data, double ray[2])
@@ -102,23 +100,24 @@ static int	check_hit(t_data *data, double ray[2])
 		data->ray_vars.side_dist[0] += data->ray_vars.delta_dist[0];
 		data->ray_vars.map_pos[0] += data->ray_vars.step[0];
 		if (ray[0] > 0)
-			data->textures_data.orientation = 'N';
+			data->text_d.orientation = 'N';
 		else
-			data->textures_data.orientation = 'S';
+			data->text_d.orientation = 'S';
 	}
 	else
 	{
 		data->ray_vars.side_dist[1] += data->ray_vars.delta_dist[1];
 		data->ray_vars.map_pos[1] += data->ray_vars.step[1];
 		if (ray[1] > 0)
-			data->textures_data.orientation = 'E';
+			data->text_d.orientation = 'E';
 		else
-			data->textures_data.orientation = 'W';
+			data->text_d.orientation = 'W';
 	}
-	return (data->map[data->ray_vars.map_pos[0]][data->ray_vars.map_pos[1]] == '1');
+	return (data->map[data->ray_vars.map_pos[0]]
+		[data->ray_vars.map_pos[1]] == '1');
 }
 
-static void	run_dda(t_data *data, int i, double ray[2])
+void	run_dda(t_data *data, int i, double ray[2])
 {
 	int	hit;
 
@@ -126,36 +125,23 @@ static void	run_dda(t_data *data, int i, double ray[2])
 	hit = 0;
 	while (!hit)
 		hit = check_hit(data, ray);
-	if (data->textures_data.orientation == 'N' || data->textures_data.orientation == 'S')
-		data->textures_data.wall_dist = (data->ray_vars.map_pos[0] - data->check_flags.pos_i + (1 - data->ray_vars.step[0]) / 2) / ray[0];
+	if (data->text_d.orientation == 'N' || data->text_d.orientation == 'S')
+		data->text_d.wall_dist = (data->ray_vars.map_pos[0] - data->check.pos_i
+				+ (1 - data->ray_vars.step[0]) / 2) / ray[0];
 	else
-		data->textures_data.wall_dist = (data->ray_vars.map_pos[1] - data->check_flags.pos_j + (1 - data->ray_vars.step[1]) / 2) / ray[1];
-	data->depth_buffer[i] = data->textures_data.wall_dist;
-	if (data->textures_data.orientation == 'N' || data->textures_data.orientation == 'S')
-		data->textures_data.wall_x = data->check_flags.pos_j + data->textures_data.wall_dist * ray[1];
+		data->text_d.wall_dist = (data->ray_vars.map_pos[1] - data->check.pos_j
+				+ (1 - data->ray_vars.step[1]) / 2) / ray[1];
+	data->depth_buffer[i] = data->text_d.wall_dist;
+	if (data->text_d.orientation == 'N' || data->text_d.orientation == 'S')
+		data->text_d.wall_x = data->check.pos_j
+			+ data->text_d.wall_dist * ray[1];
 	else
-		data->textures_data.wall_x = data->check_flags.pos_i + data->textures_data.wall_dist * ray[0];
-	data->textures_data.wall_x -= floor(data->textures_data.wall_x);
-	if (data->textures_data.wall_dist > 0)
-		data->textures_data.line_height = data->res_x / data->textures_data.wall_dist;
+		data->text_d.wall_x = data->check.pos_i
+			+ data->text_d.wall_dist * ray[0];
+	data->text_d.wall_x -= floor(data->text_d.wall_x);
+	if (data->text_d.wall_dist > 0)
+		data->text_d.line_height = data->res_x / data->text_d.wall_dist;
 	else
-		data->textures_data.line_height = 2147483647;
+		data->text_d.line_height = 2147483647;
 	draw_line_textured(data, i);
-}
-
-void	raycasting(t_data *data)
-{
-	int		i;
-	double	camera_x;
-	double	ray[2];
-
-	i = 0;
-	while (i < data->res_x)
-	{
-		camera_x = 1.5 * i / data->res_x - 1;
-		ray[0] = data->dir[0] + data->cam_plane[0] * camera_x;
-		ray[1] = data->dir[1] + data->cam_plane[1] * camera_x;
-		run_dda(data, i, ray);
-		i++;
-	}
 }

@@ -31,6 +31,7 @@
 # define RIGHT		    100
 # define LEFT		    97
 # define BUFFER_SIZE    4096
+# define SPEED			0.17548
 # define _USE_MATH_DEFINES
 
 typedef int	t_bool;
@@ -55,7 +56,7 @@ typedef struct s_vars
 	int			size_case;
 }				t_vars;
 
-typedef struct s_textures_data
+typedef struct s_text_d
 {
 	double		wall_dist;
 	double		wall_x;
@@ -68,9 +69,9 @@ typedef struct s_textures_data
 	int			r;
 	int			g;
 	int			b;
-}				t_textures_data;
+}				t_text_d;
 
-typedef struct s_check_flags
+typedef struct s_check
 {
 	int			start_pos;
 	int			s_pos_i;
@@ -82,7 +83,7 @@ typedef struct s_check_flags
 	int			fov_e;
 	char		s_direction;
 	int			init_done;
-}				t_check_flags;
+}				t_check;
 
 typedef struct s_ray_vars
 {
@@ -112,10 +113,9 @@ typedef struct s_data
 	double			*depth_buffer;
 	char			**map;
 	t_vars			vars;
-	t_textures_data	textures_data;
-	t_check_flags	check_flags;
+	t_text_d		text_d;
+	t_check			check;
 	t_ray_vars		ray_vars;
-	//char			*file;
 	int				player;
 }				t_data;
 
@@ -152,4 +152,6 @@ void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memset(void *dest, int c, size_t n);
 int				win_refresh(t_data *data);
 void			skip_lines(t_data *data);
+void			check_empty(t_data *data);
+void			run_dda(t_data *data, int i, double ray[2]);
 #endif

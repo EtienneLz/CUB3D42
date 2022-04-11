@@ -1,28 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_map.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/11 23:08:01 by elouchez          #+#    #+#             */
+/*   Updated: 2022/04/11 23:08:01 by elouchez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cube.h"
 
-void    count_line(t_data *data, char *file_name)
+void	count_line(t_data *data, char *file_name)
 {
 	int		i;
+	int		ret;
 
 	i = 0;
-	while ((get_next_line(data->fd, &data->line) != 0))
+	ret = 1;
+	skip_lines(data);
+	while (ret != 0)
 	{
 		if (data->vars.size_line_max < ft_strlen(data->line))
 			data->vars.size_line_max = ft_strlen(data->line);
 		data->vars.size_map++;
 		free(data->line);
+		ret = get_next_line(data->fd, &data->line);
 	}
 	free(data->line);
 	data->line = NULL;
 	if (data->error)
 		ft_error(data, 1);
 	close(data->fd);
-	data->map = malloc(sizeof(char *) * (data->vars.size_map + 1));
+	data->map = malloc(sizeof(char *) * (data->vars.size_map + 2));
 	if (!data->map)
 		ft_error(data, 3);
-	if ((data->fd = open(file_name, O_RDONLY)) == -1)
+	data->fd = open(file_name, O_RDONLY);
+	if (data->fd == -1)
 		ft_error(data, 1);
-	while (i <= 7 + data->skip)
+	while (i <= 5 + data->skip)
 	{
 		get_next_line(data->fd, &data->line);
 		i++;
@@ -73,7 +90,7 @@ void	parse_map(t_data *data)
 	}
 	data->map[i] = NULL;
 	if (data->error || data->player != 1)
-		ft_error(data, 2);
+		ft_error(data, 1);
 }
 
 static char	**copy_map(t_data *data)
@@ -83,7 +100,7 @@ static char	**copy_map(t_data *data)
 	int		j;
 
 	i = 0;
-	tmp_map = malloc(sizeof(char *) * (data->vars.size_map + 1));
+	tmp_map = malloc(sizeof(char *) * (data->vars.size_map + 2));
 	if (!tmp_map)
 		ft_error(data, 3);
 	while (data->map[i] != NULL)
@@ -99,9 +116,9 @@ static char	**copy_map(t_data *data)
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
 			|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
-				data->check_flags.s_pos_i = i;
-				data->check_flags.s_pos_j = j;
-				data->check_flags.s_direction = data->map[i][j];
+				data->check.s_pos_i = i;
+				data->check.s_pos_j = j;
+				data->check.s_direction = data->map[i][j];
 				tmp_map[i][j] = '0';
 			}
 			j++;
@@ -152,10 +169,10 @@ void	check_map(t_data *data)
 
 	i = 0;
 	tmp = copy_map(data);
-	ft_fill(data, tmp, data->check_flags.s_pos_i, data->check_flags.s_pos_j);
+	ft_fill(data, tmp, data->check.s_pos_i, data->check.s_pos_j);
 	while (tmp[i])
 		free(tmp[i++]);
 	free(tmp);
-	if (data->check_flags.s_pos_i == 0 && data->check_flags.s_pos_j == 0)
+	if (data->check.s_pos_i == 0 && data->check.s_pos_j == 0)
 		ft_error(data, 2);
 }
