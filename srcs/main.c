@@ -42,6 +42,8 @@ static void	vars_init(t_data *data)
 	data->vars.win = NULL;
 	data->line = NULL;
 	data->error = 0;
+	//data->file = NULL;
+	data->player = 0;
 }
 
 static void	direction_init(t_data *data)
@@ -70,10 +72,11 @@ int	main(int argc, char **argv)
 		write (1, "Wrong type of file, must be .cub\n", 34);
 		return (0);
 	}
+	//data.file = argv[1];
 	vars_init(&data);
 	data.vars.mlx = mlx_init();
 	ft_file_read(&data, argv[1]);
-	count_line(&data);
+	count_line(&data, argv[1]);
 	parse_map(&data);
 	close(data.fd);
 	check_map(&data);

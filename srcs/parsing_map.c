@@ -1,6 +1,6 @@
 #include "../includes/cube.h"
 
-void    count_line(t_data *data)
+void    count_line(t_data *data, char *file_name)
 {
 	int		ret;
 	int		i;
@@ -20,8 +20,8 @@ void    count_line(t_data *data)
 	close(data->fd);
 	data->map = malloc(sizeof(char*) * (data->vars.size_map + 1));
 	if (!data->map)
-		ft_error(data, 2);
-	if ((data->fd = open("config.cub", O_RDONLY)) == -1)
+		ft_error(data, 3);
+	if ((data->fd = open(file_name, O_RDONLY)) == -1)
 		ft_error(data, 1);
 	while (i <= 8)
 	{
@@ -45,9 +45,9 @@ void	parse_map(t_data *data)
 	{
 		ret = get_next_line(data->fd, &data->line);
 		j = 0;
-		if (!(data->map[i] = malloc(sizeof(char) * (data->vars.size_line_max + 1))))
-			ft_error(data, 1);
-		//data->map[i] = "";
+		data->map[i] = malloc(sizeof(char) * (data->vars.size_line_max + 1));
+		if (!(data->map[i]))
+			ft_error(data, 3);
 		while (data->line[j])
 		{
 			if (data->line[j] == ' ' || data->line[j] == '1')
@@ -58,6 +58,7 @@ void	parse_map(t_data *data)
 				data->map[i][j] = '0';
 			else if (data->line[j] == 'N' || data->line[j] == 'S' || data->line[j] == 'W' || data->line[j] == 'E')
 			{
+				data->player++;
 				data->cam_dir = data->line[j];
 				data->map[i][j] = data->line[j];
 			}
@@ -73,8 +74,8 @@ void	parse_map(t_data *data)
 		i++;
 	}
 	data->map[i] = NULL;
-	if (check)
-		ft_error(data, 1);
+	if (check || data->player != 1)
+		ft_error(data, 2);
 }
 
 static char	**copy_map(t_data *data)
@@ -85,10 +86,14 @@ static char	**copy_map(t_data *data)
 
 	i = 0;
 	tmp_map = malloc(sizeof(char *) * (data->vars.size_map + 1));
+	if (!tmp_map)
+		ft_error(data, 3);
 	while (data->map[i] != NULL)
 	{
 		tmp_map[i] = NULL;
 		tmp_map[i] = malloc(sizeof(char) * (data->vars.size_line_max + 1));
+		if (!(tmp_map[i]))
+			ft_error(data, 3);
 		j = 0;
 		while (data->map[i][j])
 		{
@@ -120,12 +125,12 @@ static void	ft_fill(t_data *data, char **frame, int i, int j)
 	if (frame[i][j] == ' ')
 	{
 		free(frame);
-		ft_error(data, 3);
+		ft_error(data, 2);
 	}
 	if (frame[i][j] == '0' || frame[i][j] == '2')
 	{
 		if (i == 0 || i == data->vars.size_map || j == 0 || j == (int)data->vars.size_line_max)
-			ft_error(data, 3);
+			ft_error(data, 2);
 		frame[i][j] = 'C';
 		ft_fill(data, frame, i + 1, j);
 		if (i != 0)
@@ -137,7 +142,7 @@ static void	ft_fill(t_data *data, char **frame, int i, int j)
 	else if (frame[i][j] != '1' && frame[i][j] != 'C')
 	{
 		free(frame);
-		ft_error(data, 3);
+		ft_error(data, 2);
 	}
 }
 
@@ -153,5 +158,5 @@ void	check_map(t_data *data)
 		free(tmp[i++]);
 	free(tmp);
 	if (data->check_flags.s_pos_i == 0 && data->check_flags.s_pos_j == 0)
-		ft_error(data, 3);
+		ft_error(data, 2);
 }

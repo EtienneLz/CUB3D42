@@ -31,6 +31,7 @@ char	*base_convert(unsigned long long n, char *base_figures, int l)
 	int		i;
 	size_t	size;
 
+	res = NULL;
 	size = len_numb(n, l);
 	res = (char *)malloc(sizeof(char) * (size + 1));
 	i = 1;
