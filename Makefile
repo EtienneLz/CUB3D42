@@ -5,6 +5,7 @@ PATH_MLX = minilibx-linux
 SRCS = srcs/main.c \
 			srcs/win_init.c \
 			srcs/ft_utils_1.c \
+			srcs/ft_utils_2.c \
 			srcs/get_next_line.c \
 			srcs/get_next_line_utils.c \
 			srcs/parsing.c \
@@ -17,6 +18,7 @@ SRCS = srcs/main.c \
 OBJS = srcs/main.o \
 			srcs/win_init.o \
 			srcs/ft_utils_1.o \
+			srcs/ft_utils_2.o \
 			srcs/get_next_line.o \
 			srcs/get_next_line_utils.o \
 			srcs/parsing.o \

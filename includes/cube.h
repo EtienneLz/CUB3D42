@@ -95,6 +95,7 @@ typedef struct s_ray_vars
 
 typedef struct s_data
 {
+	int				skip;
 	int				error;
 	char			*line;
 	void			*img;
@@ -148,4 +149,5 @@ void			cam_init(t_data *data);
 void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memset(void *dest, int c, size_t n);
 int				win_refresh(t_data *data);
+void			skip_lines(t_data *data);
 #endif

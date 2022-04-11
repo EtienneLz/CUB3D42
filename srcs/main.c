@@ -42,6 +42,9 @@ static void	vars_init(t_data *data)
 	data->vars.win = NULL;
 	data->line = NULL;
 	data->error = 0;
+	data->skip = 0;
+	data->res_x = 1000;
+	data->res_y = 800;
 }
 
 static void	direction_init(t_data *data)
