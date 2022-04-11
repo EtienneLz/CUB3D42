@@ -14,6 +14,9 @@ void    count_line(t_data *data)
 		free(data->line);
 	}
 	free(data->line);
+	data->line = NULL;
+	if (data->error)
+		ft_error(data, 1);
 	close(data->fd);
 	data->map = malloc(sizeof(char*) * (data->vars.size_map + 1));
 	if (!data->map)
@@ -33,16 +36,18 @@ void	parse_map(t_data *data)
 	int				i;
 	unsigned int	j;
 	int				ret;
+	int				check;
 
 	i = 0;
 	ret = 1;
+	check = 0;
 	while (ret != 0)
 	{
 		ret = get_next_line(data->fd, &data->line);
-		data->map[i] = NULL;
 		j = 0;
 		if (!(data->map[i] = malloc(sizeof(char) * (data->vars.size_line_max + 1))))
 			ft_error(data, 1);
+		//data->map[i] = "";
 		while (data->line[j])
 		{
 			if (data->line[j] == ' ' || data->line[j] == '1')
@@ -57,7 +62,7 @@ void	parse_map(t_data *data)
 				data->map[i][j] = data->line[j];
 			}
 			else
-				ft_error(data, 1);
+				check = 1;
 			j++;
 		}
 		while (j < data->vars.size_line_max)
@@ -68,6 +73,8 @@ void	parse_map(t_data *data)
 		i++;
 	}
 	data->map[i] = NULL;
+	if (check)
+		ft_error(data, 1);
 }
 
 static char	**copy_map(t_data *data)

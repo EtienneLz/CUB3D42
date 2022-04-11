@@ -95,6 +95,7 @@ typedef struct s_ray_vars
 
 typedef struct s_data
 {
+	int				error;
 	char			*line;
 	void			*img;
 	char			*addr;

@@ -2,15 +2,15 @@
 
 static char	*get_textures(t_data *data, char c1, char c2, int s)
 {
-	if (data->line[0] && data->line[1] && data->line[0] != c1 && data->line[1] != c2)
-		ft_error(data, 1);
+	if (data->line[0] && data->line[1] && (data->line[0] != c1 || data->line[1] != c2))
+		data->error = 1;
 	return (ft_substr(data->line, s, ft_strlen(data->line) - s));
 }
 
 static void	get_colors_2(t_data *data, unsigned int tmp, int k)
 {
 	if (tmp > 255)
-		ft_error(data, 1);
+		data->error = 1;
 	if (k == 0)
 		data->textures_data.r = tmp;
 	if (k == 1)
@@ -30,10 +30,13 @@ static unsigned int	get_colors(t_data *data, char c)
 	j = 0;
 	k = 0;
 	tmp = 0;
-	if (data->line[0] != c && data->line[1] != ' ')
-		ft_error(data, 1);
-	while (k < 3)
+	if (data->line[0] && data->line[1]
+		&& (data->line[0] != c || data->line[1] != ' '))
+		data->error = 1;
+	while (data->line[i])
 	{
+		if (k == 3)
+			break ;
 		while (data->line[i] >= '0' && data->line[i] <= '9')
 		{
 			tmp *= 10;
@@ -41,14 +44,18 @@ static unsigned int	get_colors(t_data *data, char c)
 			i++;
 			j++;
 		}
-		if (j > 3 || (data->line[i] != ',' && k < 2))
-			ft_error(data, 2);
+		if (((j > 3 || j == 0) || (data->line[i] != ',' && k < 2))
+			|| (k == 2 && data->line[i] != '\0'))
+			data->error = 1;
 		get_colors_2(data, tmp, k);
 		j = 0;
 		tmp = 0;
-		i++;
+		if (data->line[i] == ',')
+			i++;
 		k++;
 	}
+	if (k < 3)
+		data->error = 1;
 	return (hexa_color(data->textures_data.r,
 			data->textures_data.g, data->textures_data.b));
 }
@@ -56,16 +63,16 @@ static unsigned int	get_colors(t_data *data, char c)
 static void	ft_file_read_2(t_data *data)
 {
 	if (get_next_line(data->fd, &data->line) < 1)
-		ft_error(data, 1);
+		data->error = 1;
 	if (data->line[0])
-		ft_error(data, 1);
+		data->error = 1;
 	free(data->line);
 	if (get_next_line(data->fd, &data->line) < 1)
-		ft_error(data, 1);
+		data->error = 1;
 	data->textures_data.floor_c = get_colors(data, 'F');
 	free(data->line);
 	if (get_next_line(data->fd, &data->line) < 1)
-		ft_error(data, 1);
+		data->error = 1;
 	data->textures_data.sky_c = get_colors(data, 'C');
 	free(data->line);
 }

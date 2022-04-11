@@ -45,15 +45,15 @@ int	ft_free(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->line)
+	if (data->line != NULL)
 		free(data->line);
-	if (data->textures_data.textures[0])
+	if (data->textures_data.textures[0] != NULL)
 		free(data->textures_data.textures[0]);
-	if (data->textures_data.textures[1])
+	if (data->textures_data.textures[1] != NULL)
 		free(data->textures_data.textures[1]);
-	if (data->textures_data.textures[2])
+	if (data->textures_data.textures[2] != NULL)
 		free(data->textures_data.textures[2]);
-	if (data->textures_data.textures[3])
+	if (data->textures_data.textures[3] != NULL)
 		free(data->textures_data.textures[3]);
 	if (data->map)
 	{
@@ -66,13 +66,13 @@ int	ft_free(t_data *data)
 	}
 	if (data->depth_buffer)
 		free(data->depth_buffer);
-	if (data->textures_data.image[0].img)
+	if (data->textures_data.image[0].img != NULL)
 		mlx_destroy_image(data->vars.mlx, data->textures_data.image[0].img);
-	if (data->textures_data.image[1].img)
+	if (data->textures_data.image[1].img != NULL)
 		mlx_destroy_image(data->vars.mlx, data->textures_data.image[1].img);
-	if (data->textures_data.image[2].img)
+	if (data->textures_data.image[2].img != NULL)
 		mlx_destroy_image(data->vars.mlx, data->textures_data.image[2].img);
-	if (data->textures_data.image[3].img)
+	if (data->textures_data.image[3].img != NULL)
 		mlx_destroy_image(data->vars.mlx, data->textures_data.image[3].img);
 	if (data->img != 0)
 		mlx_destroy_image(data->vars.mlx, data->img);

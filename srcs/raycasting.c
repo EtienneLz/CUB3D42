@@ -52,17 +52,23 @@ static void	draw_line_textured(t_data *data, int i)
 	else if (data->textures_data.orientation == 'W')
 		texture = data->textures_data.image[2];
 	j = 0;
+	//printf("%d\n", start);
 	if (start > 0)
+	{
 		while (j < start)
-			my_mlx_pixel_put(data, i, j++, data->textures_data.floor_c);
-	while (j < (end >= data->res_y ? data->res_y - 1 : end))
+		{
+			//printf(" bijour\n");
+			my_mlx_pixel_put(data, i, j++, data->textures_data.sky_c);
+		}
+	}
+	while (j < (end >= data->res_y ? data->res_y : end))
 	{
 		color = get_tex_color(texture, data->textures_data.wall_x,
 			((j - start) * 1.0) / (end - start));
 		my_mlx_pixel_put(data, i, j++, color);
 	}
 	while (j < data->res_y)
-		my_mlx_pixel_put(data, i, j++, data->textures_data.sky_c);
+		my_mlx_pixel_put(data, i, j++, data->textures_data.floor_c);
 }
 
 static void	init_vars(t_data *data, double ray[2])

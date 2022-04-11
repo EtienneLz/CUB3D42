@@ -28,7 +28,7 @@ OBJS = srcs/main.o \
 
 INCLUDES = -I/includes/cube.h
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -fPIE
 
 GCC = gcc 
 

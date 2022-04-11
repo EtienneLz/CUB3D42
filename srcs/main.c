@@ -40,6 +40,8 @@ static void	vars_init(t_data *data)
 	data->img = NULL;
 	data->depth_buffer = NULL;
 	data->vars.win = NULL;
+	data->line = NULL;
+	data->error = 0;
 }
 
 static void	direction_init(t_data *data)
@@ -63,7 +65,11 @@ int	main(int argc, char **argv)
 		write (1, "Wrong number of arguments\n", 27);
 		return (0);
 	}
-	if (!(argv[1][ft_strlen(argv[1])] == 'b' && argv[1][ft_strlen(argv[1]) - 1] == 'u' && argv[1][ft_strlen(argv[1]) - 2] == 'c' && argv[1][ft_strlen(argv[1]) - 3] == '.'))
+	if (argv[1][ft_strlen(argv[1]) - 1] != 'b' && argv[1][ft_strlen(argv[1]) - 2] != 'u' && argv[1][ft_strlen(argv[1]) - 3] != 'c' && argv[1][ft_strlen(argv[1]) - 4] != '.')
+	{
+		write (1, "Wrong type of file, must be .cub\n", 34);
+		return (0);
+	}
 	vars_init(&data);
 	data.vars.mlx = mlx_init();
 	ft_file_read(&data, argv[1]);

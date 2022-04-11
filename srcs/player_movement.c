@@ -18,47 +18,40 @@ void	move_player(t_data *data, int direction, int axis)
 	double	d_i;
 	double	d_j;
 
-	speed = 0.20;
+	speed = 0.15;
 	if (direction == 0)
 		return ;
-	//if (check_collision(data, direction, axis))
-	//{
-		//win_init(data);
-		if (axis == 1)
+	if (axis == 1)
+	{
+		if (direction > 0)
 		{
-			if (direction > 0)
-			{
-				d_i = data->dir[0] * -speed;
-				d_j = data->dir[1] * -speed;
-			}
-			if (direction < 0)
-			{
-				d_i = data->dir[0] * speed;
-				d_j = data->dir[1] * speed;
-			}
+			d_i = data->dir[0] * -speed;
+			d_j = data->dir[1] * -speed;
 		}
-		if (axis == 2)
+		if (direction < 0)
 		{
-			if (direction > 0)
-			{
-				d_i = data->cam_plane[0] * speed;
-				d_j = data->cam_plane[1] * speed;
-			}
-			if (direction < 0)
-			{
-				d_i = data->cam_plane[0] * -speed;
-				d_j = data->cam_plane[1] * -speed;
-			}
+			d_i = data->dir[0] * speed;
+			d_j = data->dir[1] * speed;
 		}
-		if (data->map[(int)(data->check_flags.pos_i + d_i)][(int)(data->check_flags.pos_j + d_j)] != '1')
+	}
+	if (axis == 2)
+	{
+		if (direction > 0)
 		{
-			data->check_flags.pos_i += d_i;
-			data->check_flags.pos_j += d_j;
+			d_i = data->cam_plane[0] * speed;
+			d_j = data->cam_plane[1] * speed;
 		}
-		//raycasting(data);
-		//mlx_put_image_to_window(data->vars.mlx,
-		//	data->vars.win, data->img, 0, 0);
-	//}
+		if (direction < 0)
+		{
+			d_i = data->cam_plane[0] * -speed;
+			d_j = data->cam_plane[1] * -speed;
+		}
+	}
+	if (data->map[(int)(data->check_flags.pos_i + d_i)][(int)(data->check_flags.pos_j + d_j)] != '1')
+	{
+		data->check_flags.pos_i += d_i;
+		data->check_flags.pos_j += d_j;
+	}
 }
 
 void	rotate_player(t_data *data, int direction)
