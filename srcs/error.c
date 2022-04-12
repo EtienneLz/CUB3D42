@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 17:56:21 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/05 16:27:09 by elouchez         ###   ########.fr       */
+/*   Created: 2022/04/12 15:52:27 by mseligna          #+#    #+#             */
+/*   Updated: 2022/04/12 15:52:27 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_error(t_data *data, int code)
 {
 	write(2, "Error\n", 6);
 	if (code == 0)
-		write(2, "Invalid configuration D\n", 24);
+		write(2, "Invalid configuration\n", 22);
 	else
 	{
 		close(data->fd);
