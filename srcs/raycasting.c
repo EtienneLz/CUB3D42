@@ -33,36 +33,45 @@ static int	get_tex_color(t_image tex, double u, double v)
 	return ((r << 16) + (g << 8) + b);
 }
 
+static void	draw_init(t_data *data, t_image *text)
+{
+	data->vars.j = 0;
+	data->vars.start = data->res_y / 2 - data->text_d.line_height / 2;
+	data->vars.end = data->res_y / 2 + data->text_d.line_height / 2;
+	if (data->text_d.orientation == 'N')
+		*text = data->text_d.image[1];
+	else if (data->text_d.orientation == 'S')
+		*text = data->text_d.image[3];
+	else if (data->text_d.orientation == 'E')
+		*text = data->text_d.image[0];
+	else if (data->text_d.orientation == 'W')
+		*text = data->text_d.image[2];
+}
+
+static void	put_loop(t_data *data, t_image texture, int i)
+{
+	data->vars.color = get_tex_color(texture, data->text_d.wall_x,
+			((data->vars.j - data->vars.start) * 1.0)
+			/ (data->vars.end - data->vars.start));
+	my_mlx_pixel_put(data, i, data->vars.j++, data->vars.color);
+}
+
 static void	draw_line_textured(t_data *data, int i)
 {
-	int		j;
-	int		start;
-	int		end;
 	t_image	texture;
-	int		color;
 
-	start = data->res_y / 2 - data->text_d.line_height / 2;
-	end = data->res_y / 2 + data->text_d.line_height / 2;
-	if (data->text_d.orientation == 'N')
-		texture = data->text_d.image[1];
-	else if (data->text_d.orientation == 'S')
-		texture = data->text_d.image[3];
-	else if (data->text_d.orientation == 'E')
-		texture = data->text_d.image[0];
-	else if (data->text_d.orientation == 'W')
-		texture = data->text_d.image[2];
-	j = 0;
-	if (start > 0)
-		while (j < start)
-			my_mlx_pixel_put(data, i, j++, data->text_d.sky_c);
-	while (j < (end >= data->res_y ? data->res_y : end))
-	{
-		color = get_tex_color(texture, data->text_d.wall_x,
-				((j - start) * 1.0) / (end - start));
-		my_mlx_pixel_put(data, i, j++, color);
-	}
-	while (j < data->res_y)
-		my_mlx_pixel_put(data, i, j++, data->text_d.floor_c);
+	draw_init(data, &texture);
+	if (data->vars.start > 0)
+		while (data->vars.j < data->vars.start)
+			my_mlx_pixel_put(data, i, data->vars.j++, data->text_d.sky_c);
+	if (data->vars.end >= data->res_y)
+		while (data->vars.j < data->res_y)
+			put_loop(data, texture, i);
+	else
+		while (data->vars.j < data->vars.end)
+			put_loop(data, texture, i);
+	while (data->vars.j < data->res_y)
+		my_mlx_pixel_put(data, i, data->vars.j++, data->text_d.floor_c);
 }
 
 static void	init_vars(t_data *data, double ray[2])

@@ -14,9 +14,6 @@
 
 static char	*get_textures(t_data *data, int s)
 {
-	//if (data->line[0] && data->line[1]
-	//	&& (data->line[0] != c1 || data->line[1] != c2))
-	//	data->error = 1;
 	return (ft_substr(data->line, s, ft_strlen(data->line) - s));
 }
 
@@ -77,25 +74,12 @@ static unsigned int	get_colors(t_data *data, char c)
 			data->text_d.g, data->text_d.b));
 }
 
-/*static void	ft_file_read_2(t_data *data)
-{
-	skip_lines(data);
-	data->text_d.floor_c = get_colors(data, 'F');
-	free(data->line);
-	skip_lines(data);
-	data->text_d.sky_c = get_colors(data, 'C');
-	free(data->line);
-}*/
-
-void	ft_file_read(t_data *data, char *file_name)
+void	ft_file_read(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	data->fd = open(file_name, O_RDONLY);
-	if (data->fd == -1)
-		ft_error(data, 1);
-	while (i <= 7)
+	while (i < 7)
 	{
 		skip_lines(data);
 		if (!(ft_strncmp("NO", data->line, 2)))
@@ -110,8 +94,10 @@ void	ft_file_read(t_data *data, char *file_name)
 			data->text_d.floor_c = get_colors(data, 'F');
 		else if (!(ft_strncmp("C", data->line, 1)))
 			data->text_d.sky_c = get_colors(data, 'C');
+		else if (i < 6)
+			data->error = 1;
 		i++;
-		if (data->line != NULL)
+		if (data->line != NULL && i < 7)
 			free(data->line);
 	}
 }

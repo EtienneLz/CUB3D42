@@ -1,4 +1,4 @@
-
+F   0 ,  255  ,  0
 
 NO ./textures/bricks.xpm
 
@@ -8,8 +8,11 @@ WE       ./textures/wallpaper.xpm
 
 EA ./textures/wood.xpm
 
-F   0 ,  255  ,  0
+
 C 225   ,20,0
+
+
+
 
 
 

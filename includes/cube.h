@@ -54,6 +54,10 @@ typedef struct s_vars
 	int			size_map;
 	size_t		size_line_max;
 	int			size_case;
+	int			start;
+	int			j;
+	int			end;
+	int			color;
 }				t_vars;
 
 typedef struct s_text_d
@@ -135,7 +139,7 @@ char			*ft_save(char *buffer, char *save);
 void			ft_error(t_data *data, int code);
 char			*base_convert(unsigned long long n, char *base_figures, int l);
 unsigned int	hexa_color(int r, int g, int b);
-void			ft_file_read(t_data *data, char *file_name);
+void			ft_file_read(t_data *data);
 int				ft_free(t_data *data);
 void			parse_map(t_data *data);
 void			count_line(t_data *data, char *file_name);

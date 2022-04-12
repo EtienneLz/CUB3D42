@@ -16,7 +16,7 @@ void	ft_error(t_data *data, int code)
 {
 	write(2, "Error\n", 6);
 	if (code == 0)
-		write(2, "Invalid configuration\n", 22);
+		write(2, "Invalid configuration D\n", 24);
 	else
 	{
 		close(data->fd);

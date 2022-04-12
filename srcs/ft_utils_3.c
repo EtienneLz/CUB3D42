@@ -6,7 +6,7 @@
 /*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:03:49 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/12 11:02:17 by elouchez         ###   ########.fr       */
+/*   Updated: 2022/04/12 11:52:38 by elouchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,25 @@ static void	texture_init_2(t_data *data)
 
 void	texture_init(t_data *data)
 {
+	if (data->text_d.textures[0] == NULL)
+		ft_error(data, 0);
 	data->text_d.image[0].img = mlx_xpm_file_to_image(data->vars.mlx,
-			data->text_d.textures[0],
-			&(data->text_d.image[0].width),
-			&(data->text_d.image[0].height));
-	if (data->text_d.image[0].img == NULL)
+				data->text_d.textures[0], &(data->text_d.image[0].width),
+				&(data->text_d.image[0].height));
+	if (data->text_d.image[0].img == NULL || data->text_d.textures[1] == NULL)
 		ft_error(data, 0);
 	data->text_d.image[1].img = mlx_xpm_file_to_image(data->vars.mlx,
-			data->text_d.textures[1],
-			&(data->text_d.image[1].width),
+			data->text_d.textures[1], &(data->text_d.image[1].width),
 			&(data->text_d.image[1].height));
-	if (data->text_d.image[1].img == NULL)
+	if (data->text_d.image[1].img == NULL || data->text_d.textures[2] == NULL)
 		ft_error(data, 0);
 	data->text_d.image[2].img = mlx_xpm_file_to_image(data->vars.mlx,
-			data->text_d.textures[2],
-			&(data->text_d.image[2].width),
+			data->text_d.textures[2], &(data->text_d.image[2].width),
 			&(data->text_d.image[2].height));
-	if (data->text_d.image[2].img == NULL)
+	if (data->text_d.image[2].img == NULL || data->text_d.textures[3] == NULL)
 		ft_error(data, 0);
 	data->text_d.image[3].img = mlx_xpm_file_to_image(data->vars.mlx,
-			data->text_d.textures[3],
-			&(data->text_d.image[3].width),
+			data->text_d.textures[3], &(data->text_d.image[3].width),
 			&(data->text_d.image[3].height));
 	if (data->text_d.image[3].img == NULL)
 		ft_error(data, 0);
@@ -77,7 +75,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 
 	i = 0;
-	printf("in\n");
 	if (n == 0)
 		return (0);
 	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
@@ -88,6 +85,5 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		}
 		i++;
 	}
-	printf("OK\n");
 	return (0);
 }
