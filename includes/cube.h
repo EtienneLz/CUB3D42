@@ -152,4 +152,6 @@ void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memset(void *dest, int c, size_t n);
 int				win_refresh(t_data *data);
 void			skip_lines(t_data *data);
+int				skip_spaces(t_data *data, int n);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
 #endif
