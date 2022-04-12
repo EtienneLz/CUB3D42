@@ -31,14 +31,14 @@ void	count_line(t_data *data, char *file_name)
 	free(data->line);
 	data->line = NULL;
 	if (data->error)
-		ft_error(data, 1);
+		ft_error(data, 3);
 	close(data->fd);
 	data->map = malloc(sizeof(char *) * (data->vars.size_map + 2));
 	if (!data->map)
 		ft_error(data, 3);
 	data->fd = open(file_name, O_RDONLY);
 	if (data->fd == -1)
-		ft_error(data, 1);
+		ft_error(data, 3);
 	while (i <= 5 + data->skip)
 	{
 		get_next_line(data->fd, &data->line);
@@ -57,6 +57,7 @@ void	parse_map(t_data *data)
 	ret = 1;
 	while (ret != 0)
 	{
+		printf("%s\n", data->line);
 		ret = get_next_line(data->fd, &data->line);
 		j = 0;
 		data->map[i] = malloc(sizeof(char) * (data->vars.size_line_max + 1));
@@ -90,7 +91,7 @@ void	parse_map(t_data *data)
 	}
 	data->map[i] = NULL;
 	if (data->error || data->player != 1)
-		ft_error(data, 1);
+		ft_error(data, 3);
 }
 
 static char	**copy_map(t_data *data)

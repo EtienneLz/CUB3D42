@@ -154,4 +154,6 @@ int				win_refresh(t_data *data);
 void			skip_lines(t_data *data);
 void			check_empty(t_data *data);
 void			run_dda(t_data *data, int i, double ray[2]);
+int				skip_spaces(t_data *data, int n);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
 #endif

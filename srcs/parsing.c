@@ -12,11 +12,11 @@
 
 #include "../includes/cube.h"
 
-static char	*get_textures(t_data *data, char c1, char c2, int s)
+static char	*get_textures(t_data *data, int s)
 {
-	if (data->line[0] && data->line[1]
-		&& (data->line[0] != c1 || data->line[1] != c2))
-		data->error = 1;
+	//if (data->line[0] && data->line[1]
+	//	&& (data->line[0] != c1 || data->line[1] != c2))
+	//	data->error = 1;
 	return (ft_substr(data->line, s, ft_strlen(data->line) - s));
 }
 
@@ -50,6 +50,8 @@ static unsigned int	get_colors(t_data *data, char c)
 	{
 		if (k == 3)
 			break ;
+		if (data->line[i] == ' ')
+			i = skip_spaces(data, i);
 		while (data->line[i] >= '0' && data->line[i] <= '9')
 		{
 			tmp *= 10;
@@ -57,6 +59,8 @@ static unsigned int	get_colors(t_data *data, char c)
 			i++;
 			j++;
 		}
+		if (data->line[i] == ' ')
+			i = skip_spaces(data, i);
 		if (((j > 3 || j == 0) || (data->line[i] != ',' && k < 2))
 			|| (k == 2 && data->line[i] != '\0'))
 			data->error = 1;
@@ -73,7 +77,7 @@ static unsigned int	get_colors(t_data *data, char c)
 			data->text_d.g, data->text_d.b));
 }
 
-static void	ft_file_read_2(t_data *data)
+/*static void	ft_file_read_2(t_data *data)
 {
 	skip_lines(data);
 	data->text_d.floor_c = get_colors(data, 'F');
@@ -81,24 +85,33 @@ static void	ft_file_read_2(t_data *data)
 	skip_lines(data);
 	data->text_d.sky_c = get_colors(data, 'C');
 	free(data->line);
-}
+}*/
 
 void	ft_file_read(t_data *data, char *file_name)
 {
+	int	i;
+
+	i = 0;
 	data->fd = open(file_name, O_RDONLY);
 	if (data->fd == -1)
 		ft_error(data, 1);
-	skip_lines(data);
-	data->text_d.textures[1] = get_textures(data, 'N', 'O', 3);
-	free(data->line);
-	skip_lines(data);
-	data->text_d.textures[3] = get_textures(data, 'S', 'O', 3);
-	free(data->line);
-	skip_lines(data);
-	data->text_d.textures[2] = get_textures(data, 'W', 'E', 3);
-	free(data->line);
-	skip_lines(data);
-	data->text_d.textures[0] = get_textures(data, 'E', 'A', 3);
-	free(data->line);
-	ft_file_read_2(data);
+	while (i <= 7)
+	{
+		skip_lines(data);
+		if (!(ft_strncmp("NO", data->line, 2)))
+			data->text_d.textures[1] = get_textures(data, skip_spaces(data, 2));
+		else if (!(ft_strncmp("SO", data->line, 2)))
+			data->text_d.textures[3] = get_textures(data, skip_spaces(data, 2));
+		else if (!(ft_strncmp("WE", data->line, 2)))
+			data->text_d.textures[2] = get_textures(data, skip_spaces(data, 2));
+		else if (!(ft_strncmp("EA", data->line, 2)))
+			data->text_d.textures[0] = get_textures(data, skip_spaces(data, 2));
+		else if (!(ft_strncmp("F", data->line, 1)))
+			data->text_d.floor_c = get_colors(data, 'F');
+		else if (!(ft_strncmp("C", data->line, 1)))
+			data->text_d.sky_c = get_colors(data, 'C');
+		i++;
+		if (data->line != NULL)
+			free(data->line);
+	}
 }
