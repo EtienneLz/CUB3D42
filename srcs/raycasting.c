@@ -87,7 +87,7 @@ void	run_dda(t_data *data, int i, double ray[2])
 			+ data->tex.wall_dist * ray[0];
 	data->tex.wall_x -= floor(data->tex.wall_x);
 	if (data->tex.wall_dist > 0)
-		data->tex.line_height = data->res_x / data->tex.wall_dist;
+		data->tex.line_height = data->res_y / data->tex.wall_dist;
 	else
 		data->tex.line_height = 2147483647;
 	draw_line_textured(data, i);
