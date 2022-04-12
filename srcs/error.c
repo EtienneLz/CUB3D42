@@ -14,7 +14,7 @@
 
 void	ft_error(t_data *data, int code)
 {
-	write(1, "Error\n", 6);
+	write(2, "Error\n", 6);
 	if (code == 0)
 		write(2, "Invalid configuration\n", 22);
 	else
@@ -23,11 +23,32 @@ void	ft_error(t_data *data, int code)
 		if (code == 1)
 			write(2, "Invalid configuration\n", 22);
 		if (code == 2)
-			write(2, "Invalid map\n", 12);
+			write(2, "Invalid map\n", 13);
 		if (code == 3)
 			write(2, "Memory allocation failed\n", 25);
 	}
 	ft_free(data);
+}
+
+static void	ft_free_2(t_data *data)
+{
+	if (data->depth_buffer)
+		free(data->depth_buffer);
+	if (data->text_d.image[0].img != NULL)
+		mlx_destroy_image(data->vars.mlx, data->text_d.image[0].img);
+	if (data->text_d.image[1].img != NULL)
+		mlx_destroy_image(data->vars.mlx, data->text_d.image[1].img);
+	if (data->text_d.image[2].img != NULL)
+		mlx_destroy_image(data->vars.mlx, data->text_d.image[2].img);
+	if (data->text_d.image[3].img != NULL)
+		mlx_destroy_image(data->vars.mlx, data->text_d.image[3].img);
+	if (data->img != 0)
+		mlx_destroy_image(data->vars.mlx, data->img);
+	if (data->check.init_done)
+		mlx_destroy_window(data->vars.mlx, data->vars.win);
+	mlx_destroy_display(data->vars.mlx);
+	mlx_loop_end(&data->vars);
+	free(data->vars.mlx);
 }
 
 int	ft_free(t_data *data)
@@ -37,14 +58,14 @@ int	ft_free(t_data *data)
 	i = 0;
 	if (data->line != NULL)
 		free(data->line);
-	if (data->textures_data.textures[0] != NULL)
-		free(data->textures_data.textures[0]);
-	if (data->textures_data.textures[1] != NULL)
-		free(data->textures_data.textures[1]);
-	if (data->textures_data.textures[2] != NULL)
-		free(data->textures_data.textures[2]);
-	if (data->textures_data.textures[3] != NULL)
-		free(data->textures_data.textures[3]);
+	if (data->text_d.textures[0] != NULL)
+		free(data->text_d.textures[0]);
+	if (data->text_d.textures[1] != NULL)
+		free(data->text_d.textures[1]);
+	if (data->text_d.textures[2] != NULL)
+		free(data->text_d.textures[2]);
+	if (data->text_d.textures[3] != NULL)
+		free(data->text_d.textures[3]);
 	if (data->map != NULL)
 	{
 		while (data->map[i] != NULL)
@@ -54,22 +75,6 @@ int	ft_free(t_data *data)
 		}
 		free(data->map);
 	}
-	if (data->depth_buffer)
-		free(data->depth_buffer);
-	if (data->textures_data.image[0].img != NULL)
-		mlx_destroy_image(data->vars.mlx, data->textures_data.image[0].img);
-	if (data->textures_data.image[1].img != NULL)
-		mlx_destroy_image(data->vars.mlx, data->textures_data.image[1].img);
-	if (data->textures_data.image[2].img != NULL)
-		mlx_destroy_image(data->vars.mlx, data->textures_data.image[2].img);
-	if (data->textures_data.image[3].img != NULL)
-		mlx_destroy_image(data->vars.mlx, data->textures_data.image[3].img);
-	if (data->img != 0)
-		mlx_destroy_image(data->vars.mlx, data->img);
-	if (data->check_flags.init_done)
-		mlx_destroy_window(data->vars.mlx, data->vars.win);
-	mlx_destroy_display(data->vars.mlx);
-	mlx_loop_end(&data->vars);
-	free(data->vars.mlx);
+	ft_free_2(data);
 	exit(EXIT_SUCCESS);
 }

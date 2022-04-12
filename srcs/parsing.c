@@ -25,11 +25,11 @@ static void	get_colors_2(t_data *data, unsigned int tmp, int k)
 	if (tmp > 255)
 		data->error = 1;
 	if (k == 0)
-		data->textures_data.r = tmp;
+		data->text_d.r = tmp;
 	if (k == 1)
-		data->textures_data.g = tmp;
+		data->text_d.g = tmp;
 	if (k == 2)
-		data->textures_data.b = tmp;
+		data->text_d.b = tmp;
 }
 
 static unsigned int	get_colors(t_data *data, char c)
@@ -73,17 +73,17 @@ static unsigned int	get_colors(t_data *data, char c)
 	}
 	if (k < 3)
 		data->error = 1;
-	return (hexa_color(data->textures_data.r,
-			data->textures_data.g, data->textures_data.b));
+	return (hexa_color(data->text_d.r,
+			data->text_d.g, data->text_d.b));
 }
 
 /*static void	ft_file_read_2(t_data *data)
 {
 	skip_lines(data);
-	data->textures_data.floor_c = get_colors(data, 'F');
+	data->text_d.floor_c = get_colors(data, 'F');
 	free(data->line);
 	skip_lines(data);
-	data->textures_data.sky_c = get_colors(data, 'C');
+	data->text_d.sky_c = get_colors(data, 'C');
 	free(data->line);
 }*/
 
