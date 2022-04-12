@@ -12,9 +12,11 @@ SRCS = srcs/main.c \
 			srcs/parsing.c \
 			srcs/error.c \
 			srcs/parsing_map.c \
+			srcs/parsing_map_2.c \
 			srcs/input.c \
 			srcs/player_movement.c \
 			srcs/raycasting.c \
+			srcs/raycasting_2.c \
 
 OBJS = srcs/main.o \
 			srcs/win_init.o \
@@ -26,9 +28,11 @@ OBJS = srcs/main.o \
 			srcs/parsing.o \
 			srcs/error.o \
 			srcs/parsing_map.o \
+			srcs/parsing_map_2.o \
 			srcs/input.o \
 			srcs/player_movement.o \
 			srcs/raycasting.o \
+			srcs/raycasting_2.o \
 
 INCLUDES = -I/includes/cube.h
 
