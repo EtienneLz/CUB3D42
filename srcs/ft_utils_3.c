@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:03:49 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/12 11:02:17 by elouchez         ###   ########.fr       */
+/*   Updated: 2022/04/12 11:18:42 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 
 	i = 0;
-	printf("in\n");
 	if (n == 0)
 		return (0);
 	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
@@ -88,6 +87,5 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		}
 		i++;
 	}
-	printf("OK\n");
 	return (0);
 }
