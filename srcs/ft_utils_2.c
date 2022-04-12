@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:08:28 by elouchez          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/12 11:13:34 by mseligna         ###   ########.fr       */
+=======
+/*   Updated: 2022/04/12 11:04:26 by elouchez         ###   ########.fr       */
+>>>>>>> fb0167a9d68e69a658dae6e0ee72515ab1ccbded
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +29,6 @@ void	skip_lines(t_data *data)
 	}
 }
 
-int	skip_spaces(t_data *data, int n)
-{
-	while (data->line[n] && data->line[n] == ' ')
-		n++;
-	return (n);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	printf("in\n");
-	if (n == 0)
-		return (0);
-	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
-	{
-		if (s1[i] != s2[i] || s1[i] == '\0')
-		{
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
-		i++;
-	}
-	printf("OK\n");
-	return (0);
 void	check_empty(t_data *data)
 {
 	int	i;

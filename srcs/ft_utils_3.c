@@ -6,7 +6,7 @@
 /*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:03:49 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/11 23:32:10 by elouchez         ###   ########.fr       */
+/*   Updated: 2022/04/12 11:02:17 by elouchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,31 @@ void	texture_init(t_data *data)
 	if (data->text_d.image[3].img == NULL)
 		ft_error(data, 0);
 	texture_init_2(data);
+}
+
+int	skip_spaces(t_data *data, int n)
+{
+	while (data->line[n] && data->line[n] == ' ')
+		n++;
+	return (n);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	printf("in\n");
+	if (n == 0)
+		return (0);
+	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
+	{
+		if (s1[i] != s2[i] || s1[i] == '\0')
+		{
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		}
+		i++;
+	}
+	printf("OK\n");
+	return (0);
 }

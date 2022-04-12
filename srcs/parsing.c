@@ -97,23 +97,20 @@ void	ft_file_read(t_data *data, char *file_name)
 		ft_error(data, 1);
 	while (i <= 7)
 	{
-		printf("i = %d\n", i);
-		//get_next_line(data->fd, &data->line);
 		skip_lines(data);
 		if (!(ft_strncmp("NO", data->line, 2)))
-			data->textures_data.textures[1] = get_textures(data, skip_spaces(data, 2));
+			data->text_d.textures[1] = get_textures(data, skip_spaces(data, 2));
 		else if (!(ft_strncmp("SO", data->line, 2)))
-			data->textures_data.textures[3] = get_textures(data, skip_spaces(data, 2));
+			data->text_d.textures[3] = get_textures(data, skip_spaces(data, 2));
 		else if (!(ft_strncmp("WE", data->line, 2)))
-			data->textures_data.textures[2] = get_textures(data, skip_spaces(data, 2));
+			data->text_d.textures[2] = get_textures(data, skip_spaces(data, 2));
 		else if (!(ft_strncmp("EA", data->line, 2)))
-			data->textures_data.textures[0] = get_textures(data, skip_spaces(data, 2));
+			data->text_d.textures[0] = get_textures(data, skip_spaces(data, 2));
 		else if (!(ft_strncmp("F", data->line, 1)))
-			data->textures_data.floor_c = get_colors(data, 'F');
+			data->text_d.floor_c = get_colors(data, 'F');
 		else if (!(ft_strncmp("C", data->line, 1)))
-			data->textures_data.sky_c = get_colors(data, 'C');
+			data->text_d.sky_c = get_colors(data, 'C');
 		i++;
-		printf("error %d\n", data->error);
 		if (data->line != NULL)
 			free(data->line);
 	}
