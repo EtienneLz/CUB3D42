@@ -12,11 +12,6 @@
 
 #include "../includes/cube.h"
 
-static char	*get_tex(t_data *data, int s)
-{
-	return (ft_substr(data->line, s, ft_strlen(data->line) - s));
-}
-
 static void	get_colors_2(t_data *data, int *tmp, int k, int *j)
 {
 	if (*tmp > 255)

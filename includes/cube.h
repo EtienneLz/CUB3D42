@@ -117,7 +117,7 @@ typedef struct s_data
 	double			*depth_buffer;
 	char			**map;
 	t_vars			vars;
-	t_tex		tex;
+	t_tex			tex;
 	t_check			check;
 	t_ray_vars		ray_vars;
 	int				player;
@@ -162,4 +162,5 @@ int				skip_spaces(t_data *data, int n);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 void			draw_line_textured(t_data *data, int i);
 void			free_tab(char **tab);
+char			*get_tex(t_data *data, int s);
 #endif

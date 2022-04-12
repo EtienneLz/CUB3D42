@@ -6,7 +6,7 @@
 /*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:35:41 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/12 14:39:44 by elouchez         ###   ########.fr       */
+/*   Updated: 2022/04/12 14:45:37 by elouchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,9 @@ void	count_line(t_data *data, char *file_name)
 	if (data->fd == -1)
 		ft_error(data, 1);
 	count_line_2(data, i);
+}
+
+char	*get_tex(t_data *data, int s)
+{
+	return (ft_substr(data->line, s, ft_strlen(data->line) - s));
 }
