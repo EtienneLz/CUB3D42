@@ -65,8 +65,6 @@ void	parse_map(t_data *data)
 		{
 			if (data->line[j] == ' ' || data->line[j] == '1')
 				data->map[i][j] = data->line[j];
-			else if (data->line[j] == '2')
-				data->map[i][j] = '2';
 			else if (data->line[j] == '0')
 				data->map[i][j] = '0';
 			else if (data->line[j] == 'N' || data->line[j] == 'S'

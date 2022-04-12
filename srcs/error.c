@@ -34,14 +34,14 @@ static void	ft_free_2(t_data *data)
 {
 	if (data->depth_buffer)
 		free(data->depth_buffer);
-	if (data->text_d.image[0].img != NULL)
-		mlx_destroy_image(data->vars.mlx, data->text_d.image[0].img);
-	if (data->text_d.image[1].img != NULL)
-		mlx_destroy_image(data->vars.mlx, data->text_d.image[1].img);
-	if (data->text_d.image[2].img != NULL)
-		mlx_destroy_image(data->vars.mlx, data->text_d.image[2].img);
-	if (data->text_d.image[3].img != NULL)
-		mlx_destroy_image(data->vars.mlx, data->text_d.image[3].img);
+	if (data->tex.image[0].img != NULL)
+		mlx_destroy_image(data->vars.mlx, data->tex.image[0].img);
+	if (data->tex.image[1].img != NULL)
+		mlx_destroy_image(data->vars.mlx, data->tex.image[1].img);
+	if (data->tex.image[2].img != NULL)
+		mlx_destroy_image(data->vars.mlx, data->tex.image[2].img);
+	if (data->tex.image[3].img != NULL)
+		mlx_destroy_image(data->vars.mlx, data->tex.image[3].img);
 	if (data->img != 0)
 		mlx_destroy_image(data->vars.mlx, data->img);
 	if (data->check.init_done)
@@ -58,14 +58,14 @@ int	ft_free(t_data *data)
 	i = 0;
 	if (data->line != NULL)
 		free(data->line);
-	if (data->text_d.textures[0] != NULL)
-		free(data->text_d.textures[0]);
-	if (data->text_d.textures[1] != NULL)
-		free(data->text_d.textures[1]);
-	if (data->text_d.textures[2] != NULL)
-		free(data->text_d.textures[2]);
-	if (data->text_d.textures[3] != NULL)
-		free(data->text_d.textures[3]);
+	if (data->tex.t[0] != NULL)
+		free(data->tex.t[0]);
+	if (data->tex.t[1] != NULL)
+		free(data->tex.t[1]);
+	if (data->tex.t[2] != NULL)
+		free(data->tex.t[2]);
+	if (data->tex.t[3] != NULL)
+		free(data->tex.t[3]);
 	if (data->map != NULL)
 	{
 		while (data->map[i] != NULL)

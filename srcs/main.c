@@ -14,14 +14,14 @@
 
 static void	vars_init_2(t_data *data)
 {
-	data->text_d.image[0].img = NULL;
-	data->text_d.image[1].img = NULL;
-	data->text_d.image[2].img = NULL;
-	data->text_d.image[3].img = NULL;
-	data->text_d.textures[0] = NULL;
-	data->text_d.textures[1] = NULL;
-	data->text_d.textures[2] = NULL;
-	data->text_d.textures[3] = NULL;
+	data->tex.image[0].img = NULL;
+	data->tex.image[1].img = NULL;
+	data->tex.image[2].img = NULL;
+	data->tex.image[3].img = NULL;
+	data->tex.t[0] = NULL;
+	data->tex.t[1] = NULL;
+	data->tex.t[2] = NULL;
+	data->tex.t[3] = NULL;
 	data->img = NULL;
 	data->depth_buffer = NULL;
 	data->vars.win = NULL;
@@ -49,11 +49,11 @@ static void	vars_init(t_data *data, char *argv)
 	data->vars.size_map = 0;
 	data->res_x = 0;
 	data->res_y = 0;
-	data->text_d.r = 0;
-	data->text_d.g = 0;
-	data->text_d.b = 0;
-	data->text_d.floor_c = 0;
-	data->text_d.sky_c = 0;
+	data->tex.r = 0;
+	data->tex.g = 0;
+	data->tex.b = 0;
+	data->tex.floor_c = 0;
+	data->tex.sky_c = 0;
 	data->check.init_done = 0;
 	data->check.s_pos_i = 0;
 	data->check.s_pos_j = 0;

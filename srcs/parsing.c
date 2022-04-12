@@ -12,7 +12,7 @@
 
 #include "../includes/cube.h"
 
-static char	*get_textures(t_data *data, int s)
+static char	*get_tex(t_data *data, int s)
 {
 	return (ft_substr(data->line, s, ft_strlen(data->line) - s));
 }
@@ -22,11 +22,11 @@ static void	get_colors_2(t_data *data, unsigned int tmp, int k)
 	if (tmp > 255)
 		data->error = 1;
 	if (k == 0)
-		data->text_d.r = tmp;
+		data->tex.r = tmp;
 	if (k == 1)
-		data->text_d.g = tmp;
+		data->tex.g = tmp;
 	if (k == 2)
-		data->text_d.b = tmp;
+		data->tex.b = tmp;
 }
 
 static unsigned int	get_colors(t_data *data, char c)
@@ -70,8 +70,8 @@ static unsigned int	get_colors(t_data *data, char c)
 	}
 	if (k < 3)
 		data->error = 1;
-	return (hexa_color(data->text_d.r,
-			data->text_d.g, data->text_d.b));
+	return (hexa_color(data->tex.r,
+			data->tex.g, data->tex.b));
 }
 
 void	ft_file_read(t_data *data)
@@ -82,19 +82,19 @@ void	ft_file_read(t_data *data)
 	while (i < 7)
 	{
 		skip_lines(data);
-		if (!(ft_strncmp("NO", data->line, 2)))
-			data->text_d.textures[1] = get_textures(data, skip_spaces(data, 2));
-		else if (!(ft_strncmp("SO", data->line, 2)))
-			data->text_d.textures[3] = get_textures(data, skip_spaces(data, 2));
-		else if (!(ft_strncmp("WE", data->line, 2)))
-			data->text_d.textures[2] = get_textures(data, skip_spaces(data, 2));
-		else if (!(ft_strncmp("EA", data->line, 2)))
-			data->text_d.textures[0] = get_textures(data, skip_spaces(data, 2));
-		else if (!(ft_strncmp("F", data->line, 1)))
-			data->text_d.floor_c = get_colors(data, 'F');
-		else if (!(ft_strncmp("C", data->line, 1)))
-			data->text_d.sky_c = get_colors(data, 'C');
-		else if (i < 6)
+		if (!(ft_strncmp("NO", data->line, 2)) && data->tex.t[1] == NULL)
+			data->tex.t[1] = get_tex(data, skip_spaces(data, 2));
+		else if (!(ft_strncmp("SO", data->line, 2)) && data->tex.t[3] == NULL)
+			data->tex.t[3] = get_tex(data, skip_spaces(data, 2));
+		else if (!(ft_strncmp("WE", data->line, 2)) && data->tex.t[2] == NULL)
+			data->tex.t[2] = get_tex(data, skip_spaces(data, 2));
+		else if (!(ft_strncmp("EA", data->line, 2)) && data->tex.t[0] == NULL)
+			data->tex.t[0] = get_tex(data, skip_spaces(data, 2));
+		else if (!(ft_strncmp("F", data->line, 1)) && data->tex.floor_c == 0)
+			data->tex.floor_c = get_colors(data, 'F');
+		else if (!(ft_strncmp("C", data->line, 1)) && data->tex.sky_c == 0)
+			data->tex.sky_c = get_colors(data, 'C');
+		else if (i < 5)
 			data->error = 1;
 		i++;
 		if (data->line != NULL && i < 7)

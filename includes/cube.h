@@ -60,12 +60,12 @@ typedef struct s_vars
 	int			color;
 }				t_vars;
 
-typedef struct s_text_d
+typedef struct s_tex
 {
 	double		wall_dist;
 	double		wall_x;
 	int			line_height;
-	char		*textures[4];
+	char		*t[4];
 	t_image		image[4];
 	int			floor_c;
 	int			sky_c;
@@ -73,7 +73,7 @@ typedef struct s_text_d
 	int			r;
 	int			g;
 	int			b;
-}				t_text_d;
+}				t_tex;
 
 typedef struct s_check
 {
@@ -117,7 +117,7 @@ typedef struct s_data
 	double			*depth_buffer;
 	char			**map;
 	t_vars			vars;
-	t_text_d		text_d;
+	t_tex		tex;
 	t_check			check;
 	t_ray_vars		ray_vars;
 	int				player;
