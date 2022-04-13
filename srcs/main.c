@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 17:58:26 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/05 16:22:42 by elouchez         ###   ########.fr       */
+/*   Created: 2022/04/12 15:53:19 by mseligna          #+#    #+#             */
+/*   Updated: 2022/04/12 15:53:19 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	vars_init_2(t_data *data)
 	data->line = NULL;
 	data->error = 0;
 	data->skip = 0;
-	data->res_x = 1000;
+	data->res_x = 1400;
 	data->res_y = 1000;
 	data->player = 0;
 }
@@ -82,7 +82,7 @@ void	raycasting(t_data *data)
 	i = 0;
 	while (i < data->res_x)
 	{
-		camera_x = 1.5 * i / data->res_x - 1;
+		camera_x = 2.0 * i / data->res_x - 1;
 		ray[0] = data->dir[0] + data->cam_plane[0] * camera_x;
 		ray[1] = data->dir[1] + data->cam_plane[1] * camera_x;
 		run_dda(data, i, ray);
@@ -103,7 +103,7 @@ int	main(int argc, char **argv)
 	data.vars.mlx = mlx_init();
 	data.fd = open(argv[1], O_RDONLY);
 	if (data.fd == -1)
-		ft_error(&data, 1);
+		ft_error(&data, -1);
 	ft_file_read(&data);
 	count_line(&data, argv[1]);
 	parse_map(&data);

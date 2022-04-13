@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 19:46:00 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/05 16:27:39 by elouchez         ###   ########.fr       */
+/*   Created: 2022/04/12 15:54:13 by mseligna          #+#    #+#             */
+/*   Updated: 2022/04/12 15:54:13 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define BUFFER_SIZE    4096
 # define SPEED			0.17548
 # define _USE_MATH_DEFINES
-
-typedef int	t_bool;
 
 typedef struct s_image
 {
@@ -83,8 +81,6 @@ typedef struct s_check
 	double		pos_i;
 	double		pos_j;
 	double		pos_a;
-	int			fov_s;
-	int			fov_e;
 	char		s_direction;
 	int			init_done;
 }				t_check;

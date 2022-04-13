@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elouchez <elouchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 19:19:18 by elouchez          #+#    #+#             */
-/*   Updated: 2022/04/05 16:44:04 by elouchez         ###   ########.fr       */
+/*   Created: 2022/04/12 15:53:58 by mseligna          #+#    #+#             */
+/*   Updated: 2022/04/12 15:53:58 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	run_dda(t_data *data, int i, double ray[2])
 			+ data->tex.wall_dist * ray[0];
 	data->tex.wall_x -= floor(data->tex.wall_x);
 	if (data->tex.wall_dist > 0)
-		data->tex.line_height = data->res_x / data->tex.wall_dist;
+		data->tex.line_height = data->res_y / data->tex.wall_dist;
 	else
 		data->tex.line_height = 2147483647;
 	draw_line_textured(data, i);
