@@ -36,9 +36,9 @@ static void	vars_init_2(t_data *data)
 static void	vars_init(t_data *data, char *argv)
 {
 	if (argv[ft_strlen(argv) - 1] != 'b'
-		&& argv[ft_strlen(argv) - 2] != 'u'
-		&& argv[ft_strlen(argv) - 3] != 'c'
-		&& argv[ft_strlen(argv) - 4] != '.')
+		|| argv[ft_strlen(argv) - 2] != 'u'
+		|| argv[ft_strlen(argv) - 3] != 'c'
+		|| argv[ft_strlen(argv) - 4] != '.')
 	{
 		write (1, "Wrong type of file, must be .cub\n", 34);
 		exit (0);
