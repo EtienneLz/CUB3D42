@@ -98,4 +98,5 @@ void	ft_file_read(t_data *data)
 		if (data->line != NULL && i < 7)
 			free(data->line);
 	}
+	not_null(data);
 }

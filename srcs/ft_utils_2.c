@@ -6,7 +6,7 @@
 /*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:52:48 by mseligna          #+#    #+#             */
-/*   Updated: 2022/04/12 15:52:49 by mseligna         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:37:45 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,19 @@ void	*ft_memset(void *dest, int c, size_t n)
 		i++;
 	}
 	return (dest);
+}
+
+void	not_null(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->tex.t[i] == NULL)
+			data->error = 1;
+		i++;
+	}
+	if (data->tex.floor_c == 0 || data->tex.sky_c == 0)
+		data->error = 1;
 }

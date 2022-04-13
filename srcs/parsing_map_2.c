@@ -6,7 +6,7 @@
 /*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:53:25 by mseligna          #+#    #+#             */
-/*   Updated: 2022/04/12 15:53:26 by mseligna         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:59:14 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	parse_map_2(t_data *data, int i)
 	while (data->line[j])
 	{
 		if (data->line[j] == ' ' || data->line[j] == '1')
-			data->map[i][j] = data->line[j];
+			data->map[i][j] = '1';
 		else if (data->line[j] == '0')
 			data->map[i][j] = '0';
 		else if (data->line[j] == 'N' || data->line[j] == 'S'
@@ -53,7 +53,7 @@ void	parse_map(t_data *data)
 			ft_error(data, 3);
 		j = parse_map_2(data, i);
 		while (j < data->vars.size_line_max)
-			data->map[i][j++] = ' ';
+			data->map[i][j++] = '1';
 		data->map[i][j] = '\0';
 		free(data->line);
 		data->line = NULL;

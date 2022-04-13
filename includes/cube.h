@@ -159,4 +159,5 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 void			draw_line_textured(t_data *data, int i);
 void			free_tab(char **tab);
 char			*get_tex(t_data *data, int s);
+void			not_null(t_data *data);
 #endif

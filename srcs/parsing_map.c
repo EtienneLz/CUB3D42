@@ -19,7 +19,6 @@ static int	copy_map_2(t_data *data, int i, char **tmp_map)
 	j = 0;
 	while (data->map[i][j])
 	{
-		tmp_map[i][j] = data->map[i][j];
 		if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
 		|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
 		{
@@ -28,6 +27,8 @@ static int	copy_map_2(t_data *data, int i, char **tmp_map)
 			data->check.s_direction = data->map[i][j];
 			tmp_map[i][j] = '0';
 		}
+		else
+			tmp_map[i][j] = data->map[i][j];
 		j++;
 	}
 	return (j);
@@ -52,7 +53,7 @@ static char	**copy_map(t_data *data)
 		j = copy_map_2(data, i, tmp_map);
 		while (j < (int)data->vars.size_line_max)
 		{
-			tmp_map[i][j] = ' ';
+			tmp_map[i][j] = '1';
 			j++;
 		}
 		tmp_map[i][j] = '\0';
