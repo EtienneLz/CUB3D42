@@ -53,7 +53,7 @@ static char	**copy_map(t_data *data)
 		j = copy_map_2(data, i, tmp_map);
 		while (j < (int)data->vars.size_line_max)
 		{
-			tmp_map[i][j] = '1';
+			tmp_map[i][j] = ' ';
 			j++;
 		}
 		tmp_map[i][j] = '\0';
@@ -90,6 +90,25 @@ static void	ft_fill(t_data *data, char **frame, int i, int j)
 	}
 }
 
+void	secure_map(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (data->map[i])
+	{
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == ' ')
+				data->map[i][j] = '1';
+			j++;
+		}
+		i++;
+	}
+}
+
 void	check_map(t_data *data)
 {
 	char	**tmp;
@@ -103,4 +122,6 @@ void	check_map(t_data *data)
 	free(tmp);
 	if (data->check.s_pos_i == 0 && data->check.s_pos_j == 0)
 		ft_error(data, 2);
+	if (data->error == 0)
+		secure_map(data);
 }
