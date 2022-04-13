@@ -15,7 +15,9 @@
 void	ft_error(t_data *data, int code)
 {
 	write(2, "Error\n", 6);
-	if (code == 0)
+	if (code == -1)
+		write(2, "Invalid file\n", 14);
+	else if (code == 0)
 		write(2, "Invalid configuration\n", 22);
 	else
 	{

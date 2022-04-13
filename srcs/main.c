@@ -103,7 +103,7 @@ int	main(int argc, char **argv)
 	data.vars.mlx = mlx_init();
 	data.fd = open(argv[1], O_RDONLY);
 	if (data.fd == -1)
-		ft_error(&data, 0);
+		ft_error(&data, -1);
 	ft_file_read(&data);
 	count_line(&data, argv[1]);
 	parse_map(&data);

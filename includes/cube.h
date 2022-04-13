@@ -34,8 +34,6 @@
 # define SPEED			0.17548
 # define _USE_MATH_DEFINES
 
-typedef int	t_bool;
-
 typedef struct s_image
 {
 	void	*img;
@@ -83,8 +81,6 @@ typedef struct s_check
 	double		pos_i;
 	double		pos_j;
 	double		pos_a;
-	int			fov_s;
-	int			fov_e;
 	char		s_direction;
 	int			init_done;
 }				t_check;
