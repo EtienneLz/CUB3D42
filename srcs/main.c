@@ -28,8 +28,8 @@ static void	vars_init_2(t_data *data)
 	data->line = NULL;
 	data->error = 0;
 	data->skip = 0;
-	data->res_x = 1400;
-	data->res_y = 1000;
+	data->res_x = 1000;
+	data->res_y = 800;
 	data->player = 0;
 	data->input.forward = 0;
 	data->input.back = 0;

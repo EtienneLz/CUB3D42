@@ -31,7 +31,7 @@
 # define RIGHT		    100
 # define LEFT		    97
 # define BUFFER_SIZE    4096
-# define SPEED			0.17548
+# define SPEED			0.091561
 # define _USE_MATH_DEFINES
 
 typedef struct s_input
