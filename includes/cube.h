@@ -34,6 +34,16 @@
 # define SPEED			0.17548
 # define _USE_MATH_DEFINES
 
+typedef struct s_input
+{
+	int		forward;
+	int		back;
+	int		left;
+	int		right;
+	int		r_left;
+	int		r_right;
+}			t_input;
+
 typedef struct s_image
 {
 	void	*img;
@@ -116,6 +126,7 @@ typedef struct s_data
 	t_tex			tex;
 	t_check			check;
 	t_ray_vars		ray_vars;
+	t_input			input;
 	int				player;
 }				t_data;
 
@@ -160,4 +171,5 @@ void			draw_line_textured(t_data *data, int i);
 void			free_tab(char **tab);
 char			*get_tex(t_data *data, int s);
 void			not_null(t_data *data);
+int				is_input(t_data *data);
 #endif

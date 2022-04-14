@@ -59,15 +59,30 @@ void	cam_init(t_data *data)
 
 int	win_refresh(t_data *data)
 {
-	if (data->img != 0)
-		mlx_destroy_image(data->vars.mlx, data->img);
-	data->img = mlx_new_image(data->vars.mlx,
-			data->res_x, data->res_y);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-			&data->line_length, &data->endian);
-	raycasting(data);
-	mlx_put_image_to_window(data->vars.mlx,
-		data->vars.win, data->img, 0, 0);
+	if (is_input(data))
+	{
+		if (data->input.forward)
+			move_player(data, -2, 1);
+		if (data->input.back)
+			move_player(data, 2, 1);
+		if (data->input.left)
+			move_player(data, -2, 2);
+		if (data->input.right)
+			move_player(data, 2, 2);
+		if (data->input.r_left)
+			rotate_player(data, 1);
+		if (data->input.r_right)
+			rotate_player(data, -1);
+		if (data->img != 0)
+			mlx_destroy_image(data->vars.mlx, data->img);
+		data->img = mlx_new_image(data->vars.mlx,
+				data->res_x, data->res_y);
+		data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+				&data->line_length, &data->endian);
+		raycasting(data);
+		mlx_put_image_to_window(data->vars.mlx,
+			data->vars.win, data->img, 0, 0);
+	}
 	return (0);
 }
 
@@ -79,7 +94,7 @@ void	win_init(t_data *data)
 			&data->bits_per_pixel, &data->line_length, &data->endian);
 	if (data->check.init_done == 0)
 	{
-		data->check.pos_i = data->check.s_pos_i;
-		data->check.pos_j = data->check.s_pos_j;
+		data->check.pos_i = data->check.s_pos_i + 0.5;
+		data->check.pos_j = data->check.s_pos_j + 0.5;
 	}
 }

@@ -17,34 +17,42 @@ static int	key_pressed(int keycode, t_data *data)
 	if (keycode == 65307)
 		ft_free(data);
 	if (keycode == FORWARD)
-		move_player(data, -2, 1);
+		data->input.forward = 1;
 	if (keycode == BACK)
-		move_player(data, 2, 1);
+		data->input.back = 1;
 	if (keycode == LEFT)
-		move_player(data, -2, 2);
+		data->input.left = 1;
 	if (keycode == RIGHT)
-		move_player(data, 2, 2);
+		data->input.right = 1;
 	if (keycode == ROTATE_LEFT)
-		rotate_player(data, 1);
+		data->input.r_left = 1;
 	if (keycode == ROTATE_RIGHT)
-		rotate_player(data, -1);
+		data->input.r_right = 1;
 	return (0);
 }
 
 static int	key_released(int keycode, t_data *data)
 {
 	if (keycode == FORWARD)
-		move_player(data, 0, 0);
+		data->input.forward = 0;
 	if (keycode == BACK)
-		move_player(data, 0, 0);
+		data->input.back = 0;
 	if (keycode == LEFT)
-		move_player(data, 0, 0);
+		data->input.left = 0;
 	if (keycode == RIGHT)
-		move_player(data, 0, 0);
+		data->input.right = 0;
 	if (keycode == ROTATE_LEFT)
-		rotate_player(data, 0);
+		data->input.r_left = 0;
 	if (keycode == ROTATE_RIGHT)
-		rotate_player(data, 0);
+		data->input.r_right = 0;
+	return (0);
+}
+
+int	is_input(t_data *data)
+{
+	if (data->input.forward || data->input.back || data->input.left
+		|| data->input.right || data->input.r_left || data->input.r_right)
+		return (1);
 	return (0);
 }
 

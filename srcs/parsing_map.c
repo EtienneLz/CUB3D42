@@ -96,9 +96,9 @@ void	secure_map(t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (data->map[i])
 	{
+		j = 0;
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == ' ')

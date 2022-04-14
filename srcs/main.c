@@ -31,6 +31,12 @@ static void	vars_init_2(t_data *data)
 	data->res_x = 1400;
 	data->res_y = 1000;
 	data->player = 0;
+	data->input.forward = 0;
+	data->input.back = 0;
+	data->input.left = 0;
+	data->input.right = 0;
+	data->input.r_left = 0;
+	data->input.r_right = 0;
 }
 
 static void	vars_init(t_data *data, char *argv)
