@@ -105,8 +105,17 @@ int	main(int argc, char **argv)
 		write (1, "Wrong number of arguments\n", 27);
 		return (0);
 	}
-	vars_init(&data, argv[1]);
 	data.vars.mlx = mlx_init();
+	if (!data.vars.mlx)
+	{
+		write(2, "mlx pointer does not exist\n", 27);
+		return (0);
+	}
+	vars_init(&data, argv[1]);
+	data.fd = open(argv[1], O_RDONLY | O_DIRECTORY);
+	if (data.fd != -1)
+		ft_error(&data, -1);
+	close(data.fd);
 	data.fd = open(argv[1], O_RDONLY);
 	if (data.fd == -1)
 		ft_error(&data, -1);

@@ -48,9 +48,12 @@ static void	ft_free_2(t_data *data)
 		mlx_destroy_image(data->vars.mlx, data->img);
 	if (data->check.init_done)
 		mlx_destroy_window(data->vars.mlx, data->vars.win);
-	mlx_destroy_display(data->vars.mlx);
-	mlx_loop_end(&data->vars);
-	free(data->vars.mlx);
+	if (data->vars.mlx)
+	{
+		mlx_destroy_display(data->vars.mlx);
+		mlx_loop_end(&data->vars);
+		free(data->vars.mlx);
+	}
 }
 
 int	ft_free(t_data *data)

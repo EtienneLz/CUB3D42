@@ -49,7 +49,10 @@ static char	**copy_map(t_data *data)
 		tmp_map[i] = NULL;
 		tmp_map[i] = malloc(sizeof(char) * (data->vars.size_line_max + 1));
 		if (!(tmp_map[i]))
+		{
+			free_tab(tmp_map);
 			ft_error(data, 3);
+		}
 		j = copy_map_2(data, i, tmp_map);
 		while (j < (int)data->vars.size_line_max)
 		{
@@ -74,7 +77,10 @@ static void	ft_fill(t_data *data, char **frame, int i, int j)
 	{
 		if (i == 0 || i == data->vars.size_map
 			|| j == 0 || j == (int)data->vars.size_line_max)
-			ft_error(data, 2);
+		{
+			free_tab(frame);
+			ft_error(data, 0);
+		}
 		frame[i][j] = 'C';
 		ft_fill(data, frame, i + 1, j);
 		if (i != 0)
