@@ -41,14 +41,6 @@ static void	vars_init_2(t_data *data)
 
 static void	vars_init(t_data *data, char *argv)
 {
-	if (argv[ft_strlen(argv) - 1] != 'b'
-		|| argv[ft_strlen(argv) - 2] != 'u'
-		|| argv[ft_strlen(argv) - 3] != 'c'
-		|| argv[ft_strlen(argv) - 4] != '.')
-	{
-		write (1, "Wrong type of file, must be .cub\n", 34);
-		exit (0);
-	}
 	data->map = NULL;
 	data->check.start_pos = 0;
 	data->vars.size_line_max = 0;
@@ -65,6 +57,11 @@ static void	vars_init(t_data *data, char *argv)
 	data->check.s_pos_j = 0;
 	data->check.s_direction = 0;
 	vars_init_2(data);
+	if (argv[ft_strlen(argv) - 1] != 'b'
+		|| argv[ft_strlen(argv) - 2] != 'u'
+		|| argv[ft_strlen(argv) - 3] != 'c'
+		|| argv[ft_strlen(argv) - 4] != '.')
+		ft_error(data, -2);
 }
 
 static void	direction_init(t_data *data)
@@ -114,8 +111,10 @@ int	main(int argc, char **argv)
 	vars_init(&data, argv[1]);
 	data.fd = open(argv[1], O_RDONLY | O_DIRECTORY);
 	if (data.fd != -1)
+	{
+		close(data.fd);
 		ft_error(&data, -1);
-	close(data.fd);
+	}
 	data.fd = open(argv[1], O_RDONLY);
 	if (data.fd == -1)
 		ft_error(&data, -1);

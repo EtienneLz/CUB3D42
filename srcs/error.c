@@ -19,6 +19,8 @@ void	ft_error(t_data *data, int code)
 		write(2, "Invalid file\n", 14);
 	else if (code == 0)
 		write(2, "Invalid configuration\n", 22);
+	else if (code == -2)
+		write (1, "Wrong type of file, must be .cub\n", 34);
 	else
 	{
 		close(data->fd);
