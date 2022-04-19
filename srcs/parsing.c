@@ -88,9 +88,11 @@ void	ft_file_read(t_data *data)
 			data->tex.t[2] = get_tex(data, skip_spaces(data, 2));
 		else if (!(ft_strncmp("EA", data->line, 2)) && data->tex.t[0] == NULL)
 			data->tex.t[0] = get_tex(data, skip_spaces(data, 2));
-		else if (!(ft_strncmp("F", data->line, 1)) && data->tex.floor_c == 0)
+		else if (!(ft_strncmp("F", data->line, 1)) && data->tex.floor_c == 0
+			&& ft_strlen(data->line) > 2)
 			data->tex.floor_c = get_colors(data, 2);
-		else if (!(ft_strncmp("C", data->line, 1)) && data->tex.sky_c == 0)
+		else if (!(ft_strncmp("C", data->line, 1)) && data->tex.sky_c == 0
+			&& ft_strlen(data->line) > 2)
 			data->tex.sky_c = get_colors(data, 2);
 		else if (i < 5)
 			data->error = 1;
