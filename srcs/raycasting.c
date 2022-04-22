@@ -92,3 +92,20 @@ void	run_dda(t_data *data, int i, double ray[2])
 		data->tex.line_height = 2147483647;
 	draw_line_textured(data, i);
 }
+
+void	raycasting(t_data *data)
+{
+	int		i;
+	double	camera_x;
+	double	ray[2];
+
+	i = 0;
+	while (i < data->res_x)
+	{
+		camera_x = 2.0 * i / data->res_x - 1;
+		ray[0] = data->dir[0] + data->cam_plane[0] * camera_x;
+		ray[1] = data->dir[1] + data->cam_plane[1] * camera_x;
+		run_dda(data, i, ray);
+		i++;
+	}
+}

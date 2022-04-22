@@ -76,21 +76,21 @@ static void	direction_init(t_data *data)
 		data->check.pos_a = M_PI;
 }
 
-void	raycasting(t_data *data)
+static void	steps(t_data *data, char *argv)
 {
-	int		i;
-	double	camera_x;
-	double	ray[2];
+	int	i;
 
 	i = 0;
-	while (i < data->res_x)
-	{
-		camera_x = 2.0 * i / data->res_x - 1;
-		ray[0] = data->dir[0] + data->cam_plane[0] * camera_x;
-		ray[1] = data->dir[1] + data->cam_plane[1] * camera_x;
-		run_dda(data, i, ray);
-		i++;
-	}
+	ft_file_read(data, i);
+	count_line(data, argv);
+	parse_map(data);
+	close(data->fd);
+	check_empty(data);
+	check_map(data);
+	direction_init(data);
+	texture_init(data);
+	cam_init(data);
+	input_loop(data);
 }
 
 int	main(int argc, char **argv)
@@ -118,15 +118,6 @@ int	main(int argc, char **argv)
 	data.fd = open(argv[1], O_RDONLY);
 	if (data.fd == -1)
 		ft_error(&data, -1);
-	ft_file_read(&data);
-	count_line(&data, argv[1]);
-	parse_map(&data);
-	close(data.fd);
-	check_empty(&data);
-	check_map(&data);
-	direction_init(&data);
-	texture_init(&data);
-	cam_init(&data);
-	input_loop(&data);
+	steps(&data, argv[1]);
 	return (0);
 }

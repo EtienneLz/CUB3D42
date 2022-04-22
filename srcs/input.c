@@ -48,6 +48,16 @@ static int	key_released(int keycode, t_data *data)
 	return (0);
 }
 
+void	ft_fill_norm(t_data *data, char **frame, int i, int j)
+{
+	if (i == 0 || i == data->vars.size_map
+		|| j == 0 || j == (int)data->vars.size_line_max)
+	{
+		free_tab(frame);
+		ft_error(data, 0);
+	}
+}
+
 int	is_input(t_data *data)
 {
 	if (data->input.forward || data->input.back || data->input.left

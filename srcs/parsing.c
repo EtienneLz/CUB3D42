@@ -72,11 +72,8 @@ static unsigned int	get_colors(t_data *data, int i)
 	return (hexa_color(data->tex.r, data->tex.g, data->tex.b));
 }
 
-void	ft_file_read(t_data *data)
+void	ft_file_read(t_data *data, int i)
 {
-	int	i;
-
-	i = 0;
 	while (i < 7)
 	{
 		skip_lines(data);

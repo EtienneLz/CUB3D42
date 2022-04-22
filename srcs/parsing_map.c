@@ -31,6 +31,11 @@ static int	copy_map_2(t_data *data, int i, char **tmp_map)
 			tmp_map[i][j] = data->map[i][j];
 		j++;
 	}
+	while (j < (int)data->vars.size_line_max)
+	{
+		tmp_map[i][j] = ' ';
+		j++;
+	}
 	return (j);
 }
 
@@ -54,11 +59,6 @@ static char	**copy_map(t_data *data)
 			ft_error(data, 3);
 		}
 		j = copy_map_2(data, i, tmp_map);
-		while (j < (int)data->vars.size_line_max)
-		{
-			tmp_map[i][j] = ' ';
-			j++;
-		}
 		tmp_map[i][j] = '\0';
 		i++;
 	}
@@ -75,12 +75,7 @@ static void	ft_fill(t_data *data, char **frame, int i, int j)
 	}
 	if (frame[i][j] == '0' || frame[i][j] == '2')
 	{
-		if (i == 0 || i == data->vars.size_map
-			|| j == 0 || j == (int)data->vars.size_line_max)
-		{
-			free_tab(frame);
-			ft_error(data, 0);
-		}
+		ft_fill_norm(data, frame, i, j);
 		frame[i][j] = 'C';
 		ft_fill(data, frame, i + 1, j);
 		if (i != 0)

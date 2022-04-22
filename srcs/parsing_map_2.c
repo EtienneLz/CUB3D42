@@ -6,7 +6,7 @@
 /*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:53:25 by mseligna          #+#    #+#             */
-/*   Updated: 2022/04/19 16:15:01 by mseligna         ###   ########.fr       */
+/*   Updated: 2022/04/22 14:17:29 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ static int	parse_map_2(t_data *data, int i)
 	j = 0;
 	while (data->line[j])
 	{
-		if (data->line[j] == ' ' || data->line[j] == '1')
+		if ((data->line[j] == ' ' || data->line[j] == '1') && data->error != 1)
 			data->map[i][j] = data->line[j];
-		else if (data->line[j] == '0')
+		else if (data->line[j] == '0' && data->error != 1)
 			data->map[i][j] = '0';
-		else if (data->line[j] == 'N' || data->line[j] == 'S'
-			|| data->line[j] == 'W' || data->line[j] == 'E')
+		else if ((data->line[j] == 'N' || data->line[j] == 'S'
+				|| data->line[j] == 'W' || data->line[j] == 'E')
+			&& !data->error)
 		{
 			data->player++;
 			data->cam_dir = data->line[j];
@@ -54,7 +55,8 @@ void	parse_map(t_data *data)
 		j = parse_map_2(data, i);
 		while (j < data->vars.size_line_max)
 			data->map[i][j++] = ' ';
-		data->map[i][j] = '\0';
+		if (!data->error)
+			data->map[i][j] = '\0';
 		free(data->line);
 		data->line = NULL;
 		i++;

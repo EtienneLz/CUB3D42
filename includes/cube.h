@@ -146,7 +146,7 @@ char			*ft_save(char *buffer, char *save);
 void			ft_error(t_data *data, int code);
 char			*base_convert(unsigned long long n, char *base_figures, int l);
 unsigned int	hexa_color(int r, int g, int b);
-void			ft_file_read(t_data *data);
+void			ft_file_read(t_data *data, int i);
 int				ft_free(t_data *data);
 void			parse_map(t_data *data);
 void			count_line(t_data *data, char *file_name);
@@ -172,4 +172,5 @@ void			free_tab(char **tab);
 char			*get_tex(t_data *data, int s);
 void			not_null(t_data *data);
 int				is_input(t_data *data);
+void			ft_fill_norm(t_data *data, char **frame, int i, int j);
 #endif
