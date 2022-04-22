@@ -91,7 +91,7 @@ void	ft_file_read(t_data *data, int i)
 		else if (!(ft_strncmp("C", data->line, 1)) && data->tex.sky_c == 0
 			&& ft_strlen(data->line) > 2)
 			data->tex.sky_c = get_colors(data, 2);
-		else if (i < 5)
+		else if (i < 6)
 			data->error = 1;
 		i++;
 		if (data->line != NULL && i < 7)
