@@ -67,31 +67,6 @@ static char	**copy_map(t_data *data)
 	return (tmp_map);
 }
 
-static void	ft_fill(t_data *data, char **frame, int i, int j)
-{
-	if (frame[i][j] == ' ')
-	{
-		free_tab(frame);
-		ft_error(data, 2);
-	}
-	if (frame[i][j] == '0')
-	{
-		ft_fill_norm(data, frame, i, j);
-		frame[i][j] = 'C';
-		ft_fill(data, frame, i + 1, j);
-		if (i != 0)
-			ft_fill(data, frame, i - 1, j);
-		ft_fill(data, frame, i, j + 1);
-		if (j != 0)
-			ft_fill(data, frame, i, j - 1);
-	}
-	else if (frame[i][j] != '1' && frame[i][j] != 'C')
-	{
-		free_tab(frame);
-		ft_error(data, 2);
-	}
-}
-
 void	secure_map(t_data *data)
 {
 	int	i;
@@ -118,10 +93,10 @@ void	check_map(t_data *data)
 
 	i = 0;
 	tmp = copy_map(data);
-	ft_fill(data, tmp, data->check.s_pos_i, data->check.s_pos_j);
 	while (tmp[i])
 		free(tmp[i++]);
 	free(tmp);
+	last_check(data);
 	if (data->check.s_pos_i == 0 && data->check.s_pos_j == 0)
 		ft_error(data, 2);
 	if (data->error == 0)
