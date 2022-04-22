@@ -6,7 +6,7 @@
 /*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:52:48 by mseligna          #+#    #+#             */
-/*   Updated: 2022/04/19 16:44:03 by mseligna         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:57:01 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_empty(t_data *data)
 	int	check;
 
 	i = 0;
-	while (i < data->vars.size_map)
+	while (i <= data->vars.size_map)
 	{
 		j = 0;
 		check = 0;

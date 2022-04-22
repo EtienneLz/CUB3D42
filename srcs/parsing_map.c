@@ -74,7 +74,7 @@ static void	ft_fill(t_data *data, char **frame, int i, int j)
 		free_tab(frame);
 		ft_error(data, 2);
 	}
-	if (frame[i][j] == '0' || frame[i][j] == '2')
+	if (frame[i][j] == '0')
 	{
 		ft_fill_norm(data, frame, i, j);
 		frame[i][j] = 'C';
