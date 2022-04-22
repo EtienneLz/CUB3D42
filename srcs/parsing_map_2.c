@@ -6,7 +6,7 @@
 /*   By: mseligna <mseligna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:53:25 by mseligna          #+#    #+#             */
-/*   Updated: 2022/04/22 14:17:29 by mseligna         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:47:23 by mseligna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	parse_map_2(t_data *data, int i)
 	j = 0;
 	while (data->line[j])
 	{
-		if ((data->line[j] == ' ' || data->line[j] == '1') && data->error != 1)
+		if ((data->line[j] == ' ' || data->line[j] == '1') && data->error != 1 && j < (int)data->vars.size_line_max)
 			data->map[i][j] = data->line[j];
 		else if (data->line[j] == '0' && data->error != 1)
 			data->map[i][j] = '0';

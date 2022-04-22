@@ -25,6 +25,9 @@ void	last_check(t_data *data)
 		{
 			if (data->map[i][j] == '0')
 			{
+				if (i == 0 || i == data->vars.size_map
+					|| j == 0 || j == (int)data->vars.size_line_max - 1)
+					ft_error(data, 2);
 				if (data->map[i][j + 1] != '0' && data->map[i][j + 1] != '1')
 					ft_error(data, 2);
 				if (data->map[i][j - 1] != '0' && data->map[i][j - 1] != '1')
