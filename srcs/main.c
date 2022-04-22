@@ -87,6 +87,7 @@ static void	steps(t_data *data, char *argv)
 	close(data->fd);
 	check_empty(data);
 	check_map(data);
+	last_check(data);
 	direction_init(data);
 	texture_init(data);
 	cam_init(data);

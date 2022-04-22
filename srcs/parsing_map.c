@@ -25,6 +25,7 @@ static int	copy_map_2(t_data *data, int i, char **tmp_map)
 			data->check.s_pos_i = i;
 			data->check.s_pos_j = j;
 			data->check.s_direction = data->map[i][j];
+			data->map[i][j] = '0';
 			tmp_map[i][j] = '0';
 		}
 		else

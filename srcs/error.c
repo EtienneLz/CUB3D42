@@ -12,6 +12,34 @@
 
 #include "../includes/cube.h"
 
+void	last_check(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == '0')
+			{
+				if (data->map[i][j + 1] != '0' && data->map[i][j + 1] != '1')
+					ft_error(data, 2);
+				if (data->map[i][j - 1] != '0' && data->map[i][j - 1] != '1')
+					ft_error(data, 2);
+				if (data->map[i + 1][j] != '0' && data->map[i + 1][j] != '1')
+					ft_error(data, 2);
+				if (data->map[i - 1][j] != '0' && data->map[i - 1][j] != '1')
+					ft_error(data, 2);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	ft_error(t_data *data, int code)
 {
 	write(2, "Error\n", 6);

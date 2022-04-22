@@ -173,4 +173,5 @@ char			*get_tex(t_data *data, int s);
 void			not_null(t_data *data);
 int				is_input(t_data *data);
 void			ft_fill_norm(t_data *data, char **frame, int i, int j);
+void			last_check(t_data *data);
 #endif
